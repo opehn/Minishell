@@ -1,8 +1,8 @@
 NAME = minishell
 CC = gcc
-FLAGS = -Wall -Werror -Wextra  
-FLAGS += -g -fsanitize=address 
-LIBRARIES = -lmlx -lft -L$(LIBFT_DIR) -L/opt/homebrew/opt/readline/lib
+FLAGS = -Wall -Wextra -Werror
+# FLAGS += -g -fsanitize=address
+LIBRARIES = -L$(LIBFT_DIR) -L/opt/homebrew/opt/readline/lib
 INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/opt/homebrew/opt/readline/include
 
 LIBFT = $(LIBFT_DIR)libft.a
@@ -14,8 +14,11 @@ HEADER_LIST = parsing.h \
 HEADERS = $(addprefix $(HEADER_DIR), $(HEADER_LIST))
 SRC_DIR = ./srcs/
 SRC_LIST = parsing.c \
-			prompt.c
-
+			prompt.c \
+			list.c \
+			ft_putendl_fd.c \
+			ft_strndup.c \
+			ft_strlen.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_LIST))
 
 OBJS = $(SRCS:.c=.o)
@@ -23,7 +26,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJS) -o $(NAME)
+	$(CC) $(FLAGS) -lreadline $(LIBRARIES) $(INCLUDES) $(OBJS) -o $(NAME) 
 
 %.o: %.c $(HEADERS)
 	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
@@ -40,8 +43,6 @@ fclean:
 	@rm $(OBJS)
 	rm $(NAME)
 
-bonus : all
-
 re : fclean all
 
-.PHONY: all clean fclean re libft mlx
+.PHONY: all clean fclean re

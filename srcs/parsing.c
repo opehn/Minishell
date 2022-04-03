@@ -6,12 +6,19 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/03 08:46:59 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/03 22:21:14 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "prompt.h"
+#include "parsing.h"
+#include "error.h"
+
+void	exit_error(char *str)
+{
+	ft_putendl_fd(str, STDERR_FILENO);
+	exit(1);
+}
 
 bool	is_odd(int num)
 {
@@ -21,60 +28,76 @@ bool	is_odd(int num)
 		return (false);
 }
 
-void	pipe_split(char *input, int start, int end, t_list *pipe)
+int		find_char(char *input, int start)
 {
-	int	i;
-	char	*str;
-
-//	{ 대충 여기에 pipe.next가 NULL이 될때까지 pipe를 바꾸면됨 }
-//	pipe 하나 만들고;
-
-/*	str = (char *)malloc(sizeof(char) * (end - start));
-	i = 0;
-	while (start <= end)
+	while(input[start] && input[start] != '|')
 	{
-		str[i] = input[start];
-		++i;
-		++start;
+		if (input[start] != ' ')
+			return (1);
+		start++;
 	}
-	str[i] = '\0';*/
-	i = 0;
-	str = NULL;
-	input = 0;
-	start = 0;
-	end = 0;
-	pipe = NULL;
+	return (0);
 }
 
-bool	pipe_parsing(char *input, t_list *pipe)
+int	pipe_split(char *input, t_pipe_list *temp)
 {
+	int	s_idx;
+	int	l_idx;
 
-	t_pipe_list	p_info;
-	int	d_quot_flag;
-	int	s_quot_flag;
-
-	p_info = malloc(sizeof(t_pipe_list));
-	init_list(p_info);
-d_quot_flag = 0;
-	s_quot_flag = 0;
-	while (input[p_info.l_idx] == NULL)
+	s_idx = temp->s_idx;
+	l_idx = temp->l_idx;
+	if (!input || !temp)
+		exit_error(ERR_PIPE_SPLIT);
+	temp->pipe_data = ft_strndup(input + s_idx, l_idx - s_idx);
+	printf("next char : %c %d\n", input[l_idx + 1], (int)input[l_idx + 1]);
+	if (find_char(input, l_idx + 1) && l_idx < (int)ft_strlen(input))
 	{
-		if (input[p_info.l_idx] == D_QUOT)
+		append_pipe_list(temp, l_idx);
+		return (0);
+	}
+	return (ERR_SYNTAX);
+}
+
+// void	is_blank(char *input, int l_idx)
+// {
+// 	if(input )
+// }
+
+int		pipe_parsing(char *input, t_pipe_list *pipe)
+{
+	t_pipe_list *temp;
+	int			d_quot_flag;
+	int			s_quot_flag;
+	int			res;
+
+	d_quot_flag = 0;
+	s_quot_flag = 0;
+	res = 0;
+	temp = pipe;
+	while (input[temp->l_idx] != '\0')
+	{
+		if (input[temp->l_idx] == D_QUOT && !is_odd(s_quot_flag))
 			++d_quot_flag;
-		else if (input[p_info.l_idx] == S_QUOT)
+		else if (input[temp->l_idx] == S_QUOT && !is_odd(d_quot_flag))
 			++s_quot_flag;
-		else if (input[p_info.l_idx] == PIPE)
+		else if (input[temp->l_idx] == PIPE)
 		{
 			if (!is_odd(d_quot_flag) && !is_odd(s_quot_flag))
 			{
-				pipe_split(input, p_info.s_idx, p_info.l_idx, pipe);
-				p_info.s_idx = p_info.l_idx + 1;
+				res = pipe_split(input, temp);
+				if (res)
+					return (res);
+				temp = temp->next;
 			}
 		}
-		++(p_info.l_idx);
+		temp->l_idx++;
 	}
 	if (is_odd(d_quot_flag) || is_odd(s_quot_flag))
-		return (false);
+			return(ERR_UNCLOSED);
+	if (temp->s_idx != temp->l_idx)
+		if (find_char(input, temp->s_idx))
+			pipe_split(input, temp);
+	return (0);
 }
 
 // bool	quoting(char *input)
@@ -91,13 +114,25 @@ d_quot_flag = 0;
 // 	}
 // }
 
-bool	parsing(char *input, t_list *env_list, t_list *cmd_list)
+int	parsing(char *input)// t_list *env_list, t_list *cmd_list)
 {
-	if (pipe_parsing(input, pipe_list) == false)
-		return (ERR_PARSING);
-//		갯수 -> calloc 할당
-	if (quoting)
+	t_pipe_list	*pipe;
+	int	res;
 
+	pipe = init_pipe_list();
+	res = pipe_parsing(input, pipe);
+	if (res)
+	{
+		printf("res : %d in parsing\n", res);
+		return (res);
+	}
+
+
+	
+//		갯수 -> calloc 할당
+//	if (quoting)
+	free(pipe);
+	pipe = 0;
 	return (0);
 }
 
@@ -128,3 +163,14 @@ bool	parsing(char *input, t_list *env_list, t_list *cmd_list)
 
 // 홀수 => 종료
 // 짝수 => 짝수 따옴표 있을 때 짝수 따옴표로 묶인거 str + 뒤에 붙어 있는거까지 strjoin
+
+// if (paring != 0)
+// 	return (ERR_NUMBER);
+
+// if (paring != 0)
+// 	return (ERR_NUMBER);
+
+// if (paring != 0)
+// 	return (ERR_NUMBER);
+
+// return (parsing(a, b, c));

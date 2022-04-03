@@ -1,7 +1,10 @@
 #include "prompt.h"
+#include "parsing.h"
+#include "error.h"
 
-void    sigint_handler(int a)
+void    sigint_handler(int signum)
 {
+    ++signum;
     printf("\n");
     rl_on_new_line();
     rl_replace_line("", 0);
@@ -17,8 +20,6 @@ void    set_signal(void)
 void    prompt(void)
 {
     char	*input;
-    int		len;
-	
 
     while(1)
     {
@@ -30,11 +31,12 @@ void    prompt(void)
             exit(0);
         }
         add_history(input);
-		if (parsing(input))
-		{
+        parsing(input);
+		// if (parsing(input))
+		// {
 			//트리만듬
-			cmd_run(tree)
-		}
+			// cmd_run(tree)
+		// }
     }
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: acho <marvin@42.fr>                        +#+  +:+       +#+         #
+#    By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 15:17:36 by acho              #+#    #+#              #
-#    Updated: 2021/05/24 14:56:25 by acho             ###   ########.fr        #
+#    Updated: 2022/04/03 17:42:13 by taeheoki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS =	ft_memset.c \
 		ft_tolower.c \
 		ft_calloc.c \
 		ft_strdup.c \
+		ft_strndup.c \
 		ft_substr.c \
 		ft_strjoin.c \
 		ft_strtrim.c \
@@ -56,7 +57,7 @@ SRCS =	ft_memset.c \
 		ft_lstdelone.c	\
 		ft_lstclear.c \
 		ft_lstiter.c \
-		ft_lstmap.c \
+		ft_lstmap.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -65,7 +66,7 @@ RM = rm -f
 all : $(NAME)
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJS)
 	ar cr $(NAME) $^

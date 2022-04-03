@@ -6,27 +6,37 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 21:45:42 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/03 00:03:15 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/03 21:16:35 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "error.h"
 #include <stdbool.h>
+#include <stdio.h>
 
-void	init_list(t_list *list)
+t_pipe_list	*init_pipe_list(void)
 {
-	s_idx = 0;
-	l_idx = 0;
-	list->data = NULL;
-	list->next = NULL;
+	t_pipe_list	*new;
+
+	new = malloc(sizeof(t_pipe_list));
+	if (!new)
+		exit_error(ERR_MALLOC);
+	new->s_idx = 0;
+	new->l_idx = 0;
+	new->pipe_data = NULL;
+	new->next = NULL;
+	return (new);
 }
 
-bool	add_list(t_list *list, char *new_data)
+void	append_pipe_list(t_pipe_list *cur, int l_idx)
 {
-	char *temp;
-
-	temp = 0;
-	if (new_data == 0 || list == 0)
-		return (false);
-	if (list)
+	t_pipe_list *new;
+	
+	new = init_pipe_list();
+	if (!new)
+		exit_error(ERR_MALLOC);
+	new->s_idx = l_idx + 1;
+	new->l_idx = l_idx;
+	cur->next = new;
 }

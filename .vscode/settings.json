@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"stdbool.h": "c",
+		"prompt.h": "c",
+		"parsing.h": "c",
+		"error.h": "c"
+	}
+}
