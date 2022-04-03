@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 15:24:33 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/03 01:16:19 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/03 08:48:38 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,15 @@ typedef enum e_special
 
 typedef struct s_node
 {
-	char			*node_content;
 	char			*left_content;
 	struct s_node	*right_node;
 } t_node;
 
-typedef struct s_cmdtree
+typedef struct s_tree
 {
-	t_node	*cur;
-	t_node	*next;
-
-} t_cmdtree;
+	t_node			*cur;
+	struct s_tree	*next;
+} t_tree;
 
 t_list	*env_list;
 t_list	*cmd_list;

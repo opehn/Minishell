@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/03 00:02:41 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/03 08:46:59 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	pipe_parsing(char *input, t_list *pipe)
 
 	p_info = malloc(sizeof(t_pipe_list));
 	init_list(p_info);
-	d_quot_flag = 0;
+d_quot_flag = 0;
 	s_quot_flag = 0;
 	while (input[p_info.l_idx] == NULL)
 	{
