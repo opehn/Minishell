@@ -1,6 +1,7 @@
 #include "prompt.h"
 #include "parsing.h"
 #include "error.h"
+#include "env.h"
 
 void    sigint_handler(int signum)
 {
@@ -17,10 +18,18 @@ void    set_signal(void)
     signal(SIGQUIT, SIG_IGN);
 }
 
-void    prompt(void)
+void    prompt(t_env_list *env_list)
 {
     char	*input;
+    int i;
 
+    i = 0;
+    while(env_list)
+    {
+        printf("env[%d] : key = %s, value = %s\n", i, env_list->key, env_list->value);
+        env_list = env_list->next;
+        i++;
+    }
     while(1)
     {
         input = readline("acho> ");
@@ -34,15 +43,47 @@ void    prompt(void)
         parsing(input);
 		// if (parsing(input))
 		// {
-			//트리만듬
-			// cmd_run(tree)
+		//   트리만듬
+		//   cmd_run(tree)
 		// }
     }
 }
 
-int main(void)
+int    init_env(t_env_list **env_list, char **envp)
 {
+    int         i;
+    t_env_list  *temp;
+
+    *env_list = (t_env_list *)malloc(sizeof(t_env_list));
+    if (!*env_list)
+        exit_error(ERR_MALLOC);
+    temp = *env_list;
+    i = 0;
+    while (envp[i])
+    {
+        temp->key = envp[i];
+        temp->value = ft_strchr(envp[i], '=') + 1;
+        *(temp->value - 1) = '\0';
+        if (envp[++i])
+        {
+            temp->next = (t_env_list *)malloc(sizeof(t_env_list));
+            if (!temp->next)
+                exit_error (ERR_MALLOC);
+            temp = temp->next;
+        }
+    }
+    temp->next = NULL;
+    return (0);
+}
+
+int main(int argc, char **argv, char **envp)
+{
+    t_env_list  *env_list;
+
+    argc = 0;
+    argv = NULL;
     set_signal();
-    prompt();
+    init_env(&env_list, envp);
+    prompt(env_list);
 	return (0);
 }

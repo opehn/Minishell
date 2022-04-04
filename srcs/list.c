@@ -6,12 +6,13 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 21:45:42 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/03 21:16:35 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/04 18:58:53 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "error.h"
+#include "env.h"
 #include <stdbool.h>
 #include <stdio.h>
 

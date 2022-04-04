@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 18:02:32 by acho              #+#    #+#             */
-/*   Updated: 2022/04/03 16:34:17 by taeheoki         ###   ########.fr       */
+/*   Created: 2022/04/04 16:47:22 by taeheoki          #+#    #+#             */
+/*   Updated: 2022/04/04 19:38:33 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "error.h"
 
-char	*ft_strndup(const char *s1, int n)
+int	print_err(int res)
 {
-	char	*ptr;
-	int		i;
+	if (res == 1)
+		ft_putendl_fd(MSG_UNCLOSED, STDERR_FILENO);
+	else if (res == 2)
+		ft_putendl_fd(MSG_SYNTAX, STDERR_FILENO);
 
-	i = 0;
-	ptr = (char *)malloc(n + 1);
-	if (!ptr)
-		return (NULL);
-	while (i < n)
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	ptr[i] = 0;
-	return (ptr);
+	return (res);
+}
+
+void	exit_error(char *str)
+{
+	ft_putendl_fd(str, STDERR_FILENO);
+	exit(1);
 }

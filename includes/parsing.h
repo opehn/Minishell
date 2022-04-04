@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 15:24:33 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/03 22:19:38 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/04 16:55:38 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 ** =============================================================================
 */
 
-
-
 # define LD_RED = "<<"
 # define RD_RED = ">>"
 
@@ -34,12 +32,6 @@ typedef enum e_special
 	LEFT_RED = '<',
 	RIGHT_RED = '>',
 } t_special;
-
-/*typedef struct s_list
-{
-	char			*data;
-	struct s_list	*next;
-} t_list;*/
 
 typedef struct s_pipe_list
 {
@@ -62,20 +54,21 @@ typedef struct s_tree
 } t_tree;
 
 /*
-echo	a b c "< abc|" | abc | abc
-|_flag = 0 |
-		1  문자
->_flag = 0 < + 토큰화
-		1 문자
-echo "cde"
+** =============================================================================
+** parse_chk.c
+** =============================================================================
 */
 
-int	parsing(char *input);
+void	quot_chk(int *d_quot_flag, int *s_quot_flag, char input);
+int		pipe_split(char *input, t_pipe_list *temp);
+int		split_if_even(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *temp);
+
+
+int		parsing(char *input);
 int		pipe_split(char *input, t_pipe_list *temp);
 void	exit_error(char *str);
 bool	is_odd(int num);
 int		pipe_parsing(char *input, t_pipe_list *pipe);
-//bool	parsing(char *input, t_list *env_list, t_list *cmd_list);
 
 t_pipe_list	*init_pipe_list(void);
 void	append_pipe_list(t_pipe_list *cur, int l_idx);
