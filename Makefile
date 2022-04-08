@@ -11,7 +11,8 @@ LIBFT_DIR = ./libft/
 HEADER_DIR	=	./includes/
 HEADER_LIST	=	parsing.h \
 				prompt.h \
-				env.h
+				env.h \
+				tree.h
 HEADERS		=	$(addprefix $(HEADER_DIR), $(HEADER_LIST))
 SRC_DIR		=	./srcs/
 PARSER_DIR	=	$(SRC_DIR)parser/
@@ -21,7 +22,7 @@ ERROR_DIR	=	$(SRC_DIR)error/
 
 MAIN_SRCS	:=	prompt.c list.c
 MAIN_SRCS	:=	$(addprefix $(SRC_DIR), $(MAIN_SRCS))
-PARSER_SRCS	:=	parse_chk.c parsing.c
+PARSER_SRCS	:=	parse_chk.c parsing.c parse_tree.c
 PARSER_SRCS	:=	$(addprefix $(PARSER_DIR), $(PARSER_SRCS))
 ERROR_SRCS	:=	error_msg.c
 ERROR_SRCS	:=	$(addprefix $(ERROR_DIR), $(ERROR_SRCS))
