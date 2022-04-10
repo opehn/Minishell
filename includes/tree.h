@@ -1,27 +1,23 @@
-typedef enum e_nodetype
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/10 14:17:25 by taeheoki          #+#    #+#             */
+/*   Updated: 2022/04/10 14:26:15 by taeheoki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef TREE_H
+# define TREE_H
+
+typedef struct s_tree
 {
-    PAIR_NODE = 12,
-    CHAR_NODE = 13,
-} t_nodetype;
+	char			*data;
+	struct s_tree	left_child;
+	struct s_tree	right_child;
+}	t_tree;
 
-typedef struct s_node t_node;
-
-typedef struct s_pairvalue
-{
-    t_node *left;
-    t_node *right;
-} t_pairvalue;
-
-typedef char t_charvalue;
-
-typedef union u_nodevalue
-{
-    t_pairvalue pair;
-    t_charvalue value;
-} t_nodevalue;
-
-struct s_node
-{
-    t_nodetype      type; //enum
-    t_nodevalue     data; //union
-};
+#endif
