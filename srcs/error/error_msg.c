@@ -6,11 +6,12 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:47:22 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/04 19:38:33 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/11 15:09:14 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
+#include "libft.h"
 
 int	print_err(int res)
 {

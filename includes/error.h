@@ -1,12 +1,12 @@
 #ifndef MINISHELL_ERROR_H
 # define MINISHELL_ERROR_H
 
-# include "libft.h"
-
 //===========================exit error=====================================//
 # define ERR_PIPE_SPLIT "Failure to split pipe"
 # define ERR_PARSING "Failure to parse"
 # define ERR_MALLOC "Failure to allocate memory"
+# define ERR_NULL 	"NULL"
+# define ERR_TOKENIZE "Failure to tokenize pipe_data"
 
 // ========================non-exit error===================================//
 # define ERR_UNCLOSED 1
@@ -21,7 +21,7 @@
 ** =============================================================================
 */
 
-int	print_err(int res);
+int		print_err(int res);
 void	exit_error(char *str);
 
 

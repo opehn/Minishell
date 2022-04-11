@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:26:00 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/04 16:53:52 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/11 19:55:25 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ int	pipe_split(char *input, t_pipe_list *temp)
 {
 	int	s_idx;
 	int	l_idx;
+	int	input_len;
 
 	s_idx = temp->s_idx;
 	l_idx = temp->l_idx;
+	input_len = (int)ft_strlen(input);
 	if (!input || !temp)
 		exit_error(ERR_PIPE_SPLIT);
 	temp->pipe_data = ft_strndup(input + s_idx, l_idx - s_idx);
-	if (find_char(input, l_idx + 1) && l_idx < (int)ft_strlen(input))
+	if (l_idx < input_len && find_char(input, l_idx + 1, input_len))//끝이 아니면서 문자가 있을때
 	{
 		append_pipe_list(temp, l_idx);
 		return (0);
@@ -49,7 +51,7 @@ int	split_if_even(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *te
 		res = pipe_split(input, temp);
 		if (res)
 			return (res);
-		temp = temp->next;
+		// temp = temp->next;
 	}
 	return (0);
 }

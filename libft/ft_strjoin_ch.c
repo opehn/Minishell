@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.h                                             :+:      :+:    :+:   */
+/*   ft_strjoin_ch.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 14:17:25 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/11 15:40:09 by taeheoki         ###   ########.fr       */
+/*   Created: 2021/05/19 16:56:51 by acho              #+#    #+#             */
+/*   Updated: 2022/04/11 22:21:52 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_H
-# define TREE_H
+#include "libft.h"
 
-typedef enum s_type
+char	*ft_strjoin_ch(char const *s, char const c)
 {
-	RED = 0,
-	CMD = 1,
-	OPTARG = 2,
-	BRANCH = 3,
-} t_type;
+	char	*new_string;
+	int		len;
+	int		i;
 
-typedef struct s_tree
-{
-	int				type;
-	char			*data;
-	struct s_tree	*left_child;
-	struct s_tree	*right_child;
-}	t_tree;
-
-t_tree	*init_tree(int type, char *data, t_tree *left_child, t_tree *right_child);
-void	delete_tree(t_tree *tree);
-
-#endif
+	len = ft_strlen(s);
+	new_string = (char *)malloc(len + 2);
+	if (!new_string)
+		return (0);
+	i = 0;
+	while (i < len)
+	{
+		new_string[i] = s[i];
+		i++;
+	}
+	new_string[i] = c;
+	new_string[i + 1] = '\0';
+	return (new_string);
+}

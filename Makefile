@@ -1,7 +1,7 @@
 NAME = minishell
 CC = gcc
 FLAGS = -Wall -Wextra
-# FLAGS += -g -fsanitize=address
+FLAGS += -g -fsanitize=address
 LIBRARIES = -L$(LIBFT_DIR) -L/opt/homebrew/opt/readline/lib
 INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/opt/homebrew/opt/readline/include
 
@@ -12,7 +12,8 @@ HEADER_DIR	=	./includes/
 HEADER_LIST	=	parsing.h \
 				prompt.h \
 				env.h \
-				tree.h
+				tree.h \
+				scanner.h
 HEADERS		=	$(addprefix $(HEADER_DIR), $(HEADER_LIST))
 SRC_DIR		=	./srcs/
 PARSER_DIR	=	$(SRC_DIR)parser/
@@ -23,14 +24,14 @@ SCANNER_DIR = 	$(SRC_DIR)scanner/
 
 MAIN_SRCS	:=	prompt.c list.c
 MAIN_SRCS	:=	$(addprefix $(SRC_DIR), $(MAIN_SRCS))
-PARSER_SRCS	:=	parse_chk.c parsing.c parse_tree.c
+PARSER_SRCS	:=	parse_chk.c parsing.c parsing_tree.c
 PARSER_SRCS	:=	$(addprefix $(PARSER_DIR), $(PARSER_SRCS))
 ERROR_SRCS	:=	error_msg.c
 ERROR_SRCS	:=	$(addprefix $(ERROR_DIR), $(ERROR_SRCS))
-SCANNER_SRCS := scanner.C
-SCANNER_SRCS := $(addprefie $(SCANNER_DIR), $(SCANNER_SRCS))
+SCANNER_SRCS := scanner.c
+SCANNER_SRCS := $(addprefix $(SCANNER_DIR), $(SCANNER_SRCS))
 
-SRCS = $(PARSER_SRCS) $(MAIN_SRCS) $(ERROR_SRCS)
+SRCS = $(PARSER_SRCS) $(MAIN_SRCS) $(ERROR_SRCS) $(SCANNER_SRCS)
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

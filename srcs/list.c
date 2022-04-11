@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 21:45:42 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/04 18:58:53 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/11 19:39:47 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	append_pipe_list(t_pipe_list *cur, int l_idx)
 	
 	new = init_pipe_list();
 	if (!new)
-		exit_error(ERR_MALLOC);
+		exit_error(ERR_MALLOC); 
 	new->s_idx = l_idx + 1;
 	new->l_idx = l_idx;
 	cur->next = new;

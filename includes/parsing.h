@@ -16,14 +16,12 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include "libft.h"
+# include "tree.h"
+# include "env.h"
 
 /* Type Definition
 ** =============================================================================
 */
-
-# define LD_RED = "<<"
-# define RD_RED = ">>"
-
 typedef enum e_special
 {
 	D_QUOT = '"',
@@ -35,11 +33,18 @@ typedef enum e_special
 
 typedef struct s_pipe_list
 {
-	int				 s_idx;
-	int				 l_idx;
+	int					s_idx;
+	int					l_idx;
 	char				*pipe_data;
-	struct s_pipe_list  *next;
+	struct s_pipe_list	*next;
 } t_pipe_list;
+
+typedef struct s_info
+{
+	t_tree		**root;
+	t_env_list	*env_list;
+	
+} t_info;
 
 /*
 ** =============================================================================
@@ -52,7 +57,7 @@ int		pipe_split(char *input, t_pipe_list *temp);
 int		split_if_even(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *temp);
 
 
-int		parsing(char *input);
+int		parsing(t_info *info, char *input);
 int		pipe_split(char *input, t_pipe_list *temp);
 void	exit_error(char *str);
 bool	is_odd(int num);
@@ -61,10 +66,12 @@ int		pipe_parsing(char *input, t_pipe_list *pipe);
 t_pipe_list	*init_pipe_list(void);
 void	append_pipe_list(t_pipe_list *cur, int l_idx);
 bool	add_list(t_pipe_list *list, char *new_data);
-int		find_char(char *input, int start);
+int		find_char(char *input, int start, int end);
 
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_strndup(const char *s1, int n);
 
+void	parsing_tree(t_info *info, t_pipe_list *pipe);
+int		count_tree(t_pipe_list *pipe);
 
 #endif

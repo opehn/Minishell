@@ -6,14 +6,13 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/04 19:17:43 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/11 21:00:43 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
-#include "parsing.h"
 #include "error.h"
-
+#include "parsing.h"
 
 bool	is_odd(int num)
 {
@@ -23,13 +22,17 @@ bool	is_odd(int num)
 		return (false);
 }
 
-int		find_char(char *input, int start)
+int		find_char(char *input, int start, int end)
 {
-	while(input[start] && input[start] != '|')
+	int i;
+
+	i = 0;
+	while(i < end && input[start] != '|')
 	{
 		if (input[start] != ' ')
-			return (1);
+			return (1); //if character (except space)
 		start++;
+		i++;
 	}
 	return (0);
 }
@@ -56,7 +59,10 @@ int		pipe_parsing(char *input, t_pipe_list *pipe)
 	{
 		quot_chk(&d_quot_flag, &s_quot_flag, input[temp->l_idx]);
 		if (input[temp->l_idx] == PIPE)
+		{
 			res = split_if_even(d_quot_flag, s_quot_flag, input, temp);
+			temp = temp->next;
+		}
 		if (res)
 			return (res);
 		temp->l_idx++;
@@ -64,12 +70,12 @@ int		pipe_parsing(char *input, t_pipe_list *pipe)
 	if (is_odd(d_quot_flag) || is_odd(s_quot_flag))
 		return(ERR_UNCLOSED);
 	if (temp->s_idx != temp->l_idx)
-		if (find_char(input, temp->s_idx))
+		if (find_char(input, temp->s_idx, temp->l_idx))
 			pipe_split(input, temp);
 	return (0);
 }
 
-int	parsing(char *input)// t_list *env_list)
+int	parsing(t_info *info, char *input)
 {
 	t_pipe_list	*pipe;
 	int	res;
@@ -78,14 +84,36 @@ int	parsing(char *input)// t_list *env_list)
 	res = pipe_parsing(input, pipe);
 	if (res)
 		return (print_err(res));
-
+	printf("파이프파싱 완료\n");
 	
-	//*파이프 출력 테스트*//
+	parsing_tree(info, pipe);
+	printf("트리 파싱 완료\n");
+	
+	int	i;
+	int	j;
+	i = 0;
+	t_tree	*temp;
+	while (i < count_tree(pipe))
+	{
+		j = 0;
+		temp = info->root[i];
+		while (temp->right_child)
+		{
+			printf("%d번째 token : %s\n", j, temp->left_child->data);
+			if (temp->right_child->type == CMD)
+				printf("%d번째 cmd token : %s\n", j + 1, temp->right_child->data);
+			temp = temp->right_child;
+			j++;
+		}
+		i++;
+	}
+	//*파이프 출력 테스트*
 	// int i = 0;
 	// while (pipe->next)
 	// {
 	// 	printf("pipe[%d] : %s\n", i, pipe->pipe_data)
 	// 	i++;
+	// }
 	free(pipe);
 	pipe = 0;
 	return (0);

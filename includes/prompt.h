@@ -9,5 +9,6 @@
 #include <signal.h>
 #include <stdlib.h>
 #include "libft.h"
+#include <stdio.h>
 
 #endif
