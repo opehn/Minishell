@@ -78,6 +78,7 @@ void    prompt(t_env_list *env_list)
         }
         add_history(input);
         parsing(info, input);
+        // action(info)
 		// if (parsing(input))
 		// {
 		//   트리만듬

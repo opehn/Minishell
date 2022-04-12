@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/11 21:00:43 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:24:27 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,11 @@ int	parsing(t_info *info, char *input)
 		while (temp->right_child)
 		{
 			printf("%d번째 token : %s\n", j, temp->left_child->data);
-			if (temp->right_child->type == CMD)
-				printf("%d번째 cmd token : %s\n", j + 1, temp->right_child->data);
+			if (!temp->right_child->right_child)
+				{
+					printf("cmd token : %s\n", temp->left_child->data);
+					printf("optarg token : %s\n", temp->right_child->data);
+				}
 			temp = temp->right_child;
 			j++;
 		}

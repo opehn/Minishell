@@ -77,6 +77,7 @@ void	parsing_tree(t_info *info, t_pipe_list *pipe)
 	while (i < pipe_cnt)
 	{
 		pipe_tree[i] = init_tree(0, pipe->pipe_data, NULL, NULL);
+		// info->forest->root = init_tree(0, pipe->pipe_data, NULL, NULL);
 		printf("pipe_tree[%d] : %s\n", i, pipe_tree[i]->data);
 		printf("before scan_token check in parsing_tree\n");
 		if (scan_token(pipe_tree[i], info->env_list) == false)
@@ -84,5 +85,6 @@ void	parsing_tree(t_info *info, t_pipe_list *pipe)
 		printf("after scan_token check in parsing_tree\n");
 		i++;
 		pipe = pipe->next;
+		// 
 	}
 }

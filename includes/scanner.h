@@ -16,11 +16,13 @@ typedef enum e_token
 } t_token;
 
 bool	scan_token(t_tree *root, t_env_list *env_list);
-int	    chk_red(char *data, int *i, char *remain, t_tree *root);
-void	chk_space(char *data, int *i, char *remain);
-int	    chk_quote(char *data, int *i, char *remain, t_env_list *env_list);
-int     find_next_dq(char *data, int *i, char *remain, t_env_list *env_list);
-int	    expand_ds(char *data, int *i, char *remain, t_env_list *env_list);
-int     find_next_sq(char *data, int *i, char *remain);
+int	    if_red(char *data, int *i, char **remain, t_tree *root);
+void	if_space(char *data, int *i, char **remain);
+int	    if_quote(char *data, int *i, char **remain, t_env_list *env_list);
+int     find_next_dq(char *data, int *i, char **remain, t_env_list *env_list);
+int	    expand_ds(char *data, int *i, char **remain, t_env_list *env_list);
+int     find_next_sq(char *data, int *i, char **remain);
+int	    chk_red(char *data, int *i);
+void	grow_tree(char *red_data, char **remain, t_tree *root);
 
 #endif

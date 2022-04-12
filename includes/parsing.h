@@ -24,11 +24,11 @@
 */
 typedef enum e_special
 {
-	D_QUOT = '"',
+	D_QUOT = '\"',
 	S_QUOT = '\'',
 	PIPE = '|',
-	LEFT_RED = '<',
-	RIGHT_RED = '>',
+	LD = '<',
+	RD = '>',
 } t_special;
 
 typedef struct s_pipe_list
@@ -42,8 +42,8 @@ typedef struct s_pipe_list
 typedef struct s_info
 {
 	t_tree		**root;
+	t_forest	*forest;
 	t_env_list	*env_list;
-	
 } t_info;
 
 /*
