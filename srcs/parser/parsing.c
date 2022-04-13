@@ -6,13 +6,15 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/12 17:24:27 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/12 22:57:24 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 #include "error.h"
 #include "parsing.h"
+
+char	*test_type(int	type);
 
 bool	is_odd(int num)
 {
@@ -97,14 +99,17 @@ int	parsing(t_info *info, char *input)
 	{
 		j = 0;
 		temp = info->root[i];
+		printf("---------%d 번째 파이프 ------------\n", i);
 		while (temp->right_child)
 		{
-			printf("%d번째 token : %s\n", j, temp->left_child->data);
 			if (!temp->right_child->right_child)
-				{
-					printf("cmd token : %s\n", temp->left_child->data);
-					printf("optarg token : %s\n", temp->right_child->data);
-				}
+			{
+				printf("%s \t\t\ttoken : %s\n", test_type(temp->left_child->type), temp->left_child->data);
+				printf("%s \t\t\ttoken : %s\n", test_type(temp->right_child->type), temp->right_child->data);
+				break;
+			}
+			else
+				printf("%s \t\ttoken : %s\n", test_type(temp->left_child->type), temp->left_child->data);
 			temp = temp->right_child;
 			j++;
 		}
@@ -120,4 +125,23 @@ int	parsing(t_info *info, char *input)
 	free(pipe);
 	pipe = 0;
 	return (0);
+}
+
+char	*test_type(int	type)
+{
+	if (type == 1)
+		return ("INPUT_RED");
+	else if (type == 2)
+		return ("OUTPUT_RED");
+	else if (type == 3)
+		return ("APPEND_RED");
+	else if (type == 4)
+		return ("HEREDOC");
+	else if (type == 5)
+		return ("CMD");
+	else if (type == 6)
+		return ("OPTARG");
+	else if (type == 7)
+		return ("BRANCH");
+	return (NULL);
 }

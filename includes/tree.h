@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:17:25 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/12 18:07:25 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/12 21:43:47 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 
 typedef enum s_type
 {
-	RED = 0,
-	CMD = 1,
-	OPTARG = 2,
-	BRANCH = 3,
+	INPUT_RED = 1,
+	OUTPUT_RED = 2,
+	APPEND_RED = 3,
+	HEREDOC = 4,
+	CMD = 5,
+	OPTARG = 6,
+	BRANCH = 7,
 } t_type;
 
 typedef struct s_tree

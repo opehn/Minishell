@@ -24,7 +24,7 @@
 */
 typedef enum e_special
 {
-	D_QUOT = '\"',
+	D_QUOT = '"',
 	S_QUOT = '\'',
 	PIPE = '|',
 	LD = '<',

@@ -7,6 +7,7 @@
 # define ERR_MALLOC "Failure to allocate memory"
 # define ERR_NULL 	"NULL"
 # define ERR_TOKENIZE "Failure to tokenize pipe_data"
+# define ERR_FORK "Faulure to fork"
 
 // ========================non-exit error===================================//
 # define ERR_UNCLOSED 1

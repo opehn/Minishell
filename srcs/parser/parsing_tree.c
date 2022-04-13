@@ -61,14 +61,27 @@ int	count_tree(t_pipe_list *pipe)
 	return (cnt);
 }
 
+t_forest	*init_forest(t_tree *pipe_tree)
+{
+	t_forest	*forest;
+
+	forest = (t_forest *)malloc(sizeof(t_forest));
+	if (!forest)
+		exit_error(ERR_MALLOC);
+	forest->root = pipe_tree;
+	forest->next = NULL;
+	forest->prefd = -1;
+	return (forest);
+}
+
 void	parsing_tree(t_info *info, t_pipe_list *pipe)
 {
-	int	i;
-	int	pipe_cnt;
-	t_tree	**pipe_tree;
+	int			i;
+	int			pipe_cnt;
+	t_tree		**pipe_tree;
+	t_forest	*forest;
 
 	pipe_cnt = count_tree(pipe);
-	printf("pipe_cnt : %d in parsing_tree\n", pipe_cnt);
 	pipe_tree = (t_tree **)malloc(sizeof(t_tree *) * pipe_cnt);
 	if (!pipe_tree)
 		exit_error(ERR_MALLOC);
@@ -77,14 +90,12 @@ void	parsing_tree(t_info *info, t_pipe_list *pipe)
 	while (i < pipe_cnt)
 	{
 		pipe_tree[i] = init_tree(0, pipe->pipe_data, NULL, NULL);
-		// info->forest->root = init_tree(0, pipe->pipe_data, NULL, NULL);
 		printf("pipe_tree[%d] : %s\n", i, pipe_tree[i]->data);
-		printf("before scan_token check in parsing_tree\n");
 		if (scan_token(pipe_tree[i], info->env_list) == false)
 			exit_error(ERR_TOKENIZE);
-		printf("after scan_token check in parsing_tree\n");
-		i++;
+		info->forest = init_forest(pipe_tree[i]);
 		pipe = pipe->next;
-		// 
+//		forest = forest->next;
+		i++;
 	}
 }
