@@ -18,8 +18,6 @@ int find_next_sq(char *data, int *i, char **remain)
 		{
 			(*i)++; //move data idx from '
 			quot_flag = 1;
-			if (data[*i] && !red_flag)
-				*remain = ft_strjoin_ch(*remain, ' ');
         	break;
 		}
 		*remain = ft_strjoin_ch(*remain, data[*i]);
@@ -41,8 +39,6 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 		{
 			(*i)++; //move data idx from "
 			quot_flag = 1;
-			if (data[*i])
-				*remain = ft_strjoin_ch(*remain, ' ');
         	break;
 		}
 		if (data[*i] == DS)
@@ -55,7 +51,7 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
     return (0);
 }
 
-int	if_quote(char *data, int *i, char **remain, t_env_list *s_env_list)
+int	if_quote(char *data, int *i, char **remain, t_env_list *env_list)
 {
 	int	res;
 	char cur;
@@ -135,6 +131,7 @@ void	ignore_space(char *data, int *i)
 
 int	chk_red(char *data, int *i)
 {
+	printf("chk_red data[%d] : %c\n", *i, data[*i]);
 
 	if (!ft_strncmp(ft_substr(data, *i, 2), "<<", 2))
 		return (3);
@@ -147,14 +144,14 @@ int	chk_red(char *data, int *i)
 	return (0);
 }
 
-int	if_red(char *data, int *i, char **remain, t_tree *root)
+int	if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list)
 {
-	char	*red_data;
-	int		start;
-	int		end;
+	char	**red_data;
 	int		res;
 
-	end = 0;
+	red_data = malloc(sizeof(char *) * 1);
+	*red_data = malloc(1);
+	*red_data[0] = '\0';
 	res = 0;
 	res = chk_red(data, i); //check red type
 	if (res)
@@ -164,16 +161,17 @@ int	if_red(char *data, int *i, char **remain, t_tree *root)
 		else if (res <= 4)
 			(*i) += 2;
 		ignore_space(data, i);
-		start = *i; 
-		while(!chk_red(data, i) && data[*i] != ' ' && data[*i]) //cal length of file name until next red /space /null
+		while(!chk_red(data, i) && data[*i] != ' ' && data[*i])
 		{
-			(*i)++;
-			end++;
+			res = if_quote(data, i, red_data, env_list);
+			printf("after quote data[%d] : %d\n", *i, data[*i]);
+			*red_data = ft_strjoin_ch(*red_data, data[*i]);
+			if (data[*i]) //quotechk makes idx to null
+				(*i)++;
 		}	
-		red_data = ft_substr(data, start, end);
-		grow_tree(red_data, *remain, root, res);
+		grow_tree(*red_data, *remain, root, res);
 	}
-	return (0);
+	return (res);
 }
 
 void	grow_tree(char *red_data, char *remain, t_tree *root, int res)
@@ -250,10 +248,16 @@ bool	scan_token(t_tree *root, t_env_list *env_list)
 		(*i)++;
 	while (data[*i])
 	{
+		printf("data[%d] : %c\n", *i, data[*i]);
 		flag = *i;
 		ignore_space(data, i);
-		res = if_quote(data, i, remain, env_list);
-		if_red(data, i, remain, root);
+		if (data[*i] == BS || data[*i] == S_QUOT || data[*i] == D_QUOT)
+		{
+			res = if_quote(data, i, remain, env_list);
+			if (data[*i])
+				*remain = ft_strjoin_ch(*remain, ' ');
+		}
+		if_red(data, i, remain, root, env_list);
 		if (data[*i] == '$')
 			expand_ds(data, i, remain, env_list);
 		if (flag == *i) //if data[*i] is not special

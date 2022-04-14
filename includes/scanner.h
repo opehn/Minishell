@@ -16,7 +16,7 @@ typedef enum e_token
 } t_token;
 
 bool	scan_token(t_tree *root, t_env_list *env_list);
-int	    if_red(char *data, int *i, char **remain, t_tree *root);
+int	    if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list);
 void	ignore_space(char *data, int *i);
 int	    if_quote(char *data, int *i, char **remain, t_env_list *env_list);
 int     find_next_dq(char *data, int *i, char **remain, t_env_list *env_list);
