@@ -28,7 +28,7 @@ PARSER_SRCS	:=	parse_chk.c parsing.c parsing_tree.c
 PARSER_SRCS	:=	$(addprefix $(PARSER_DIR), $(PARSER_SRCS))
 ERROR_SRCS	:=	error_msg.c
 ERROR_SRCS	:=	$(addprefix $(ERROR_DIR), $(ERROR_SRCS))
-SCANNER_SRCS := scanner.c
+SCANNER_SRCS := scanner.c scanner_util.c
 SCANNER_SRCS := $(addprefix $(SCANNER_DIR), $(SCANNER_SRCS))
 
 SRCS = $(PARSER_SRCS) $(MAIN_SRCS) $(ERROR_SRCS) $(SCANNER_SRCS)
