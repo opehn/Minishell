@@ -50,16 +50,6 @@ int	expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
 	return (0);
 }
 
-void	ignore_space(char *data, int *i)
-{
-	if (data[*i] == ' ')
-	{
-		while(data[*i] == ' ')
-			(*i)++;
-	}
-	return ;
-}
-
 int	if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list)
 {
 	char	**red_data;
@@ -131,7 +121,15 @@ void	parse_cmd(char *remain, char **cmds)
 		cmd = ft_strjoin_ch(cmd, remain[i]);
 		i++;
 	}
-	if (remain[i] == ' ')
+	if (remain[i] && remain[i + 1] == ' ')
+	{
+		while (remain[i] && remain[i] == ' ')
+		{
+			cmd = ft_strjoin_ch(cmd, remain[i]);
+			i++;
+		}
+	}
+	else if (remain[i] == ' ')
 		i++;
 	while (remain[i])
 	{
@@ -150,6 +148,8 @@ bool	scan_token(t_tree *root, t_env_list *env_list)
 	int		flag;
 	int 	res;
 
+	if (!root->data)
+		return (true);
 	i = (int *)malloc(sizeof(int) * 1);
 	remain = (char **) malloc(sizeof(char *) * 1);
 	*remain = (char *) malloc(sizeof (char) * 1);
