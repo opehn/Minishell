@@ -29,6 +29,8 @@ typedef enum e_special
 	PIPE = '|',
 	LD = '<',
 	RD = '>',
+	DS = '$',
+	BS = '\\',
 } t_special;
 
 typedef struct s_pipe_list

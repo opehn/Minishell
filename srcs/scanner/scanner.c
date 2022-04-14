@@ -7,189 +7,198 @@
 
 #include <stdio.h>
 
-int	if_quote(char *data, int *i, char **remain, t_env_list *env_list)
+int if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
 {
-	int	res;
-	char cur;
+    char cur;
 
-	res = 0;
-	if (data[*i] == BS || data[*i] == S_QUOT || data[*i] == D_QUOT)
-	{
-		cur = data[*i];
-		(*i)++;
-		if (cur == BS)
-			*remain = ft_strjoin_ch(*remain, data[*i]);
-		else if (cur == S_QUOT)
-			res = find_next_sq(data, i, remain);
-		else if (cur == D_QUOT)
-			res = find_next_dq(data, i, remain, env_list);
-	}
-	return (res);
+    if (data[*i] == S_QUOT || data[*i] == D_QUOT)
+    {
+        cur = data[*i];
+        (*i)++;
+        if (cur == S_QUOT)
+            find_next_sq(data, i, remain);
+        else if (cur == D_QUOT)
+            find_next_dq(data, i, remain, env_list);
+        return (1);
+    }
+    return (0);
 }
 
-int	expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
+int expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
 {
-	int		*key_len;
-	int		k;
+    int     *key_len;
+    int     j;
 
-	key_len = (int *)malloc(sizeof(int) * 1);
-	*key_len = 0;
-	k = 0;
-	(*i)++;
-	if (find_value(data, i, remain, env_list, key_len))
-		*i += *key_len; //move idx of data
-	else 
-	{
-		while(k < *key_len)
-			{
-				*remain = ft_strjoin_ch(*remain, data[*i]);
-				k++;
-				(*i)++;
-			}
-	}
-	return (0);
+    key_len = (int *)malloc(sizeof(int) * 1);
+    *key_len = 0;
+    j = 0;
+    if (find_value(data, i, remain, env_list, key_len))
+    {
+        *remain = ft_strjoin_ch(*remain, ' ');
+        *i += *key_len; //move idx of data
+    }
+    else
+    {
+        while(j < *key_len)
+            {
+                *remain = ft_strjoin_ch(*remain, data[*i]);
+                j++;
+                (*i)++;
+            }
+    }
+    return (0);
 }
 
-int	if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list)
+int if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list)
 {
-	char	**red_data;
-	int		res;
+    char    **red_data;
+    int     type;
+    int     quot_flag;
 
-	red_data = malloc(sizeof(char *) * 1);
-	*red_data = malloc(1);
-	*red_data[0] = '\0';
-	res = 0;
-	res = chk_red(data, i); //check red type
-	if (res)
-	{
-		if (res <= 2) //move idx of data to start of file name
-			(*i) += 1;		
-		else if (res <= 4)
-			(*i) += 2;
-		ignore_space(data, i);
-		while(!chk_red(data, i) && data[*i] != ' ' && data[*i])
-		{
-			res = if_quote(data, i, red_data, env_list);
-			printf("after quote data[%d] : %d\n", *i, data[*i]);
-			*red_data = ft_strjoin_ch(*red_data, data[*i]);
-			if (data[*i]) //quotechk paases idx to null
-				(*i)++;
-		}	
-		grow_tree(*red_data, *remain, root, res);
-	}
-	return (res);
+    red_data = malloc(sizeof(char *) * 1);
+    init_str(red_data);
+    type = 0;
+    quot_flag = 0;
+    type = chk_red(data, i); //check red type
+    if (type)
+    {
+        if (type <= 2) //move idx of data to start of file name
+            (*i) += 1;
+        else if (type <= 4)
+            (*i) += 2;
+        ignore_space(data, i);
+        while(!chk_red(data, i) && data[*i] != ' ' && data[*i])
+        {
+            quot_flag = if_quot_expand(data, i, red_data, env_list);
+            if(chk_red(data, i) || data[*i] == ' ' || !data[*i])
+                break;
+            *red_data = ft_strjoin_ch(*red_data, data[*i]);
+
+            (*i)++;
+        }
+        if (!*red_data[0] && !quot_flag)
+            return (ERR_SYNTAX);
+        grow_tree(*red_data, *remain, root, type, env_list);
+    }
+    return (0);
 }
 
-void	grow_tree(char *red_data, char *remain, t_tree *root, int res)
-{	
-	t_tree	*left_child;
-	t_tree	*right_child;
-	char	*cmds[2];
+void    grow_tree(char *red_data, char *remain, t_tree *root, int res, t_env_list *env_list)
+{
+    t_tree  *left_child;
+    t_tree  *right_child;
+    char    *cmds[2];
 
-	while (root->right_child)
-		root = root->right_child;
-	if (red_data) //if redirection
-	{
-		left_child = init_tree(res, red_data, NULL, NULL);
-		root->left_child = left_child;
-		right_child = init_tree(BRANCH, remain, NULL, NULL);
-		root->right_child = right_child;
-	}
-	else //if cmd
-	{
-		parse_cmd(remain, cmds);
-		left_child = init_tree(CMD, cmds[0], NULL, NULL);
-		root->left_child = left_child;
-		right_child = init_tree(OPTARG, cmds[1], NULL, NULL);
-		root->right_child = right_child;
-	}
+    while (root->right_child)
+        root = root->right_child;
+    if (red_data) //if redirection
+    {
+        left_child = init_tree(res, red_data, NULL, NULL);
+        root->left_child = left_child;
+        right_child = init_tree(BRANCH, remain, NULL, NULL);
+        root->right_child = right_child;
+    }
+    else //if cmd
+    {
+        parse_cmd(remain, cmds, env_list);
+        left_child = init_tree(CMD, cmds[0], NULL, NULL);
+        root->left_child = left_child;
+        right_child = init_tree(OPTARG, cmds[1], NULL, NULL);
+        root->right_child = right_child;
+    }
 }
 
-void	parse_cmd(char *remain, char **cmds)
+void    parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 {
-	char	*cmd;
-	char	*opts;
-	int		i;
-	
-	i = 0;
-	cmd = malloc(1);
-	opts = malloc(1);
-	cmd[0] = '\0';
-	opts[0] = '\0';
-	while (remain[i] && remain[i] != ' ')
-	{
-		cmd = ft_strjoin_ch(cmd, remain[i]);
-		i++;
-	}
-	if (remain[i] && remain[i + 1] == ' ')
-	{
-		while (remain[i] && remain[i] == ' ')
-		{
-			cmd = ft_strjoin_ch(cmd, remain[i]);
-			i++;
-		}
-	}
-	else if (remain[i] == ' ')
-		i++;
-	while (remain[i])
-	{
-		opts = ft_strjoin_ch(opts, remain[i]);
-		i++;
-	}
-	cmds[0] = cmd;
-	cmds[1] = opts;
+    char    **cmd;
+    char    **opts;
+    int     *i;
+
+    i = malloc(sizeof(int) * 1);
+    cmd = malloc(sizeof(char *) * 1);
+    opts = malloc(sizeof(char *) * 1);
+    init_str(cmd);
+    init_str(opts);
+    *i = 0;
+    while (remain[*i] && remain[*i] != ' ')
+    {
+        if(if_quot_expand(remain, i, cmd, env_list))
+            break;
+        *cmd = ft_strjoin_ch(*cmd, remain[*i]);
+        (*i)++;
+    }
+    ignore_space(remain, i);
+    while (remain[*i])
+    {
+        if_quot_expand(remain, i, opts, env_list);
+        if (remain[*i] != S_QUOT && remain[*i] != D_QUOT)
+        {
+            *opts = ft_strjoin_ch(*opts, remain[*i]);
+            if(remain[*i])
+                (*i)++;
+        }
+
+    }
+    cmds[0] = *cmd;
+    cmds[1] = *opts;
 }
 
-bool	scan_token(t_tree *root, t_env_list *env_list)
+void    init_str(char **str)
 {
-	int		*i;
-	char	*data;
-	char	**remain;
-	int		flag;
-	int 	res;
+    *str = malloc(1);
+    *str[0]= '\0';
+}
 
-	if (!root->data)
-		return (true);
-	i = (int *)malloc(sizeof(int) * 1);
-	remain = (char **) malloc(sizeof(char *) * 1);
-	*remain = (char *) malloc(sizeof (char) * 1);
-	if (!i || !remain || !*remain)
-		exit_error(ERR_MALLOC);
-	*remain[0] = '\0';
-	flag = 0;
-	res = 0;	
-	*i = 0;
-	data = ft_strndup(root->data, ft_strlen(root->data));
-	while (data[*i] == ' ')
-		(*i)++;
-	while (data[*i])
-	{
-		printf("data[%d] : %c\n", *i, data[*i]);
-		flag = *i;
-		ignore_space(data, i);
-		if (data[*i] == BS || data[*i] == S_QUOT || data[*i] == D_QUOT)
-		{
-			res = if_quote(data, i, remain, env_list);
-			if (data[*i])
-				*remain = ft_strjoin_ch(*remain, ' ');
-		}
-		if_red(data, i, remain, root, env_list);
-		if (data[*i] == '$')
-			expand_ds(data, i, remain, env_list);
-		if (flag == *i) //if data[*i] is not special
-		{
-			if (data[*i] && data[*i] != ' ')
-			{
-				*remain = ft_strjoin_ch(*remain, data[*i]);
-				(*i)++;
-			}
-			ignore_space(data, i);
-			if (data[*i - 1] == ' ')
-				*remain = ft_strjoin_ch(*remain, ' ');
-		}
-	}
-	grow_tree(NULL, *remain, root, 0);
-	if (res)
-		print_err(res);
-	return (true);
+bool    scan_token(t_tree *root, t_env_list *env_list)
+{
+    int     res;
+    int     *i;
+    char    *data;
+    char    **remain;
+
+    if (!root->data)
+        return (true);
+    i = (int *)malloc(sizeof(int) * 1);
+    remain = (char **) malloc(sizeof(char *) * 1);
+    if (!i || !remain)
+        exit_error(ERR_MALLOC);
+    init_str(remain);
+    *i = 0;
+    res = 0;
+    data = ft_strndup(root->data, ft_strlen(root->data));
+    res = iterate_scan(data, remain, i, root, env_list);
+    grow_tree(NULL, *remain, root, 0, env_list);
+    if (res)
+        print_err(res);
+    return (true);
+}
+
+int     iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *env_list)
+{
+    int     flag;
+    int     res;
+
+    flag = 0;
+    res = 0;
+    while (data[*i] && !res)
+    {
+        ignore_space(data, i);
+        flag = *i;
+        res = if_quot(data, i, remain);
+        res = if_red(data, i, remain, root, env_list);
+        if (data[*i] == '$')
+            expand_ds(data, i, remain, env_list);
+        if (flag == *i) //if data[*i] is not special
+        {
+            if (data[*i] && data[*i] != ' ')
+            {
+                *remain = ft_strjoin_ch(*remain, data[*i]);
+                (*i)++;
+            }
+            ignore_space(data, i);
+            if (data[*i - 1] == ' ')
+                *remain = ft_strjoin_ch(*remain, ' ');
+        }
+    }
+    return (res);
 }

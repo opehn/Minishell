@@ -42,8 +42,12 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
             break;
         }
         if (data[*i] == DS)
+        {
+            (*i)++;
             expand_ds(data, i, remain, env_list);
-        *remain = ft_strjoin_ch(*remain, data[*i]);
+        }
+        if (data[*i] != D_QUOT)
+            *remain = ft_strjoin_ch(*remain, data[*i]);
         (*i)++;
     }
     if (!quot_flag)
@@ -57,7 +61,7 @@ int find_value(char *data, int *i, char** remain, t_env_list *env_list, int *key
     int     start;
 
     start = *i;
-    while (data[start] != ' ' && data[start] != '\0')
+    while (data[start] != ' ' && data[start] != '\0' && data[start] != D_QUOT)
     {
         start++;
         (*key_len)++;
@@ -88,13 +92,43 @@ void    ignore_space(char *data, int *i)
 
 int chk_red(char *data, int *i)
 {
-    if (!ft_strncmp(ft_substr(data, *i, 2), "<<", 2))
+    if (!ft_strncmp(ft_substr(data, *i, 2), ">>", 2))
         return (3);
-    else if (!ft_strncmp(ft_substr(data, *i, 2), ">>", 2))
+    else if (!ft_strncmp(ft_substr(data, *i, 2), "<<", 2))
         return (4);
     else if (data[*i] == LD)
         return (1);
     else if (data[*i] == RD)
         return (2);
+    return (0);
+}
+
+int if_quot(char *data, int *i, char **remain)
+{
+    char cur;
+
+    cur = data[*i];
+    if (cur == BS || cur == S_QUOT || cur == D_QUOT)
+    {
+        (*i)++;
+        if (cur == BS)
+        {
+            *remain = ft_strjoin_ch(*remain, data[*i]);
+            (*i)++;
+        }
+        else
+        {
+            *remain = ft_strjoin_ch(*remain, cur);
+            while(data[*i] && data[*i] != cur)
+            {
+                *remain = ft_strjoin_ch(*remain, data[*i]);
+                (*i)++;
+            }
+            if (!data[*i])
+                return (ERR_UNCLOSED);
+            *remain = ft_strjoin_ch(*remain, data[*i]);
+            (*i)++;
+        }
+    }
     return (0);
 }

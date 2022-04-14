@@ -6,12 +6,11 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/14 16:26:18 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/15 00:09:04 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-#include "error.h"
+#include "action.h"
 
 void	pipe_setting(t_forest *cur_forest)
 {
@@ -32,12 +31,12 @@ void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 {
 	if (tree == NULL)
 		return ;
-	if (tree->type == INPUT_RED || tree->type == OUTPUT_RED || \
-		tree->type == APPEND_RED || tree->type == HEREDOC)
-		redir_action(info, forest, tree);
-	else if (tree->type == CMD)
-		cmd_action(info, tree->data);
-	preorder(info, forest, tree->left_child);
+	if (tree->left_child->type == INPUT_RED || tree->left_child->type == OUTPUT_RED || \
+		tree->left_child->type == APPEND_RED || tree->left_child->type == HEREDOC)
+		if (redir_action(info, tree->left_child) == false)
+			return ;
+	else if (tree->left_child->type == CMD)
+		cmd_action(info, tree->left_child->data, tree->right_child->data);
 	preorder(info, forest, tree->right_child);
 }
 
@@ -79,7 +78,7 @@ void	action(t_info *info)
 	t_forest	*cur_forest;
 
 	cur_forest = info->forest;
-	in = dup(STDIN_FILENO);
+	in = """"dup(STDIN_FILENO);
 	out = dup(STDOUT_FILENO);
 	while (cur_forest)
 	{

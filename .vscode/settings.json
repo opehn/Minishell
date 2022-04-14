@@ -12,6 +12,7 @@
 		"tree.h": "c",
 		"stdlib.h": "c",
 		"iterator": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"action.h": "c"
 	}
 }
