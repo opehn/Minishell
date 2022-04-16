@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/15 00:09:04 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/15 01:05:48 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	action(t_info *info)
 	t_forest	*cur_forest;
 
 	cur_forest = info->forest;
-	in = """"dup(STDIN_FILENO);
+	in = dup(STDIN_FILENO);
 	out = dup(STDOUT_FILENO);
 	while (cur_forest)
 	{
