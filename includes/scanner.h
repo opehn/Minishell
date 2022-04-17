@@ -5,7 +5,7 @@
 # include "env.h"
 # include "tree.h"
 
-bool    scan_token(t_tree *root, t_env_list *env_list);
+int		scan_token(t_tree *root, t_env_list *env_list);
 int     if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list);
 void    ignore_space(char *data, int *i);
 int     if_quot(char *data, int *i, char **remain);

@@ -134,7 +134,7 @@ void    init_str(char **str)
     *str[0]= '\0';
 }
 
-bool    scan_token(t_tree *root, t_env_list *env_list)
+int    scan_token(t_tree *root, t_env_list *env_list)
 {
     int     res;
     int     *i;
@@ -152,10 +152,7 @@ bool    scan_token(t_tree *root, t_env_list *env_list)
     res = 0;
     data = ft_strndup(root->data, ft_strlen(root->data));
     res = iterate_scan(data, remain, i, root, env_list);
-    grow_tree(NULL, *remain, root, 0, env_list);
-    if (res)
-        print_err(res);
-    return (true);
+    return (res);
 }
 
 int     iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *env_list)
@@ -164,14 +161,16 @@ int     iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list
     int     res;
 
     flag = 0;
-    res = 0;
+	res = 0;
     while (data[*i] && !res)
     {
         ignore_space(data, i);
         flag = *i;
         res = if_quot(data, i, remain);
+		if (res)
+			return (res);
         res = if_red(data, i, remain, root, env_list);
-        if (data[*i] == '$')
+        if (data[*i] == DS)
             expand_ds(data, i, remain, env_list, 0);
         if (flag == *i) //if data[*i] is not special
         {

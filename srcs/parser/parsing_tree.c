@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_tree.c                                       :+:      :+:    :+:   */
+/*   parsing_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:09:53 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/10 18:09:54 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/17 19:32:55 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,15 @@ t_forest	*init_forest(t_tree *pipe_tree)
 	return (forest);
 }
 
-void	parsing_tree(t_info *info, t_pipe_list *pipe)
+int		parsing_tree(t_info *info, t_pipe_list *pipe)
 {
 	int			i;
 	int			pipe_cnt;
 	t_tree		**pipe_tree;
 	t_forest	*forest;
+	int			res;
 
+	res = 0;
 	pipe_cnt = count_tree(pipe);
 	pipe_tree = (t_tree **)malloc(sizeof(t_tree *) * pipe_cnt);
 	if (!pipe_tree)
@@ -91,11 +93,14 @@ void	parsing_tree(t_info *info, t_pipe_list *pipe)
 	{
 		pipe_tree[i] = init_tree(0, pipe->pipe_data, NULL, NULL);
 		printf("pipe_tree[%d] : %s\n", i, pipe_tree[i]->data);
-		if (scan_token(pipe_tree[i], info->env_list) == false)
-			exit_error(ERR_TOKENIZE);
+		res = scan_token(pipe_tree[i], info->env_list);
+		printf("parsing_tree res : %d\n", res);
+		if (res)
+			return (res);
 		info->forest = init_forest(pipe_tree[i]);
 		pipe = pipe->next;
 //		forest = forest->next;
 		i++;
 	}
+	return (0);
 }

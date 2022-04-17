@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>	+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/27 15:24:33 by taeheoki		  #+#	#+#			 */
-/*   Updated: 2022/04/17 18:14:01 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/17 19:26:06 by acho             ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		find_char(char *input, int start, int end);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_strndup(const char *s1, int n);
 
-void	parsing_tree(t_info *info, t_pipe_list *pipe);
+int		parsing_tree(t_info *info, t_pipe_list *pipe);
 int		count_tree(t_pipe_list *pipe);
 
 #endif

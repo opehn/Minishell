@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/15 00:57:00 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/17 19:27:44 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,16 @@ int	parsing(t_info *info, char *input)
 	t_pipe_list	*pipe;
 	int	res;
 
+	res = 0;
 	pipe = init_pipe_list();
 	res = pipe_parsing(input, pipe);
 	if (res)
 		return (print_err(res));
 	printf("파이프파싱 완료\n");
 	
-	parsing_tree(info, pipe);
+	res = parsing_tree(info, pipe);
+	if (res)
+		return (print_err(res));
 	printf("트리 파싱 완료\n");
 	
 	int	i;
@@ -115,13 +118,6 @@ int	parsing(t_info *info, char *input)
 		}
 		i++;
 	}
-	//*파이프 출력 테스트*
-	// int i = 0;
-	// while (pipe->next)
-	// {
-	// 	printf("pipe[%d] : %s\n", i, pipe->pipe_data)
-	// 	i++;
-	// }
 	free(pipe);
 	pipe = 0;
 	return (0);
