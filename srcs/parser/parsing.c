@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/17 19:27:44 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/17 21:37:35 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,18 @@ int		pipe_parsing(char *input, t_pipe_list *pipe)
 	temp = pipe;
 	while (input[temp->l_idx] != '\0')
 	{
+		printf("before input[%d] : %c, %p in pipe_parsing\n", temp->l_idx, input[temp->l_idx], &input[temp->l_idx]);
 		quot_chk(&d_quot_flag, &s_quot_flag, input[temp->l_idx]);
 		if (input[temp->l_idx] == PIPE)
 		{
 			res = split_if_even(d_quot_flag, s_quot_flag, input, temp);
-			temp = temp->next;
+			if (temp->next)
+				temp = temp->next;
 		}
 		if (res)
 			return (res);
 		temp->l_idx++;
+		printf("after  input[%d] : %c, %p in pipe_parsing\n", temp->l_idx, input[temp->l_idx], &input[temp->l_idx]);
 	}
 	if (is_odd(d_quot_flag) || is_odd(s_quot_flag))
 		return(ERR_UNCLOSED);
