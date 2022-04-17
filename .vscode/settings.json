@@ -13,6 +13,7 @@
 		"stdlib.h": "c",
 		"iterator": "c",
 		"libft.h": "c",
-		"action.h": "c"
+		"action.h": "c",
+		"__node_handle": "c"
 	}
 }

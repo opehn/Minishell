@@ -24,15 +24,19 @@ int if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
 	return (0);
 }
 
-int expand_ds(char *data, int *i, char **remain, t_env_list *env_list, int quot_flag)
+int expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
 {
 	char	*key;
 
 	(*i)++;
-	key = make_key(data, i, quot_flag);
+	key = make_key(data, i);
+	if (key[0])
+		expand_if_match(i, key, remain, env_list);
 	if (!key[0])
-		ft_strjoin_ch(*remain, '$');
-	expand_if_match(data, i, key, remain, env_list);
+	{
+		*remain = ft_strjoin_ch(*remain, '$');
+		(*i) += ft_strlen(key);
+	}
 	return (0);
 }
 
@@ -112,7 +116,8 @@ void	parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 	while (remain[*i] && remain[*i] != ' ')
 	{
 		if_quot_expand(remain, i, cmd, env_list);
-		if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT)
+		printf("remain[%i] : %c\n", *i, remain[*i]);
+		if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT && remain[*i] != ' ')
 		{
 			*cmd = ft_strjoin_ch(*cmd, remain[*i]);
 			(*i)++;
@@ -167,16 +172,16 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 
 	flag = 0;
 	res = 0;
+	ignore_space(data, i);
 	while (data[*i] && !res)
 	{
-		ignore_space(data, i);
 		flag = *i;
 		res = if_quot(data, i, remain);
 		if (res)
 			return (res);
 		res = if_red(data, i, remain, root, env_list);
 		if (data[*i] == DS)
-			expand_ds(data, i, remain, env_list, 0);
+				expand_ds(data, i, remain, env_list);
 		if (flag == *i) //if data[*i] is not special
 		{
 			if (data[*i] && data[*i] != ' ')
@@ -186,7 +191,9 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 			}
 			ignore_space(data, i);
 			if (data[*i - 1] == ' ')
+			{
 				*remain = ft_strjoin_ch(*remain, ' ');
+			}
 		}
 	}
 	grow_tree(NULL, *remain, root, 0, env_list);

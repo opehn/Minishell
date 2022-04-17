@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 17:15:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/14 23:28:37 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/17 23:05:52 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool 	input_redir(char *pathname)
 {
 	int	fd;
 
-	fd = open(pathname, O_RDONLY)
+	fd = open(pathname, O_RDONLY);
 	if (fd == -1)
 		return (perror_redir("minishell", pathname));
 	

@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:09:53 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/17 19:32:55 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/18 00:44:52 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int		parsing_tree(t_info *info, t_pipe_list *pipe)
 		pipe_tree[i] = init_tree(0, pipe->pipe_data, NULL, NULL);
 		printf("pipe_tree[%d] : %s\n", i, pipe_tree[i]->data);
 		res = scan_token(pipe_tree[i], info->env_list);
-		printf("parsing_tree res : %d\n", res);
 		if (res)
 			return (res);
 		info->forest = init_forest(pipe_tree[i]);

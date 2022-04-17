@@ -24,6 +24,7 @@ int find_next_sq(char *data, int *i, char **remain)
 
 int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 {
+
 	while (data[*i])
 	{
 		if (data[*i] == D_QUOT)
@@ -32,10 +33,7 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 			break;
 		}
 		if (data[*i] == DS)
-		{
-			(*i)++;
-			expand_ds(data, i, remain, env_list, 1);
-		}
+			expand_ds(data, i, remain, env_list);
 		if (data[*i] != D_QUOT)
 			*remain = ft_strjoin_ch(*remain, data[*i]);
 		(*i)++;
@@ -43,55 +41,35 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 	return (0);
 }
 
-char	*make_key(char *data, int *i, int quot_flag)
+char	*make_key(char *data, int *i)
 {
 	int	start;
+	int j;
 	int	key_len;
-	int end_flag;
 
-	start = 0;
-	key_len = 0;
-	end_flag = 0;
-	if (!quot_flag)
-		end_flag = (data[start] != ' ' && data[start] != '\0');
-	if (quot_flag)
-		end_flag = (data[start] != ' ' && data[start] != '\0' && data[start] != D_QUOT);
 	start = *i;
-	while (end_flag)
+	j = *i;
+	key_len = 0;
+
+	while (data[j] != ' ' && data[j] != '\0' && data[j] != D_QUOT && data[j] != DS)
 	{
-		start++;
+		j++;
 		key_len++;
-		if (!quot_flag)
-			end_flag = (data[start] != ' ' && data[start] != '\0');
-		if (quot_flag)
-			end_flag = (data[start] != ' ' && data[start] != '\0' && data[start] != D_QUOT);
 	}
-	return (ft_substr(data, *i, key_len));
+	return (ft_substr(data, start, key_len));
 }
 
-int expand_if_match(char *data, int *i, char *key, char** remain, t_env_list *env_list)
+int expand_if_match(int *i, char *key, char** remain, t_env_list *env_list)
 {
-	int	key_len;
-	int	j;
-
-	key_len = ft_strlen(key);
-	j = 0;
 	while(env_list)
 	{
 		if(!ft_strncmp(env_list->key, key, ft_strlen(env_list->key)))
 		{
 			*remain = ft_strjoin(*remain, env_list->value); //append value to remain
-			*remain = ft_strjoin_ch(*remain, ' ');
-			*i += key_len;
-			return (1);
+			*i += ft_strlen(env_list->key);
 		}
 		env_list = env_list->next;
-	}
-	while(j < key_len)
-	{
-		*remain = ft_strjoin_ch(*remain, data[*i]);
-		j++;
-		(*i)++;
+
 	}
 	return (0);
 }
