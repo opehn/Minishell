@@ -130,21 +130,12 @@ int chk_red(char *data, int *i)
 	return (0);
 }
 
-void	pass_bs(char *data, int *i, char **remain)
-{
-	(*i)++;
-	*remain = ft_strjoin_ch(*remain, data[*i]);
-	(*i)++;
-}
-
 int if_quot(char *data, int *i, char **remain)
 {
 	char cur;
 
 	cur = data[*i];
-	if (cur == BS)
-		pass_bs(data, i, remain);
-	else if (cur == S_QUOT || cur == D_QUOT)
+	if (cur == S_QUOT || cur == D_QUOT)
 	{
 		(*i)++;
 		*remain = ft_strjoin_ch(*remain, cur);
