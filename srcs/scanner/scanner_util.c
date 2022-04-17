@@ -35,9 +35,6 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 	closed_flag = 0;
 	while (data[*i])
 	{
-		if (data[*i] == BS && (data[*i + 1] == DS || data[*i + 1] == BT || 
-			data[*i + 1] == D_QUOT || data[*i + 1] == BS))
-			pass_bs(data, i, remain);
 		if (data[*i] == D_QUOT)
 		{
 			(*i)++; //move data idx from "
@@ -153,18 +150,11 @@ int if_quot(char *data, int *i, char **remain)
 		*remain = ft_strjoin_ch(*remain, cur);
 		while(data[*i] && data[*i] != cur)
 		{
-			if ((data[*i] == BS  && cur == D_QUOT)
-				&& data[*i + 1] == D_QUOT)
-			{
-				ft_strjoin(*remain, "\\\"");
-				*i += 2;	
-			}
 			if (!data[*i])
 				break;
 			*remain = ft_strjoin_ch(*remain, data[*i]);
 			(*i)++;
 		}
-		printf(" cur : data[%d] : %c\n", *i, data[*i]);
 		if (!data[*i])
 			return (ERR_UNCLOSED);
 		*remain = ft_strjoin_ch(*remain, data[*i]);
