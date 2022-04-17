@@ -24,28 +24,14 @@ int if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
     return (0);
 }
 
-int expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
+int expand_ds(char *data, int *i, char **remain, t_env_list *env_list, int quot_flag)
 {
-    int     *key_len;
-    int     j;
+	char	*key;
 
-    key_len = (int *)malloc(sizeof(int) * 1);
-    *key_len = 0;
-    j = 0;
-    if (find_value(data, i, remain, env_list, key_len))
-    {
-        *remain = ft_strjoin_ch(*remain, ' ');
-        *i += *key_len; //move idx of data
-    }
-    else
-    {
-        while(j < *key_len)
-            {
-                *remain = ft_strjoin_ch(*remain, data[*i]);
-                j++;
-                (*i)++;
-            }
-    }
+	key = make_key(data, i, quot_flag);
+	if (!key[0])
+		ft_strjoin_ch(*remain, '$');
+    expand_if_match(data, i, key, remain, env_list);
     return (0);
 }
 
@@ -137,7 +123,6 @@ void    parse_cmd(char *remain, char **cmds, t_env_list *env_list)
             if(remain[*i])
                 (*i)++;
         }
-
     }
     cmds[0] = *cmd;
     cmds[1] = *opts;
@@ -187,7 +172,7 @@ int     iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list
         res = if_quot(data, i, remain);
         res = if_red(data, i, remain, root, env_list);
         if (data[*i] == '$')
-            expand_ds(data, i, remain, env_list);
+            expand_ds(data, i, remain, env_list, 0);
         if (flag == *i) //if data[*i] is not special
         {
             if (data[*i] && data[*i] != ' ')

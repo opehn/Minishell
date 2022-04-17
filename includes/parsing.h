@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>	+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/27 15:24:33 by taeheoki		  #+#	#+#			 */
-/*   Updated: 2022/04/07 23:47:34 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/17 18:14:01 by acho             ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_special
 	RD = '>',
 	DS = '$',
 	BS = '\\',
+	BT = '`',
 } t_special;
 
 typedef struct s_pipe_list
