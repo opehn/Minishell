@@ -184,5 +184,6 @@ int     iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list
                 *remain = ft_strjoin_ch(*remain, ' ');
         }
     }
+    grow_tree(NULL, *remain, root, 0, env_list);
     return (res);
 }
