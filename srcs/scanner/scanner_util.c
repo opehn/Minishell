@@ -9,36 +9,26 @@
 
 int find_next_sq(char *data, int *i, char **remain)
 {
-	int closed_flag;
-
-	closed_flag = 0;
 	while (data[*i])
 	{
 		if (data[*i] == S_QUOT)
 		{
 			(*i)++; //move data idx from '
-			closed_flag = 1;
 			break;
 		}
 		*remain = ft_strjoin_ch(*remain, data[*i]);
 		(*i)++;
 	}
-	if (!closed_flag)
-		return (ERR_UNCLOSED);
 	return (0);
 }
 
 int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 {
-	int closed_flag;
-
-	closed_flag = 0;
 	while (data[*i])
 	{
 		if (data[*i] == D_QUOT)
 		{
 			(*i)++; //move data idx from "
-			closed_flag = 1;
 			break;
 		}
 		if (data[*i] == DS)
@@ -50,8 +40,6 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 			*remain = ft_strjoin_ch(*remain, data[*i]);
 		(*i)++;
 	}
-	if (!closed_flag)
-		return (ERR_UNCLOSED);
 	return (0);
 }
 
@@ -150,7 +138,6 @@ int if_quot(char *data, int *i, char **remain)
 			return (ERR_UNCLOSED);
 		*remain = ft_strjoin_ch(*remain, data[*i]);
 		(*i)++;
-		*remain = ft_strjoin_ch(*remain, ' ');
 	}
 	return (0);
 }

@@ -28,6 +28,7 @@ int expand_ds(char *data, int *i, char **remain, t_env_list *env_list, int quot_
 {
 	char	*key;
 
+	(*i)++;
 	key = make_key(data, i, quot_flag);
 	if (!key[0])
 		ft_strjoin_ch(*remain, '$');
@@ -65,7 +66,7 @@ int if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list
 		if (!*red_data[0] && !quot_flag)
 			return (ERR_SYNTAX);
 		grow_tree(*red_data, *remain, root, type, env_list);
-		if (data[*i])
+		if (data[*i] && *remain[0])
 			*remain = ft_strjoin_ch(*remain, ' ');
 	}
 	return (0);
@@ -110,10 +111,12 @@ void	parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 	*i = 0;
 	while (remain[*i] && remain[*i] != ' ')
 	{
-		if(if_quot_expand(remain, i, cmd, env_list))
-			break;
-		*cmd = ft_strjoin_ch(*cmd, remain[*i]);
-		(*i)++;
+		if_quot_expand(remain, i, cmd, env_list);
+		if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT)
+		{
+			*cmd = ft_strjoin_ch(*cmd, remain[*i]);
+			(*i)++;
+		}
 	}
 	ignore_space(remain, i);
 	while (remain[*i])
