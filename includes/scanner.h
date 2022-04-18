@@ -24,4 +24,7 @@ void	pass_bs(char *data, int *i, char **remain);
 void	pass_sign(int type, int *i);
 void    no_quot_expand(char *data, int *i, char **remain, t_env_list *env_list);
 int		iter_red(char *data, int *i, char **red_data, t_env_list *env_list);
+int		chk_red_err(int	quot_flag, int ds_flag);
+void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i);
+void	make_opts(char *remain, t_env_list *env_list, char **opts, int *i);
 #endif

@@ -54,13 +54,18 @@ int		iter_red(char *data, int *i, char **red_data, t_env_list *env_list)
 		}
 	}
 	if (!*red_data[0])
-	{
-		if (!quot_flag && !ds_flag)
-			return (ERR_SYNTAX);
-		else if (!quot_flag && ds_flag)
-			return (ERR_RED);
-	}
+		return (chk_red_err(quot_flag, ds_flag));
 	return (0);
+}
+
+int	chk_red_err(int	quot_flag, int ds_flag)
+{
+	if (!quot_flag && !ds_flag)
+		return (ERR_SYNTAX);
+	else if (!quot_flag && ds_flag)
+		return (ERR_RED);
+	else
+		return (0);
 }
 
 int chk_red(char *data, int *i)

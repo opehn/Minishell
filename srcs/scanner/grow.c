@@ -38,13 +38,21 @@ void	parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 	char	**opts;
 	int	 *i;
 
-printf("remain : %s\n", remain);
 	i = malloc(sizeof(int) * 1);
 	cmd = malloc(sizeof(char *) * 1);
 	opts = malloc(sizeof(char *) * 1);
 	init_str(cmd);
 	init_str(opts);
 	*i = 0;
+	make_cmd(remain, env_list, cmd, i);
+	ignore_space(remain, i);
+	make_opts(remain, env_list, opts, i);
+	cmds[0] = *cmd;
+	cmds[1] = *opts;
+}
+
+void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i)
+{
 	while (remain[*i] && remain[*i] != ' ')
 	{
 		if_quot_expand(remain, i, cmd, env_list);
@@ -54,7 +62,10 @@ printf("remain : %s\n", remain);
 			(*i)++;
 		}
 	}
-	ignore_space(remain, i);
+}
+
+void	make_opts(char *remain, t_env_list *env_list, char **opts, int *i)
+{
 	while (remain[*i])
 	{
 		if_quot_expand(remain, i, opts, env_list);
@@ -65,6 +76,4 @@ printf("remain : %s\n", remain);
 				(*i)++;
 		}
 	}
-	cmds[0] = *cmd;
-	cmds[1] = *opts;
 }
