@@ -11,6 +11,7 @@
 int expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
 {
     (*i)++;
+    printf("data[%d] : %c\n", *i, data[*i]);
     if (data[*i] == D_QUOT || data[*i] == S_QUOT)
         if_quot_expand(data, i, remain, env_list);
     else
@@ -25,11 +26,15 @@ void    no_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
 
     res = 0;
     key = make_key(data, i);
+    printf("key : %s\n", key);
         if (key[0])
         {
+                                       printf("data[%d] : %c\n", *i, data[*i]);
             res = expand_if_match(i, key, remain, env_list);
+                            printf("data[%d] : %c\n", *i, data[*i]);
             if (!res)
                 (*i) += ft_strlen(key);
+                printf("data[%d] : %c\n", *i, data[*i]);
         }
         else
         {
@@ -61,7 +66,7 @@ int expand_if_match(int *i, char *key, char** remain, t_env_list *env_list)
 {
     while(env_list)
     {
-        if(!ft_strncmp(env_list->key, key, ft_strlen(key)))
+        if(!ft_strcmp(env_list->key, key))
         {
             *remain = ft_strjoin(*remain, env_list->value); //append value to remain
             *i += ft_strlen(env_list->key);

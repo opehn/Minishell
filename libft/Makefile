@@ -6,7 +6,7 @@
 #    By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 15:17:36 by acho              #+#    #+#              #
-#    Updated: 2022/04/11 22:00:18 by taeheoki         ###   ########.fr        #
+#    Updated: 2022/04/19 00:49:16 by taeheoki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS =	ft_memset.c \
 		ft_strchr.c \
 		ft_strrchr.c \
 		ft_strnstr.c \
+		ft_strcmp.c \
 		ft_strncmp.c \
 		ft_atoi.c \
 		ft_isalpha.c \
