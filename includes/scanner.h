@@ -21,4 +21,6 @@ int     expand_if_match(int *i, char *key, char **remain, t_env_list *env_list);
 int     iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *env_list);
 char	*make_key(char *data, int *i);
 void	pass_bs(char *data, int *i, char **remain);
+void	pass_sign(int type, int *i);
+void    no_quot_expand(char *data, int *i, char **remain, t_env_list *env_list);
 #endif

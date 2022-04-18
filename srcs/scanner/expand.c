@@ -7,37 +7,36 @@
 
 #include <stdio.h>
 
-int if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
-{
-    char cur;
-
-    if (data[*i] == S_QUOT || data[*i] == D_QUOT)
-    {
-        cur = data[*i];
-        (*i)++;
-        if (cur == S_QUOT)
-            find_next_sq(data, i, remain);
-        else if (cur == D_QUOT)
-            find_next_dq(data, i, remain, env_list);
-        return (1);
-    }
-    return (0);
-}
 
 int expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
 {
-    char    *key;
-
     (*i)++;
-    key = make_key(data, i);
-    if (key[0])
-        expand_if_match(i, key, remain, env_list);
-    if (!key[0])
-    {
-        *reman = ft_strjoin_ch(*remain, '$');
-        (*i) += ft_strlen(key);
-    }
+    if (data[*i] == D_QUOT || data[*i] == S_QUOT)
+        if_quot_expand(data, i, remain, env_list);
+    else
+        no_quot_expand(data, i, remain, env_list);
     return (0);
+}
+
+void    no_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
+{
+    char *key;
+    int  res;
+
+    res = 0;
+    key = make_key(data, i);
+        if (key[0])
+        {
+            res = expand_if_match(i, key, remain, env_list);
+            if (!res)
+                (*i) += ft_strlen(key);
+        }
+        else
+        {
+            *remain = ft_strjoin_ch(*remain, '$');
+            (*i) += ft_strlen(key);
+        }
+
 }
 
 char    *make_key(char *data, int *i)
@@ -50,7 +49,7 @@ char    *make_key(char *data, int *i)
     j = *i;
     key_len = 0;
 
-    while (data[j] != ' ' && data[j] != '\0' && data[j] != D_QUOT && data[j] != DS)
+    while (data[j] != ' ' && data[j] != '\0' && data[j] != S_QUOT && data[j] != D_QUOT && data[j] != DS)
     {
         j++;
         key_len++;
@@ -62,13 +61,13 @@ int expand_if_match(int *i, char *key, char** remain, t_env_list *env_list)
 {
     while(env_list)
     {
-        if(!ft_strncmp(env_list->key, key, ft_strlen(env_list->key)))
+        if(!ft_strncmp(env_list->key, key, ft_strlen(key)))
         {
             *remain = ft_strjoin(*remain, env_list->value); //append value to remain
             *i += ft_strlen(env_list->key);
+            return (1);
         }
         env_list = env_list->next;
-
     }
     return (0);
 }

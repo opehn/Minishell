@@ -47,6 +47,7 @@ typedef struct s_info
 	t_tree		**root;
 	t_forest	*forest;
 	t_env_list	*env_list;
+	char		*heredoc_buf;
 } t_info;
 
 /*
