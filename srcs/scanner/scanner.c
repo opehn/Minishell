@@ -7,39 +7,6 @@
 
 #include <stdio.h>
 
-int if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
-{
-	char cur;
-
-	if (data[*i] == S_QUOT || data[*i] == D_QUOT)
-	{
-		cur = data[*i];
-		(*i)++;
-		if (cur == S_QUOT)
-			find_next_sq(data, i, remain);
-		else if (cur == D_QUOT)
-			find_next_dq(data, i, remain, env_list);
-		return (1);
-	}
-	return (0);
-}
-
-int expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
-{
-	char	*key;
-
-	(*i)++;
-	key = make_key(data, i);
-	if (key[0])
-		expand_if_match(i, key, remain, env_list);
-	if (!key[0])
-	{
-		*remain = ft_strjoin_ch(*remain, '$');
-		(*i) += ft_strlen(key);
-	}
-	return (0);
-}
-
 int if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list)
 {
 	char	**red_data;

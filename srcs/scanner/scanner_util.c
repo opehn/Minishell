@@ -41,39 +41,6 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 	return (0);
 }
 
-char	*make_key(char *data, int *i)
-{
-	int	start;
-	int j;
-	int	key_len;
-
-	start = *i;
-	j = *i;
-	key_len = 0;
-
-	while (data[j] != ' ' && data[j] != '\0' && data[j] != D_QUOT && data[j] != DS)
-	{
-		j++;
-		key_len++;
-	}
-	return (ft_substr(data, start, key_len));
-}
-
-int expand_if_match(int *i, char *key, char** remain, t_env_list *env_list)
-{
-	while(env_list)
-	{
-		if(!ft_strncmp(env_list->key, key, ft_strlen(env_list->key)))
-		{
-			*remain = ft_strjoin(*remain, env_list->value); //append value to remain
-			*i += ft_strlen(env_list->key);
-		}
-		env_list = env_list->next;
-
-	}
-	return (0);
-}
-
 void	ignore_space(char *data, int *i)
 {
 	if (data[*i] == ' ')
