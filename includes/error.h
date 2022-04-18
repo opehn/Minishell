@@ -14,9 +14,11 @@
 // ========================non-exit error===================================//
 # define ERR_UNCLOSED 1
 # define ERR_SYNTAX 2
+# define ERR_RED 3
 
 # define MSG_UNCLOSED "Unclosed sequence detected"
 # define MSG_SYNTAX "Syntex error"
+# define MSG_RED "ambiguos rediretion"
 
 /*
 ** =============================================================================

@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:47:22 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/11 15:09:14 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/18 23:44:24 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	print_err(int res)
 		ft_putendl_fd(MSG_UNCLOSED, STDERR_FILENO);
 	else if (res == 2)
 		ft_putendl_fd(MSG_SYNTAX, STDERR_FILENO);
+	else if (res == 3)
+		ft_putendl_fd(MSG_RED, STDERR_FILENO);
 
 	return (res);
 }

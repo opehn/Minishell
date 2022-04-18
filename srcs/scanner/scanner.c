@@ -53,7 +53,7 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 				(*i)++;
 			}
 			ignore_space(data, i);
-			if (data[*i - 1] == ' ' && *remain[0])
+			if (data[*i - 1] == ' ' && (*remain)[0])
 				*remain = ft_strjoin_ch(*remain, ' ');
 		}
 	}
