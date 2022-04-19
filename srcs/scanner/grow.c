@@ -53,6 +53,7 @@ void	parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 
 void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i)
 {
+	printf("make_Cmd\n");
 	while (remain[*i] && remain[*i] != ' ')
 	{
 		if_quot_expand(remain, i, cmd, env_list);

@@ -10,6 +10,7 @@ int     if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_
 void    ignore_space(char *data, int *i);
 int     if_quot(char *data, int *i, char **remain);
 int     if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list);
+void     inside_quot_expand(char *data, int *i, char **remain, t_env_list *env_list);
 int     find_next_dq(char *data, int *i, char **remain, t_env_list *env_list);
 int     expand_ds(char *data, int *i, char **remain, t_env_list *env_list);
 int     find_next_sq(char *data, int *i, char **remain);

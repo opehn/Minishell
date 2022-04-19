@@ -10,13 +10,31 @@
 
 int expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
 {
-    (*i)++;
-    printf("data[%d] : %c\n", *i, data[*i]);
-    if (data[*i] == D_QUOT || data[*i] == S_QUOT)
+    printf("expand data[%d] : %c\n", *i, data[*i]);
+    if (data[*i - 1] == D_QUOT || data[*i - 1] == S_QUOT)
+	{
+		(*i)++;
+		inside_quot_expand(data, i, remain, env_list);
+	}
+	else if (data[*i] == D_QUOT || data[*i] == S_QUOT)
+	{
+		(*i)++;
         if_quot_expand(data, i, remain, env_list);
+	}
     else
+	{
+		(*i)++;
         no_quot_expand(data, i, remain, env_list);
+	}
     return (0);
+}
+
+void    inside_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
+{
+	printf("inside_quot_expand\n");
+	no_quot_expand(data, i, remain, env_list);
+	(*i)++;
+   printf("after data[%d] : %d\n", *i, data[*i]);
 }
 
 void    no_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
@@ -24,20 +42,19 @@ void    no_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
     char *key;
     int  res;
 
+    printf("no_quot data[%d] : %c\n", *i, data[*i]);
     res = 0;
     key = make_key(data, i);
     printf("key : %s\n", key);
         if (key[0])
         {
-                                       printf("data[%d] : %c\n", *i, data[*i]);
             res = expand_if_match(i, key, remain, env_list);
-                            printf("data[%d] : %c\n", *i, data[*i]);
             if (!res)
                 (*i) += ft_strlen(key);
-                printf("data[%d] : %c\n", *i, data[*i]);
         }
         else
         {
+			printf("here\n");
             *remain = ft_strjoin_ch(*remain, '$');
             (*i) += ft_strlen(key);
         }
@@ -50,11 +67,11 @@ char    *make_key(char *data, int *i)
     int j;
     int key_len;
 
+    printf("make_key data[%d] : %c\n", *i, data[*i]);
     start = *i;
     j = *i;
     key_len = 0;
-
-    while (data[j] != ' ' && data[j] != '\0' && data[j] != S_QUOT && data[j] != D_QUOT && data[j] != DS)
+    while (data[j] && data[j] != ' '  && data[j] != S_QUOT && data[j] != D_QUOT && data[j] != DS)
     {
         j++;
         key_len++;
