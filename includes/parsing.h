@@ -42,12 +42,18 @@ typedef struct s_pipe_list
 	struct s_pipe_list	*next;
 } t_pipe_list;
 
+typedef struct s_heredoc
+{
+	int		fd[2];
+	char	*heredoc_buf;
+} t_heredoc;
+
 typedef struct s_info
 {
 	t_tree		**root;
 	t_forest	*forest;
 	t_env_list	*env_list;
-	char		*heredoc_buf;
+	t_heredoc	*heredoc;
 } t_info;
 
 /*
