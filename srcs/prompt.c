@@ -51,7 +51,7 @@ void    init_info(t_info **info, t_env_list *env_list)
         exit_error(ERR_MALLOC);
     (*info)->root = NULL;
     (*info)->env_list = env_list;
-    (*info)->heredoc_buf = NULL;
+    (*info)->heredoc = NULL;
 }
 
 void    prompt(t_env_list *env_list)

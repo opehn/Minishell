@@ -12,7 +12,7 @@ int     if_quot(char *data, int *i, char **remain);
 int     if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list);
 void     inside_quot_expand(char *data, int *i, char **remain, t_env_list *env_list);
 int     find_next_dq(char *data, int *i, char **remain, t_env_list *env_list);
-int     expand_ds(char *data, int *i, char **remain, t_env_list *env_list);
+int     expand_ds(char *data, int *i, char **remain, t_env_list *env_list, int quot_flag);
 int     find_next_sq(char *data, int *i, char **remain);
 int     chk_red(char *data, int *i);
 void    grow_tree(char *red_data, char *remain, t_tree *root, int res, t_env_list *env_list);

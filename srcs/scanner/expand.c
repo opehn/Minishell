@@ -8,33 +8,28 @@
 #include <stdio.h>
 
 
-int expand_ds(char *data, int *i, char **remain, t_env_list *env_list)
+int expand_ds(char *data, int *i, char **remain, t_env_list *env_list, int quot_flag)
 {
-    printf("expand data[%d] : %c\n", *i, data[*i]);
-    if (data[*i - 1] == D_QUOT || data[*i - 1] == S_QUOT)
+    //printf("expand data[%d] : %c\n", *i, data[*i]);
+    if (quot_flag)
 	{
 		(*i)++;
 		inside_quot_expand(data, i, remain, env_list);
+        return (0);
 	}
-	else if (data[*i] == D_QUOT || data[*i] == S_QUOT)
-	{
-		(*i)++;
+    (*i)++;
+	if (data[*i] == D_QUOT || data[*i] == S_QUOT)
         if_quot_expand(data, i, remain, env_list);
-	}
     else
-	{
-		(*i)++;
         no_quot_expand(data, i, remain, env_list);
-	}
     return (0);
 }
 
 void    inside_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
 {
-	printf("inside_quot_expand\n");
+	//printf("inside_quot_expand\n");
 	no_quot_expand(data, i, remain, env_list);
-	(*i)++;
-   printf("after data[%d] : %d\n", *i, data[*i]);
+   //printf("after insied quot data[%d] : %c\n", *i, data[*i]);
 }
 
 void    no_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
@@ -42,10 +37,10 @@ void    no_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
     char *key;
     int  res;
 
-    printf("no_quot data[%d] : %c\n", *i, data[*i]);
+    //printf("no_quot data[%d] : %c\n", *i, data[*i]);
     res = 0;
     key = make_key(data, i);
-    printf("key : %s\n", key);
+  //  printf("key : %s\n", key);
         if (key[0])
         {
             res = expand_if_match(i, key, remain, env_list);
@@ -54,7 +49,7 @@ void    no_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
         }
         else
         {
-			printf("here\n");
+	//		printf("here\n");
             *remain = ft_strjoin_ch(*remain, '$');
             (*i) += ft_strlen(key);
         }
@@ -66,16 +61,20 @@ char    *make_key(char *data, int *i)
     int start;
     int j;
     int key_len;
+    int red_flag;
 
-    printf("make_key data[%d] : %c\n", *i, data[*i]);
     start = *i;
     j = *i;
     key_len = 0;
-    while (data[j] && data[j] != ' '  && data[j] != S_QUOT && data[j] != D_QUOT && data[j] != DS)
+
+    red_flag = chk_red(data, &j);
+    while (data[j] && data[j] != ' '  && data[j] != S_QUOT && data[j] != D_QUOT && data[j] != DS && !red_flag)
     {
         j++;
         key_len++;
+        red_flag = chk_red(data, &j);
     }
+    //printf("make_key data[%d] : %c\n", j, data[j]);
     return (ft_substr(data, start, key_len));
 }
 

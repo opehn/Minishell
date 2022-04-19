@@ -35,19 +35,23 @@ int		iter_red(char *data, int *i, char **red_data, t_env_list *env_list)
 
 	int	 quot_flag;
 	int	ds_flag;
+	int	start;
 	
 	quot_flag = 0;
 	ds_flag = 0;
+	start = *i;
 	while(!chk_red(data, i) && data[*i] != ' ' && data[*i])
 	{
+		start = *i;
+		//printf("remain[%d] : %c\n", *i, data[*i]);
 		quot_flag = if_quot_expand(data, i, red_data, env_list);
 		if (data[*i] == DS)
 		{
 			ds_flag = 1;
-			expand_ds(data, i, red_data, env_list);
+			expand_ds(data, i, red_data, env_list, 0);
 		}
 
-		if (!quot_flag && !ds_flag)
+		if (start == *i)
 		{
 			*red_data = ft_strjoin_ch(*red_data, data[*i]);
 			(*i)++;

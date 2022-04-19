@@ -45,6 +45,7 @@ typedef struct s_pipe_list
 typedef struct s_heredoc
 {
 	int		fd[2];
+	char	*end_word;
 	char	*heredoc_buf;
 } t_heredoc;
 

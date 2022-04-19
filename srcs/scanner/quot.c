@@ -33,6 +33,7 @@ int if_quot(char *data, int *i, char **remain)
 
 int if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
 {
+//	printf("if_quot_expand\n");
     char cur;
 
     if (data[*i] == S_QUOT || data[*i] == D_QUOT)
@@ -69,9 +70,11 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 
 	while (data[*i])
 	{
+		//printf("remain[%d] : %c\n", *i, data[*i]);
+		//printf("cmd : %s\n", *remain);
 		start = *i;
 		if (data[*i] == DS)
-			expand_ds(data, i, remain, env_list);
+			expand_ds(data, i, remain, env_list, 1);
 		if (data[*i] == D_QUOT)
 		{
 			(*i)++; //move data idx from "
