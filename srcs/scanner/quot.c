@@ -65,8 +65,11 @@ int find_next_sq(char *data, int *i, char **remain)
 
 int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 {
+	int	start;
+
 	while (data[*i])
 	{
+		start = *i;
 		if (data[*i] == DS)
 			expand_ds(data, i, remain, env_list);
 		if (data[*i] == D_QUOT)
@@ -74,9 +77,11 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 			(*i)++; //move data idx from "
 			break;
 		}
-		if (data[*i] != D_QUOT)
+		if (start == *i)
+		{
 			*remain = ft_strjoin_ch(*remain, data[*i]);
-		(*i)++;
+			(*i)++;
+		}
 	}
 	return (0);
 }

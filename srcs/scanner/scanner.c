@@ -38,7 +38,6 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 	ignore_space(data, i);
 	while (data[*i] && !res)
 	{
-		printf("data[%d] : %c\n", *i, data[*i]);
 		flag = *i;
 		res = if_quot(data, i, remain);
 		if (res)
@@ -48,7 +47,6 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 				expand_ds(data, i, remain, env_list);
 		if (flag == *i) //if data[*i] is not special
 		{
-			printf("here\n");
 			if (data[*i] && data[*i] != ' ')
 			{
 				*remain = ft_strjoin_ch(*remain, data[*i]);
