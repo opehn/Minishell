@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/18 20:32:29 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/21 01:10:14 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	pipe_setting(t_forest *cur_forest)
 	}
 	if (cur_forest->next)
 	{
-		dup2(cur_forest->fd[1], 1);
-		close(cur_forest->fd[0]);
-		close(cur_forest->fd[1]);
+		dup2(cur_forest->fd[IN], 1);
+		close(cur_forest->fd[OUT]);
+		close(cur_forest->fd[IN]);
 	}
 }
 
@@ -37,8 +37,8 @@ void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 		tree->left_child->type == APPEND_RED || tree->left_child->type == HEREDOC)
 		if (redir_action(info, tree->left_child) != 0)
 			return ;
-	else if (tree->left_child->type == CMD)
-		cmd_action(info, tree->left_child->data, tree->right_child->data);
+	// else if (tree->left_child->type == CMD)
+	// 	cmd_action(info, tree->left_child->data, tree->right_child->data);
 	preorder(info, forest, tree->right_child);
 }
 
@@ -61,8 +61,8 @@ void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out)
 	{
 		if (cur_forest->next)
 		{
-			close(cur_forest->fd[0]);
-			close(cur_forest->fd[1]);
+			close(cur_forest->fd[OUT]);
+			close(cur_forest->fd[IN]);
 		}
 		dup2(in, STDIN_FILENO);
 		dup2(out, STDOUT_FILENO);
@@ -104,11 +104,16 @@ void	action(t_info *info)
 		if (cur_forest->next)
 		{
 			pipe(cur_forest->fd);
-			cur_forest->prefd = dup(cur_forest->fd[0]);
-			close(cur_forest->fd[0]);
+			cur_forest->prefd = dup(cur_forest->fd[OUT]);
+			close(cur_forest->fd[OUT]);
 		}
 		fork_forest(info, cur_forest, in, out);
 		cur_forest = cur_forest->next;
-	}
+	} // action 넣어서 돌려볼까? 이게 보일까?
+	// 이러면 대충 보이려나?
+	// 읽어줄까?
+	// 나한테 관심 좀...
+	// 진짜 너무한다. 이건 심하다는 생각 안들어?
+	// 도대체 언제 관심 가져줄거야? 너무햇 ㅠㅠ
 	g_exit_status = exit_status_chk(info->forest);
 }

@@ -28,4 +28,5 @@ int		iter_red(char *data, int *i, char **red_data, t_env_list *env_list);
 int		chk_red_err(int	quot_flag, int ds_flag);
 void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i);
 void	make_opts(char *remain, t_env_list *env_list, char **opts, int *i);
+void	reduce_space(char *data, char **remain, int *i);
 #endif

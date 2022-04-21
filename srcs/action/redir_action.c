@@ -6,17 +6,19 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 17:15:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/19 18:38:58 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/21 01:16:31 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
+#include <errno.h>
+#include <string.h>
 
 int	perror_redir(char *project, char *pathname)
 {
 	ft_putstr_fd(project, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd("pathname ", STDERR_FILENO);
+	ft_putstr_fd(pathname, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	return (1);
@@ -46,7 +48,7 @@ int	output_redir(char *pathname)
 	return (0);
 }
 
-int append(char *pathname)
+int	append(char *pathname)
 {
 	int	fd;
 
@@ -56,6 +58,12 @@ int append(char *pathname)
 	dup2(fd , STDOUT_FILENO);
 	close(fd);
 	return (0);
+}
+
+int	heredoc(t_info *info, char *end_word)
+{
+	if (info && end_word)
+		return (1);
 }
 
 int	redir_action(t_info *info, t_tree *tree)

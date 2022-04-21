@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 
+extern int g_exit_status;
 
 int expand_ds(char *data, int *i, char **remain, t_env_list *env_list, int quot_flag)
 {
@@ -19,7 +20,11 @@ int expand_ds(char *data, int *i, char **remain, t_env_list *env_list, int quot_
 	}
     (*i)++;
 	if (data[*i] == D_QUOT || data[*i] == S_QUOT)
+    {
         if_quot_expand(data, i, remain, env_list);
+        return (1);
+    }
+    
     else
         no_quot_expand(data, i, remain, env_list);
     return (0);
@@ -80,6 +85,15 @@ char    *make_key(char *data, int *i)
 
 int expand_if_match(int *i, char *key, char** remain, t_env_list *env_list)
 {
+    char *exit_status;
+
+    if (!ft_strcmp(key, "?"))
+    {
+        exit_status = ft_itoa(g_exit_status);
+        *remain = ft_strjoin(*remain, exit_status);
+        *i += ft_strlen(exit_status);
+        return (1);
+    }
     while(env_list)
     {
         if(!ft_strcmp(env_list->key, key))

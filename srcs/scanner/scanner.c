@@ -40,11 +40,11 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 	{
 		flag = *i;
 		res = if_quot(data, i, remain);
+		res = if_red(data, i, remain, root, env_list);
 		if (res)
 			return (res);
-		res = if_red(data, i, remain, root, env_list);
-		if (data[*i] == DS)
-				expand_ds(data, i, remain, env_list, 0);
+//		if (data[*i] == DS)
+//				expand_ds(data, i, remain, env_list, 0);
 		if (flag == *i) //if data[*i] is not special
 		{
 			if (data[*i] && data[*i] != ' ')
@@ -52,11 +52,16 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 				*remain = ft_strjoin_ch(*remain, data[*i]);
 				(*i)++;
 			}
-			ignore_space(data, i);
-			if (data[*i - 1] == ' ' && (*remain)[0] && (*remain)[ft_strlen(*remain) - 1] != ' ')
-				*remain = ft_strjoin_ch(*remain, ' ');
+			reduce_space(data, remain, i);
 		}
 	}
 	grow_tree(NULL, *remain, root, 0, env_list);
 	return (res);
+}
+
+void	reduce_space(char *data, char **remain, int *i)
+{
+	ignore_space(data, i);
+	if (data[*i - 1] == ' ' && (*remain)[0] && (*remain)[ft_strlen(*remain) - 1] != ' ')
+		*remain = ft_strjoin_ch(*remain, ' ');
 }

@@ -54,27 +54,42 @@ void	parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i)
 {
 //	printf("make_Cmd\n");
+	int	start;
+
 	while (remain[*i] && remain[*i] != ' ')
 	{
+		start = *i;
 		if_quot_expand(remain, i, cmd, env_list);
-		if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT && remain[*i] != ' ')
+		if (remain[*i] == DS)
+				expand_ds(remain, i, cmd, env_list, 0);
+		if (start == *i)
 		{
-			*cmd = ft_strjoin_ch(*cmd, remain[*i]);
-			(*i)++;
+			if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT && remain[*i] != DS && remain[*i] != ' ')
+			{
+				*cmd = ft_strjoin_ch(*cmd, remain[*i]);
+				(*i)++;
+			}
 		}
 	}
 }
 
 void	make_opts(char *remain, t_env_list *env_list, char **opts, int *i)
 {
+	int	start;
+
 	while (remain[*i])
 	{
+		start = *i;
 		if_quot_expand(remain, i, opts, env_list);
-		if (remain[*i] != S_QUOT && remain[*i] != D_QUOT)
+		if (remain[*i] == DS)
+				expand_ds(remain, i, opts, env_list, 0);
+		if (start == *i)
 		{
-			*opts = ft_strjoin_ch(*opts, remain[*i]);
-			if(remain[*i])
+			if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT && remain[*i] != DS)
+			{
+				*opts = ft_strjoin_ch(*opts, remain[*i]);
 				(*i)++;
+			}
 		}
 	}
 }

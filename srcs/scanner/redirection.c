@@ -19,7 +19,7 @@ int if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list
 	if (type)
 	{
 		pass_sign(type, i); //move idx of data to file name
-		ignore_space(data, i);
+		ignore_space(data, i); 
 		res = iter_red(data, i, red_data, env_list);
 		if (res)
 			return (res);
@@ -48,7 +48,7 @@ int		iter_red(char *data, int *i, char **red_data, t_env_list *env_list)
 		if (data[*i] == DS)
 		{
 			ds_flag = 1;
-			expand_ds(data, i, red_data, env_list, 0);
+			quot_flag = expand_ds(data, i, red_data, env_list, 0);
 		}
 
 		if (start == *i)
