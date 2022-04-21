@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:33 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/21 01:13:50 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/21 20:41:51 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@
 
 int	heredoc_cnt(t_forest *forest)
 {
-	int	i;
+	int			i;
+	t_tree	*temp;
 
 	i = 0;
-	while (forest)
+	temp = forest->root;
+	while (forest->root->left_child)
 	{
-		while (forest->root)
-		{
-			if (forest->root->left_child->type == HEREDOC)
-				++i;
-			forest->root = forest->root->right_child;
-		}
-		forest = forest->next;
+		if (forest->root->left_child->type == HEREDOC)
+			++i;
+		forest->root = forest->root->right_child;
 	}
+	forest->root = temp;
 	return (i);
 }
 
@@ -88,13 +87,15 @@ void	heredoc_chk(t_info *info)
 
 	cur_forest = info->forest;
 	cnt = heredoc_cnt(cur_forest);
+	if (cnt == 0)
+		return ;
 	info->heredoc = (t_heredoc *)malloc(sizeof(t_heredoc) * cnt);
 	info->heredoc->fd[IN] = 0;
 	info->heredoc->fd[OUT] = 0;
 	index = 0;
 	while (cur_forest)
 	{
-		while (cur_forest->root)
+		while (cur_forest->root && cur_forest->root->left_child)
 		{
 			if (cur_forest->root->left_child->type == HEREDOC)
 			{

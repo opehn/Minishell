@@ -49,6 +49,7 @@ int		redir_action(t_info *info, t_tree *tree);
 int		append(char *pathname);
 int		output_redir(char *pathname);
 int		input_redir(char *pathname);
+int		heredoc(t_info *info);
 int		perror_redir(char *project, char *pathname);
 
 #endif

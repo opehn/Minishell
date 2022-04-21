@@ -9,6 +9,7 @@
 # define ERR_TOKENIZE "Failure to tokenize pipe_data"
 # define ERR_FORK "Failure to fork"
 # define ERR_REDIR "Failure to redirect"
+# define ERR_HEREDOC "Failure to heredoc"
 # define ERR_WAITPID "Failure to return exit status"
 
 // ========================non-exit error===================================//

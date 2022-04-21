@@ -6,13 +6,14 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 17:15:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/21 01:16:31 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/21 21:14:58 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
 #include <errno.h>
 #include <string.h>
+#include <stdio.h>
 
 int	perror_redir(char *project, char *pathname)
 {
@@ -60,10 +61,17 @@ int	append(char *pathname)
 	return (0);
 }
 
-int	heredoc(t_info *info, char *end_word)
+int	heredoc(t_info *info)
 {
-	if (info && end_word)
-		return (1);
+	int	i;
+
+	i = 0;
+	while (info->heredoc[i].index == -1)
+		i++;
+	if (dup2(info->heredoc[i].fd[OUT], STDIN_FILENO) == -1)
+		exit_error(ERR_HEREDOC);
+	close(info->heredoc[i].fd[OUT]);
+	return (0);
 }
 
 int	redir_action(t_info *info, t_tree *tree)
@@ -75,7 +83,7 @@ int	redir_action(t_info *info, t_tree *tree)
 	else if (tree->type == APPEND_RED)
 		return (append(tree->data));
 	else if (tree->type == HEREDOC)
-		return (heredoc(info, tree->data));
+		return (heredoc(info));
 	return (0);
 }
 

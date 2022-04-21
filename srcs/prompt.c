@@ -2,6 +2,7 @@
 #include "error.h"
 #include "env.h"
 #include "parsing.h"
+#include "action.h"
 
 void    sigint_handler(int signum)
 {
@@ -50,6 +51,7 @@ void    init_info(t_info **info, t_env_list *env_list)
     if (!(*info))
         exit_error(ERR_MALLOC);
     (*info)->root = NULL;
+    (*info)->forest = NULL;
     (*info)->env_list = env_list;
     (*info)->heredoc = NULL;
 }
@@ -79,7 +81,7 @@ void    prompt(t_env_list *env_list)
         }
         add_history(input);
         parsing(info, input);
-        // action(info)
+        action(info);
 		// if (parsing(input))
 		// {
 		//   트리만듬

@@ -31,7 +31,7 @@ int if_quot(char *data, int *i, char **remain)
 	return (0);
 }
 
-int if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
+int if_quot_expand(char *data, int *i, char **res, t_env_list *env_list)
 {
 //	printf("if_quot_expand\n");
     char cur;
@@ -41,15 +41,15 @@ int if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list)
         cur = data[*i];
         (*i)++;
         if (cur == S_QUOT)
-            find_next_sq(data, i, remain);
+            find_next_sq(data, i, res);
         else if (cur == D_QUOT)
-            find_next_dq(data, i, remain, env_list);
+            find_next_dq(data, i, res, env_list);
         return (1);
     }
     return (0);
 }
 
-int find_next_sq(char *data, int *i, char **remain)
+int find_next_sq(char *data, int *i, char **res)
 {
 	while (data[*i])
 	{
@@ -58,13 +58,13 @@ int find_next_sq(char *data, int *i, char **remain)
 			(*i)++; //move data idx from '
 			break;
 		}
-		*remain = ft_strjoin_ch(*remain, data[*i]);
+		*res = ft_strjoin_ch(*res, data[*i]);
 		(*i)++;
 	}
 	return (0);
 }
 
-int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
+int find_next_dq(char *data, int *i, char **res, t_env_list *env_list)
 {
 	int	start;
 
@@ -74,7 +74,7 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 		//printf("cmd : %s\n", *remain);
 		start = *i;
 		if (data[*i] == DS)
-			expand_ds(data, i, remain, env_list, 1);
+			expand_ds(data, i, res, env_list, 1);
 		if (data[*i] == D_QUOT)
 		{
 			(*i)++; //move data idx from "
@@ -82,7 +82,7 @@ int find_next_dq(char *data, int *i, char **remain, t_env_list *env_list)
 		}
 		if (start == *i)
 		{
-			*remain = ft_strjoin_ch(*remain, data[*i]);
+			*res = ft_strjoin_ch(*res, data[*i]);
 			(*i)++;
 		}
 	}

@@ -16,6 +16,7 @@
 		"action.h": "c",
 		"__node_handle": "c",
 		"env.h": "c",
-		"scanner.h": "c"
+		"scanner.h": "c",
+		"__hash_table": "c"
 	}
 }

@@ -9,22 +9,21 @@
 
 int	scan_token(t_tree *root, t_env_list *env_list)
 {
-	int	 res;
-	int	 *i;
+	int	 	res;
+	int	 	i;
 	char	*data;
 	char	**remain;
 
 	if (!root->data)
 		return (0);
-	i = (int *)malloc(sizeof(int) * 1);
 	remain = (char **) malloc(sizeof(char *) * 1);
-	if (!i || !remain)
+	if (!remain)
 		exit_error(ERR_MALLOC);
 	init_str(remain);
-	*i = 0;
+	i = 0;
 	res = 0;
 	data = ft_strndup(root->data, ft_strlen(root->data));
-	res = iterate_scan(data, remain, i, root, env_list);
+	res = iterate_scan(data, remain, &i, root, env_list);
 	return (res);
 }
 
@@ -43,8 +42,6 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 		res = if_red(data, i, remain, root, env_list);
 		if (res)
 			return (res);
-//		if (data[*i] == DS)
-//				expand_ds(data, i, remain, env_list, 0);
 		if (flag == *i) //if data[*i] is not special
 		{
 			if (data[*i] && data[*i] != ' ')
