@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/21 21:20:55 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/21 23:16:17 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	pipe_setting(t_forest *cur_forest)
 
 int		cmd_action(t_info *info, char *cmd, char *optarg)
 {
+	find_cmd(info->env_list, optarg);
 	
+	return(0);
 }
 
 void	preorder(t_info *info, t_forest *forest, t_tree *tree)
@@ -41,9 +43,11 @@ void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 		return ;
 	if (tree->left_child && (tree->left_child->type == INPUT_RED || tree->left_child->type == OUTPUT_RED || \
 		tree->left_child->type == APPEND_RED || tree->left_child->type == HEREDOC))
+	{
 		if (redir_action(info, tree->left_child) != 0)
 			return ;
-	else if (tree->left_child->type == CMD)
+	}
+	if (tree->left_child && (tree->left_child->type == CMD))
 		if (cmd_action(info, tree->left_child->data, tree->right_child->data) != 0)
 			return ;
 	preorder(info, forest, tree->right_child);

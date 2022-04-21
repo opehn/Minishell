@@ -31,7 +31,7 @@ ERROR_SRCS	:=	error_msg.c
 ERROR_SRCS	:=	$(addprefix $(ERROR_DIR), $(ERROR_SRCS))
 SCANNER_SRCS := scanner.c scanner_util.c expand.c grow.c quot.c redirection.c
 SCANNER_SRCS := $(addprefix $(SCANNER_DIR), $(SCANNER_SRCS))
-ACTION_SRCS := action.c ft_wait.c heredoc_chk.c redir_action.c
+ACTION_SRCS := action.c ft_wait.c heredoc_chk.c redir_action.c cmd_find.c
 ACTION_SRCS := $(addprefix $(ACTION_DIR), $(ACTION_SRCS))
 
 SRCS = $(PARSER_SRCS) $(MAIN_SRCS) $(ERROR_SRCS) $(SCANNER_SRCS) $(ACTION_SRCS)

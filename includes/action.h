@@ -52,4 +52,13 @@ int		input_redir(char *pathname);
 int		heredoc(t_info *info);
 int		perror_redir(char *project, char *pathname);
 
+/*
+** =============================================================================
+** find_cmd.c
+** =============================================================================
+*/
+int     cmd_action(t_info *info, char *cmd, char *optarg);
+int		find_cmd(t_env_list *env_list, char *cmd);
+char    *make_path(t_env_list *env_list, char *cmd);
+
 #endif

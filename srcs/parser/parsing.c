@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/21 18:11:46 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/21 22:17:45 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		find_char(char *input, int start, int end)
 	while(i < end && input[start] != '|')
 	{
 		if (input[start] != ' ')
-			return (1); //if character (except space)
+			return (1);  // if character (except space)
 		start++;
 		i++;
 	}
@@ -95,31 +95,31 @@ int	parsing(t_info *info, char *input)
 		return (print_err(res));
 	printf("트리 파싱 완료\n");
 	
-	// int	i;
-	// int	j;
-	// i = 0;
-	// t_tree	*temp;
-	// while (i < count_tree(pipe))
-	// {
-	// 	j = 0;
-	// 	temp = info->root[i];
-	// 	printf("---------%d 번째 파이프 ------------\n", i);
-	// 	printf("root_data : %s\n", info->root[i]->data);
-	// 	while (temp->right_child)
-	// 	{
-	// 		if (!temp->right_child->right_child)
-	// 		{
-	// 			printf("%s \t\t\ttoken : %s\n", test_type(temp->left_child->type), temp->left_child->data);
-	// 			printf("%s \t\t\ttoken : %s\n", test_type(temp->right_child->type), temp->right_child->data);
-	// 			break;
-	// 		}
-	// 		else
-	// 			printf("%s \t\ttoken : %s\n", test_type(temp->left_child->type), temp->left_child->data);
-	// 		temp = temp->right_child;
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
+	   int	i;
+	   int	j;
+	   i = 0;
+	   t_tree	*temp;
+	   while (i < count_tree(pipe))
+	   {
+	   	j = 0;
+	   	temp = info->root[i];
+	   	printf("---------%d 번째 파이프 ------------\n", i);
+	   	printf("root_data : %s\n", info->root[i]->data);
+	   	while (temp->right_child)
+	   	{
+	   		if (!temp->right_child->right_child)
+	   		{
+	   			printf("%s \t\t\ttoken : %s\n", test_type(temp->left_child->type), temp->left_child->data);
+	   			printf("%s \t\t\ttoken : %s\n", test_type(temp->right_child->type), temp->right_child->data);
+	   			break;
+	   		}
+	   		else
+	   			printf("%s \t\ttoken : %s\n", test_type(temp->left_child->type), temp->left_child->data);
+	   		temp = temp->right_child;
+	   		j++;
+	   	}
+	   	i++;
+	   }
 	free(pipe);
 	pipe = 0;
 	return (0);
