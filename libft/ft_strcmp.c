@@ -6,13 +6,13 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 14:14:47 by acho              #+#    #+#             */
-/*   Updated: 2022/04/19 00:46:52 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/23 15:08:53 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2, int s1_len, int s2_len)
 {
 	size_t			i;
 	size_t			n;
@@ -22,12 +22,10 @@ int	ft_strcmp(const char *s1, const char *s2)
 	i = 0;
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
-	if (ft_strlen(s1) > ft_strlen(s2))
-		n = ft_strlen(s1);
-	else if (ft_strlen(s1) < ft_strlen(s2))
-		n = ft_strlen(s2);
+	if (s1_len > s2_len)
+		n = s1_len;
 	else
-		n = ft_strlen(s1);
+		n = s2_len;
 	while ((str1[i] != 0 && str2[i] != 0) && i < n)
 	{
 		if (str1[i] != str2[i])

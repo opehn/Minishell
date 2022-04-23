@@ -8,6 +8,11 @@
 # define OUT 0
 # define IN 1
 
+#define	CMD1 "echo"
+#define	CMD2 "pwd"
+#define	CMD3 "export"
+#define	CMD4 "unset"
+#define	CMD5 "exit"
 /*
 ** =============================================================================
 ** action.c
@@ -58,7 +63,10 @@ int		perror_redir(char *project, char *pathname);
 ** =============================================================================
 */
 int     cmd_action(t_info *info, char *cmd, char *optarg);
-int		find_cmd(t_env_list *env_list, char *cmd);
-char    *make_path(t_env_list *env_list, char *cmd);
+char	*find_custom_cmd(char *cmd);
+char	*find_builtin_cmd(t_env_list *env_list, char *cmd);
+char    *find_env_path(t_env_list *env_list);
+char    *match_builtin_cmd(char **cmd_array, char *cmd);
+char	*find_custom_cmd(char *cmd);
 
 #endif

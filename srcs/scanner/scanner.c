@@ -44,21 +44,26 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 			return (res);
 		if (flag == *i) //if data[*i] is not special
 		{
-			if (data[*i] && data[*i] != ' ')
-			{
-				*remain = ft_strjoin_ch(*remain, data[*i]);
-				(*i)++;
-			}
-			reduce_space(data, remain, i);
+			append_char(data, remain, i);
+			ignore_space(data, i);
+			append_seperater(data, remain, i);
 		}
 	}
 	grow_tree(NULL, *remain, root, 0, env_list);
 	return (res);
 }
 
-void	reduce_space(char *data, char **remain, int *i)
+void	append_char(char *data, char **remain, int *i)
 {
-	ignore_space(data, i);
-	if (data[*i - 1] == ' ' && (*remain)[0] && (*remain)[ft_strlen(*remain) - 1] != ' ')
-		*remain = ft_strjoin_ch(*remain, ' ');
+	if (data[*i] && data[*i] != ' ')
+	{
+		*remain = ft_strjoin_ch(*remain, data[*i]);
+		(*i)++;
+	}
+}
+
+void	append_seperater(char *data, char **remain, int *i)
+{
+	if (data[*i - 1] == ' ' && (*remain)[0] && (*remain)[ft_strlen(*remain) - 1] != '\n')
+		*remain = ft_strjoin_ch(*remain, '\n');
 }

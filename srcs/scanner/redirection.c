@@ -24,8 +24,6 @@ int if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list
 		if (res)
 			return (res);
 		grow_tree(*red_data, *remain, root, type, env_list);
-		if (data[*i] && (*remain)[0] && (*remain)[ft_strlen(*remain) - 1] != ' ') 
-			*remain = ft_strjoin_ch(*remain, ' ');
 	}
 	return (0);
 }

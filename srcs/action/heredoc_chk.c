@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:33 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/21 20:41:51 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:42:39 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	init_heredoc_buf(t_info *info, char *end_word, int index)
 	while (1)
 	{
 		line = readline("> ");
-		if (line != NULL && ft_strcmp(line, end_word))
+		if (line != NULL && ft_strcmp(line, end_word, ft_strlen(line), ft_strlen(end_word)))
 		{
 			line = line_expand(info, line);
 			ft_putendl_fd(line, info->heredoc[index].fd[IN]);

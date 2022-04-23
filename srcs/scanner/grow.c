@@ -56,7 +56,7 @@ void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i)
 //	printf("make_Cmd\n");
 	int	start;
 
-	while (remain[*i] && remain[*i] != ' ')
+	while (remain[*i] && remain[*i] != SEP)
 	{
 		start = *i;
 		if_quot_expand(remain, i, cmd, env_list);
@@ -64,7 +64,7 @@ void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i)
 				expand_ds(remain, i, cmd, env_list, 0);
 		if (start == *i)
 		{
-			if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT && remain[*i] != DS && remain[*i] != ' ')
+			if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT && remain[*i] != DS && remain[*i] != SEP)
 			{
 				*cmd = ft_strjoin_ch(*cmd, remain[*i]);
 				(*i)++;

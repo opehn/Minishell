@@ -1,33 +1,63 @@
 #include "action.h"
 #include <stdio.h>
+#include <dirent.h>
 
-int	find_cmd(t_env_list *env_list, char *cmd)
-{
-	char *path;
-	char	**cmd_array;
+char	*find_custom_cmd(char *cmd)
+{ 
+	int	cmd_len;
 
-	path = NULL;
-
-	path = make_path(env_list, cmd);
-	cmd_array = ft_split(path, ':');
-	int i = 0;
-	while (cmd_array[i])
-	{
-		printf("cmd_array[%d] : %s\n", i, cmd_array[i]);
-		i++;
-	}
-	/*find_cmd();
-	if (find_cmd())
-		execve();
-	else
-		return (ERR_CMD);*/
-	
-
-	return (0);
+	cmd_len = ft_strlen(cmd);
+	if (!ft_strcmp(cmd, "echo", cmd_len, 4))
+		return ("echo");
+	if (!ft_strcmp(cmd, "pwd", cmd_len, 3))
+		return ("pwd");
+	if (!ft_strcmp(cmd, "export", cmd_len, 6))
+		return ("export");
+	if (!ft_strcmp(cmd, "unset", cmd_len, 5))
+		return ("unset");
+	if (!ft_strcmp(cmd, "exit", cmd_len, 4))
+		return ("exit");
+	return (NULL);
 
 }
 
-char	*make_path(t_env_list *env_list, char *cmd)
+char	*find_builtin_cmd(t_env_list *env_list, char *cmd)
+{
+	char	*path;
+	char	**path_array;
+
+	path = find_env_path(env_list);
+	path_array = ft_split(path, ':');
+	return (match_builtin_cmd(path_array, cmd));
+}
+
+char	*match_builtin_cmd(char **path_array, char *cmd)
+{
+	DIR				*cur_dir;
+	struct dirent	*cur_dir_info;
+	int				i;
+
+	i = 0;
+	while (path_array[i])
+	{
+		cur_dir = opendir(path_array[i]);
+		cur_dir_info = readdir(cur_dir);
+		while (cur_dir_info != NULL)
+		{
+			if (!ft_strcmp(cmd,cur_dir_info->d_name, ft_strlen(cmd), ft_strlen(cur_dir_info->d_name)))
+			{
+				path_array[i] = ft_strjoin_ch(path_array[i], '/');
+				return (ft_strjoin(path_array[i], cmd));
+			}
+			cur_dir_info = readdir(cur_dir);
+		}
+		i++;
+	}
+	return (NULL);
+
+}
+
+char	*find_env_path(t_env_list *env_list)
 {
 	char *path;
 
@@ -35,10 +65,9 @@ char	*make_path(t_env_list *env_list, char *cmd)
 	path[0] = '\0';
 	while(env_list)
 	{
-		if(!ft_strcmp(env_list->key, "PATH"))
+		if(!ft_strcmp(env_list->key, "PATH", ft_strlen(env_list->key), 4))
 			path = ft_strndup(env_list->value, ft_strlen(env_list->value));
 		env_list = env_list->next;
 	}
-
 	return (path);
 }

@@ -55,7 +55,7 @@ char    *make_key(char *data, int *i)
     key_len = 0;
 
     red_flag = chk_red(data, &j);
-    while (data[j] && data[j] != ' '  && data[j] != S_QUOT && data[j] != D_QUOT && data[j] != DS && !red_flag)
+    while (data[j] && data[j] != SEP  && data[j] != S_QUOT && data[j] != D_QUOT && data[j] != DS && !red_flag)
     {
         j++;
         key_len++;
@@ -66,14 +66,14 @@ char    *make_key(char *data, int *i)
 
 int expand_if_match(int *i, char *key, char** res, t_env_list *env_list)
 {
-    if (!ft_strcmp(key, "?"))
+    if (!ft_strcmp(key, "?", ft_strlen(key), 1))
     {
         expand_exit_status(i, res);
         return (1);
     }
     while(env_list)
     {
-        if(!ft_strcmp(env_list->key, key))
+        if(!ft_strcmp(env_list->key, key, ft_strlen(env_list->key), ft_strlen(key)))
         {
             *res = ft_strjoin(*res, env_list->value); //append value to remain
             *i += ft_strlen(env_list->key);
