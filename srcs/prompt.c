@@ -31,9 +31,8 @@ void    init_env(t_env_list **env_list, char **envp)
     i = 0;
     while (envp[i])
     {
-        temp->key = envp[i];
-        temp->value = ft_strchr(envp[i], '=') + 1;
-        *(temp->value - 1) = '\0';
+        temp->key = ft_strndup(envp[i], ft_strchr(envp[i], '=') - envp[i]);
+        temp->value = ft_strdup(ft_strchr(envp[i], '=') + 1);
         if (envp[++i])
         {
             temp->next = (t_env_list *)malloc(sizeof(t_env_list));
