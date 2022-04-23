@@ -7,8 +7,8 @@ int	find_custom_cmd(char *cmd)
 	int	cmd_len;
 
 	cmd_len = ft_strlen(cmd);
-	if (!ft_strcmp(cmd, "echo", cmd_len, 4))
-		return (CMD_ECHO);
+	// if (!ft_strcmp(cmd, "echo", cmd_len, 4))
+		// return (CMD_ECHO);
 	if (!ft_strcmp(cmd, "cd", cmd_len, 2))
 		return (CMD_CD);
 	if (!ft_strcmp(cmd, "pwd", cmd_len, 3))

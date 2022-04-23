@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 20:27:45 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/23 23:12:35 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
 {
 	if (cmd == CMD_PWD)
-		custom_pwd(opts_arr);
-	if (cmd == CMD_EXPORT)
-		custom_export(info, opts_arr);
-	if (cmd == CMD_UNSET)
-		custom_unset(info, opts_arr);
+		return (custom_pwd(opts_arr));
+	else if (cmd == CMD_EXPORT)
+		return (custom_export(info, opts_arr));
+	else if (cmd == CMD_UNSET)
+		return (custom_unset(info, opts_arr));
+	else if (cmd == CMD_CD)
+		return (custom_cd(info, opts_arr));
 	return (0);
 }
 
@@ -138,7 +140,6 @@ void	action(t_info *info)
 	out = dup(STDOUT_FILENO);
 	while (cur_forest)
 	{
-		printf("cur_forest->root->data : %s in action\n", cur_forest->root->data);
 		if (cur_forest->next)
 		{
 			pipe(cur_forest->fd);
@@ -147,7 +148,6 @@ void	action(t_info *info)
 		}
 		fork_forest(info, cur_forest, in, out);
 		cur_forest = cur_forest->next;
-		// printf("cur_forest->root->data : %s in action\n", cur_forest->root->data);
 	}
 	g_exit_status = exit_status_chk(info->forest);
 }

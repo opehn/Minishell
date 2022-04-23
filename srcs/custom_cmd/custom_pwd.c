@@ -6,20 +6,13 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 22:05:56 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 23:05:56 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:13:11 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
 
 extern int	g_exit_status;
-
-static int	ft_isspace(char s)
-{
-	if ((s >= 9 && s <= 13) || s == ' ')
-		return (1);
-	return (0);
-}
 
 int	custom_pwd(char **optarg)
 {
