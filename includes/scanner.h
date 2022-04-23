@@ -7,6 +7,7 @@
 
 int		scan_token(t_tree *root, t_env_list *env_list);
 int     if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list);
+void    append_char(char *data, char **remain, int *i);
 void    ignore_space(char *data, int *i);
 int     if_quot(char *data, int *i, char **remain);
 int     if_quot_expand(char *data, int *i, char **remain, t_env_list *env_list);
@@ -28,6 +29,6 @@ int		iter_red(char *data, int *i, char **red_data, t_env_list *env_list);
 int		chk_red_err(int	quot_flag, int ds_flag);
 void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i);
 void	make_opts(char *remain, t_env_list *env_list, char **opts, int *i);
-void	reduce_space(char *data, char **remain, int *i);
+void	append_seperater(char *data, char **remain, int *i);
 void    expand_exit_status(int *i, char **res);
 #endif

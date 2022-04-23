@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/21 23:16:17 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/23 15:49:50 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,30 @@ void	pipe_setting(t_forest *cur_forest)
 
 int		cmd_action(t_info *info, char *cmd, char *optarg)
 {
-	find_cmd(info->env_list, optarg);
+	char	*custom_cmd;
+	char	*builtin_cmd_path;
+	char	**opts_arr;
+
+	custom_cmd = find_custom_cmd(cmd);
+	builtin_cmd_path = find_builtin_cmd(info->env_list, cmd);
+	opts_arr = ft_split(optarg, '\n');
+	int i = 0;
+	while(opts_arr[i])
+	{
+		printf("opts_arr[%d] : %s\n", i, opts_arr[i]);
+		i++;
+	}
 	
+	if(custom_cmd)
+	{
+		printf("custom cmd : %s\n", custom_cmd);
+	}
+	else if (builtin_cmd_path)
+	{
+		printf("cmd_path : %s\n", builtin_cmd_path);
+	}
+	else
+		return(ERR_CMD);
 	return(0);
 }
 
