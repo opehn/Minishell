@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 23:50:39 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 23:05:54 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:37:24 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "env.h"
 # include <string.h>
 # include <errno.h>
+# include <stdio.h>
 
 int	custom_pwd(char **optarg);
 

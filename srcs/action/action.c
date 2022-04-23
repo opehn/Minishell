@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 23:12:35 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:18:21 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 	if(custom_cmd)
 	{
 		opts_arr = ft_split(optarg, '\n');
-		custom_cmd_action(info, custom_cmd, opts_arr);
+		g_exit_status = custom_cmd_action(info, custom_cmd, opts_arr);
 	}
 	else if (builtin_cmd_path)
 	{

@@ -6,11 +6,12 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 17:15:27 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 23:04:24 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:45:12 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
+#include <unistd.h>
 
 static int	perror_cd_many(char *project, char *pathname)
 {
@@ -73,9 +74,12 @@ void	change_env(t_info *info)
 
 int	custom_cd(t_info *info, char **optarg)
 {
-	if (optarg[1])
+	printf("optarg[0] : %s in custom_cd\n", optarg[0]);
+	if (!optarg || !(*optarg))
+		return (2);
+	else if (optarg[1])
 		return (perror_cd_many("minishell", "cd"));
-	if (chdir(optarg[0]) == -1)
+	else if (chdir(optarg[0]) == -1)
 		return (perror_cd("minishell", optarg[0]));
 	else
 		change_env(info);
