@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 18:04:07 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/23 18:18:53 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 	}
 	if(custom_cmd)
 	{
-		custom_cmd_action(info, cmd, opts_arr);
+		custom_cmd_action(info, custom_cmd, opts_arr);
 	}
 	else if (builtin_cmd_path)
 	{
@@ -61,7 +61,7 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 
 int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
 {
-	if (cmd == PWD)
+	if (cmd == CMD_PWD)
 		//PWD함수 실행 
 	return (0);
 }

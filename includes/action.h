@@ -10,12 +10,12 @@
 
 typedef enum e_custom_cmd
 {
-	ECHO = 2,
-	CD = 3,
-	PWD = 4,
-	EXPORT = 5,
-	UNSET = 6,
-	EXIT = 7
+	CMD_ECHO = 2,
+	CMD_CD = 3,
+	CMD_PWD = 4,
+	CMD_EXPORT = 5,
+	CMD_UNSET = 6,
+	CMD_EXIT = 7
 } t_custom_cmd;
 /*
 ** =============================================================================

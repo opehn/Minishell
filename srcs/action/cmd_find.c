@@ -8,17 +8,17 @@ int	find_custom_cmd(char *cmd)
 
 	cmd_len = ft_strlen(cmd);
 	if (!ft_strcmp(cmd, "echo", cmd_len, 4))
-		return (ECHO);
+		return (CMD_ECHO);
 	if (!ft_strcmp(cmd, "cd", cmd_len, 2))
-		return (CD);
+		return (CMD_CD);
 	if (!ft_strcmp(cmd, "pwd", cmd_len, 3))
-		return (PWD);
+		return (CMD_PWD);
 	if (!ft_strcmp(cmd, "export", cmd_len, 6))
-		return (EXPORT);
+		return (CMD_EXPORT);
 	if (!ft_strcmp(cmd, "unset", cmd_len, 5))
-		return (UNSET);
+		return (CMD_UNSET);
 	if (!ft_strcmp(cmd, "exit", cmd_len, 4))
-		return (EXIT);
+		return (CMD_EXIT);
 	return (0);
 
 }
