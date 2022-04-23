@@ -8,11 +8,15 @@
 # define OUT 0
 # define IN 1
 
-#define	CMD1 "echo"
-#define	CMD2 "pwd"
-#define	CMD3 "export"
-#define	CMD4 "unset"
-#define	CMD5 "exit"
+typedef enum e_custom_cmd
+{
+	ECHO = 2,
+	CD = 3,
+	PWD = 4,
+	EXPORT = 5,
+	UNSET = 6,
+	EXIT = 7
+} t_custom_cmd;
 /*
 ** =============================================================================
 ** action.c
@@ -23,6 +27,7 @@ int		exit_status_chk(t_forest *forest);
 void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out);
 void	preorder(t_info *info, t_forest *forest, t_tree *tree);
 void	pipe_setting(t_forest *cur_forest);
+int		custom_cmd_action(t_info *info, int cmd, char **opts_arr);
 
 
 /*
@@ -63,10 +68,9 @@ int		perror_redir(char *project, char *pathname);
 ** =============================================================================
 */
 int     cmd_action(t_info *info, char *cmd, char *optarg);
-char	*find_custom_cmd(char *cmd);
 char	*find_builtin_cmd(t_env_list *env_list, char *cmd);
 char    *find_env_path(t_env_list *env_list);
 char    *match_builtin_cmd(char **cmd_array, char *cmd);
-char	*find_custom_cmd(char *cmd);
+int		find_custom_cmd(char *cmd);
 
 #endif

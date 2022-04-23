@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 15:49:50 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/23 18:04:07 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,38 @@ void	pipe_setting(t_forest *cur_forest)
 
 int		cmd_action(t_info *info, char *cmd, char *optarg)
 {
-	char	*custom_cmd;
+	int		custom_cmd;
 	char	*builtin_cmd_path;
 	char	**opts_arr;
 
 	custom_cmd = find_custom_cmd(cmd);
 	builtin_cmd_path = find_builtin_cmd(info->env_list, cmd);
 	opts_arr = ft_split(optarg, '\n');
+
 	int i = 0;
 	while(opts_arr[i])
 	{
 		printf("opts_arr[%d] : %s\n", i, opts_arr[i]);
 		i++;
 	}
-	
 	if(custom_cmd)
 	{
-		printf("custom cmd : %s\n", custom_cmd);
+		custom_cmd_action(info, cmd, opts_arr);
 	}
 	else if (builtin_cmd_path)
 	{
-		printf("cmd_path : %s\n", builtin_cmd_path);
+	//	execve(builtin_cmd_path, opts_arr, )
 	}
 	else
 		return(ERR_CMD);
 	return(0);
+}
+
+int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
+{
+	if (cmd == PWD)
+		//PWD함수 실행 
+	return (0);
 }
 
 void	preorder(t_info *info, t_forest *forest, t_tree *tree)
