@@ -6,11 +6,12 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 18:18:53 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/23 18:25:13 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
+#include "custom_cmd.h"
 #include <stdio.h>
 
 int	g_exit_status;
@@ -62,7 +63,7 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
 {
 	if (cmd == CMD_PWD)
-		//PWD함수 실행 
+		custom_pwd(opts_arr);
 	return (0);
 }
 
