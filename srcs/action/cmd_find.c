@@ -9,6 +9,8 @@ char	*find_custom_cmd(char *cmd)
 	cmd_len = ft_strlen(cmd);
 	if (!ft_strcmp(cmd, "echo", cmd_len, 4))
 		return ("echo");
+	if (!ft_strcmp(cmd, "cd", cmd_len, 2))
+		return ("cd");
 	if (!ft_strcmp(cmd, "pwd", cmd_len, 3))
 		return ("pwd");
 	if (!ft_strcmp(cmd, "export", cmd_len, 6))
