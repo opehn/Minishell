@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 18:25:13 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/23 20:27:45 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,19 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 	char	*builtin_cmd_path;
 	char	**opts_arr;
 
+	custom_cmd = 0;
 	custom_cmd = find_custom_cmd(cmd);
 	builtin_cmd_path = find_builtin_cmd(info->env_list, cmd);
-	opts_arr = ft_split(optarg, '\n');
 
-	int i = 0;
-	while(opts_arr[i])
-	{
-		printf("opts_arr[%d] : %s\n", i, opts_arr[i]);
-		i++;
-	}
 	if(custom_cmd)
 	{
+		opts_arr = ft_split(optarg, '\n');
 		custom_cmd_action(info, custom_cmd, opts_arr);
 	}
 	else if (builtin_cmd_path)
 	{
-	//	execve(builtin_cmd_path, opts_arr, )
+		opts_arr = split_opts(builtin_cmd_path, optarg, SEP);
+		execve(builtin_cmd_path, opts_arr, info->envp);
 	}
 	else
 		return(ERR_CMD);
@@ -64,6 +60,10 @@ int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
 {
 	if (cmd == CMD_PWD)
 		custom_pwd(opts_arr);
+	if (cmd == CMD_EXPORT)
+		custom_export(info, opts_arr);
+	if (cmd == CMD_UNSET)
+		custom_unset(info, opts_arr);
 	return (0);
 }
 

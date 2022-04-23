@@ -29,6 +29,8 @@
 ** =============================================================================
 */
 
+#include <unistd.h>
+
 int		print_err(int res);
 void	exit_error(char *str);
 

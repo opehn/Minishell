@@ -45,31 +45,24 @@ void    init_env(t_env_list **env_list, char **envp)
     temp->next = NULL;
 }
 
-void    init_info(t_info **info, t_env_list *env_list)
+void    init_info(t_info **info, char **envp, t_env_list *env_list)
 {
     *info = (t_info *)malloc(sizeof(t_info));
     if (!(*info))
         exit_error(ERR_MALLOC);
     (*info)->root = NULL;
     (*info)->forest = NULL;
+	(*info)->envp = envp;
     (*info)->env_list = env_list;
     (*info)->heredoc = NULL;
 }
 
-void    prompt(t_env_list *env_list)
+void    prompt(char **envp, t_env_list *env_list)
 {
     t_info  *info;
     char	*input;
-    // int     i;
 
-    // i = 0;
-    init_info(&info, env_list);
-    // while(env_list)
-    // {
-    //     printf("env[%d] : key = %s, value = %s\n", i, env_list->key, env_list->value);
-    //     env_list = env_list->next;
-    //     i++;
-    // }
+    init_info(&info, envp, env_list);
     while(1)
     {
         input = readline("acho> ");
@@ -99,6 +92,6 @@ int main(int argc, char **argv, char **envp)
     printf("%d %p\n", argc, argv);
     //set_signal();
     init_env(&env_list, envp);
-    prompt(env_list);
+    prompt(envp, env_list);
 	return (0);
 }

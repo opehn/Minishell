@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>	+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/27 15:24:33 by taeheoki		  #+#	#+#			 */
-/*   Updated: 2022/04/23 15:27:57 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/23 19:20:57 by acho             ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_info
 {
 	t_tree		**root;
 	t_forest	*forest;
+	char		**envp;
 	t_env_list	*env_list;
 	t_heredoc	*heredoc;
 } t_info;
