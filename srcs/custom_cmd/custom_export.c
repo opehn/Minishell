@@ -95,7 +95,7 @@ int	custom_export(t_info *info, char **opts_arr)
 		if (match_key_index)
 			modify_env_list(info, key_value, match_key_index);
 		else
-			append_env_list(info, key_value);
+			append_env_list(info, key_value[0], key_value[1]);
 	}
 	return (0);
 }

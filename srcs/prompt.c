@@ -74,11 +74,6 @@ void    prompt(char **envp, t_env_list *env_list)
         add_history(input);
         parsing(info, input);
         action(info);
-		// if (parsing(input))
-		// {
-		//   트리만듬
-		//   cmd_run(tree)
-		// }
     }
 }
 
@@ -89,7 +84,7 @@ int main(int argc, char **argv, char **envp)
     argc = 0;
     argv = NULL;
     printf("%d %p\n", argc, argv);
-    //set_signal();
+    set_signal();
     init_env(&env_list, envp);
     prompt(envp, env_list);
 	return (0);

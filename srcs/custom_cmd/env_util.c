@@ -17,14 +17,14 @@ t_env_list  *new_env_list(char *key, char *value)
 	return (new);
 }
 
-void	append_env_list(t_info *info, char **key_value)
+void	append_env_list(t_info *info, char *key, char *value)
 {
 	t_env_list *temp;
 
 	temp = info->env_list;
 	while (temp->next)
 		temp = temp->next;
-	temp->next = new_env_list(key_value[0], key_value[1]);
+	temp->next = new_env_list(key, value);
 }
 
 void	modify_env_list(t_info *info, char **key_value, int key_index)
