@@ -51,6 +51,7 @@ typedef struct s_heredoc
 
 typedef struct s_info
 {
+	int			pipe_cnt;
 	t_tree		**root;
 	t_forest	*forest;
 	char		**envp;

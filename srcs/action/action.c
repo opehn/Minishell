@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/24 15:38:51 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/24 16:02:32 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,17 +125,17 @@ void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out)
 	}
 }
 
-int	exit_status_chk(t_forest *forest)
+int	exit_status_chk(t_info *info)
 {
 	int	status;
 
-	if (no_fork_cmd(setting_cmd(forest)))
-		forest = forest->next;
-	while (forest)
+	if (no_fork_cmd(setting_cmd(info->forest)) && (info->pipe_cnt == 1))
+		info->forest = info->forest->next;
+	while (info->forest)
 	{
-		if (waitpid(forest->pid, &status, 0) == -1)
+		if (waitpid(info->forest->pid, &status, 0) == -1)
 			exit_error(ERR_WAITPID);
-		forest = forest->next;
+		info->forest = info->forest->next;
 	}
 	if (ft_wifexited(status))
 		return (ft_wexitstatus(status));
@@ -155,7 +155,7 @@ void	action(t_info *info)
 	cur_forest = info->forest;
 	in = dup(STDIN_FILENO);
 	out = dup(STDOUT_FILENO);
-	if (no_fork_cmd(setting_cmd(cur_forest)))
+	if (no_fork_cmd(setting_cmd(cur_forest)) && (info->pipe_cnt == 1))
 	{
 		preorder(info, cur_forest, cur_forest->root);
 		cur_forest = cur_forest->next;
@@ -171,5 +171,5 @@ void	action(t_info *info)
 		fork_forest(info, cur_forest, in, out);
 		cur_forest = cur_forest->next;
 	}
-	g_exit_status = exit_status_chk(info->forest);
+	g_exit_status = exit_status_chk(info);
 }
