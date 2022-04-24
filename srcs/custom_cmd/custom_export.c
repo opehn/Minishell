@@ -1,15 +1,51 @@
 #include "action.h"
 #include "custom_cmd.h"
 #include "error.h"
+#include "env.h"
 
 #include <stdio.h>
 
+extern int g_exit_status;
+
+int		find_equal_args(char **opts_arr)
+{
+	int	i;
+
+	i = 1;
+	while (opts_arr[i]) //if arg is '='
+	{
+		if (!ft_strcmp(opts_arr[i], "=", ft_strlen(opts_arr[i]), 1))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	chk_export_error(char **opts_arr)
 {
-	if (opts_arr[0])
+	if (opts_arr[0][0] == '-') //if option
 	{
-		if (opts_arr[0][0] == '-')
-			ft_putendl_fd("minishell : export : no option", STDERR_FILENO);
+		ft_putendl_fd("minishell : export : no option", STDERR_FILENO);
+		g_exit_status = 0;
+		return (1);
+	}
+	if (opts_arr[1]) //if arg > 1
+	{
+		if (find_equal_args(opts_arr))
+			ft_putendl_fd("minishell : export : bad assignment", STDERR_FILENO);
+		g_exit_status = 0;
+		return (1);
+	}
+	if (find_space(opts_arr[0])) //if arg has space
+	{
+		ft_putstr_fd("minishell : export : not valid in the context : ", STDERR_FILENO);
+		ft_putendl_fd(opts_arr[0], STDERR_FILENO);
+		g_exit_status = 1;
+		return (1);
+	}
+	if (!ft_strchr(opts_arr[0], '=')) //no equal in arg
+	{
+		g_exit_status = 0;
 		return (1);
 	}
 	return (0);
@@ -22,16 +58,44 @@ void	print_env_list(t_info *info)
 	env_list = info->env_list;
 	while(env_list)
 	{
+		write(STDOUT_FILENO, env_list->key, ft_strlen(env_list->key));
+		write(STDOUT_FILENO, "=", 1);
 		ft_putendl_fd(env_list->value, STDOUT_FILENO);
 		env_list = env_list->next;
 	}
 }
 
-int	custom_export(t_info *info, char **opts_arr)
+int  find_space(char *s)
 {
-	if (chk_export_error(opts_arr))
-		return (1);
-	print_env_list(info);
+	while(*s)
+	{
+		if (*s == ' ')
+			return (1);
+		s++;
+	}
 	return (0);
 }
 
+int	custom_export(t_info *info, char **opts_arr)
+{
+	char	*key_value[2];
+	int		match_key_index;
+
+	if (!opts_arr[0])
+	{
+		print_env_list(info);
+		return (0);
+	}
+	if (chk_export_error(opts_arr))
+		return (1);
+	else
+	{
+		make_key_value(opts_arr[0], key_value);
+		match_key_index = find_match_key(info->env_list, key_value[0]);
+		if (match_key_index)
+			modify_env_list(info, key_value, match_key_index);
+		else
+			append_env_list(info, key_value);
+	}
+	return (0);
+}
