@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 23:50:39 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 23:37:24 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/24 18:38:38 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,12 @@ int		custom_cd(t_info *info, char **optarg);
 
 int custom_export(t_info *info, char **opts_arr);
 int custom_unset(t_info *info, char **opts_arr);
+
+int    find_match_key(t_env_list *env_list, char *key);
+void    append_env_list(t_info *info, char **key_value);
+t_env_list  *new_env_list(char *key, char *value);
+int make_key_value(char *arg, char **key_value);
+int  find_space(char *s);
+void    modify_env_list(t_info *info, char **key_value, int key_index);
 
 #endif

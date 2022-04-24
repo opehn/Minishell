@@ -33,7 +33,6 @@ int if_quot(char *data, int *i, char **remain)
 
 int if_quot_expand(char *data, int *i, char **res, t_env_list *env_list)
 {
-//	printf("if_quot_expand\n");
     char cur;
 
     if (data[*i] == S_QUOT || data[*i] == D_QUOT)

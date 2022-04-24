@@ -8,7 +8,4 @@ typedef struct s_env_list
 	struct s_env_list *next;
 } t_env_list;
 
-t_env_list  *new_env_list(char *arg, char *equal);
-void    append_env_list(t_env_list *env_list, char *arg, char *equal);
-
 #endif

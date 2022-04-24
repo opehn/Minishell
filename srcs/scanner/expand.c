@@ -12,12 +12,17 @@ extern int g_exit_status;
 int expand_ds(char *data, int *i, char **res, t_env_list *env_list, int quot_flag)
 {
     (*i)++;
+	if (quot_flag)
+	{
+		no_quot_expand(data, i, res, env_list);
+		(*i)++;
+		return (0);
+	}
 	if (data[*i] == D_QUOT || data[*i] == S_QUOT)
     {
         if_quot_expand(data, i, res, env_list);
         return (1);
     }
-    
     else
         no_quot_expand(data, i, res, env_list);
     return (0);
