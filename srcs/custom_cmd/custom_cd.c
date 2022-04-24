@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 17:15:27 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/24 00:07:36 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/24 15:50:56 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	change_env(t_info *info)
 
 int	custom_cd(t_info *info, char **optarg)
 {
-	printf("optarg[0] : %s in custom_cd\n", optarg[0]);
 	if (!optarg || !(*optarg))
 		return (2);
 	else if (optarg[1])

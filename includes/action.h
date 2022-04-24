@@ -23,7 +23,7 @@ typedef enum e_custom_cmd
 ** =============================================================================
 */
 void	action(t_info *info);
-int		exit_status_chk(t_forest *forest);
+int		exit_status_chk(t_info *info);
 void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out);
 void	preorder(t_info *info, t_forest *forest, t_tree *tree);
 void	pipe_setting(t_forest *cur_forest);
