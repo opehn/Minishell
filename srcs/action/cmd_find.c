@@ -2,6 +2,22 @@
 #include <stdio.h>
 #include <dirent.h>
 
+int	no_fork_cmd(char *cmd)
+{ 
+	int	cmd_len;
+
+	cmd_len = ft_strlen(cmd);
+	if (!ft_strcmp(cmd, "cd", cmd_len, 2))
+		return (CMD_CD);
+	if (!ft_strcmp(cmd, "export", cmd_len, 6))
+		return (CMD_EXPORT);
+	if (!ft_strcmp(cmd, "unset", cmd_len, 5))
+		return (CMD_UNSET);
+	if (!ft_strcmp(cmd, "exit", cmd_len, 4))
+		return (CMD_EXIT);
+	return (0);
+}
+
 int	find_custom_cmd(char *cmd)
 { 
 	int	cmd_len;
@@ -20,7 +36,6 @@ int	find_custom_cmd(char *cmd)
 	if (!ft_strcmp(cmd, "exit", cmd_len, 4))
 		return (CMD_EXIT);
 	return (0);
-
 }
 
 char	*find_builtin_cmd(t_env_list *env_list, char *cmd)

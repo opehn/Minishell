@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 23:18:21 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/24 15:38:51 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 #include <stdio.h>
 
 int	g_exit_status;
+
+char	*setting_cmd(t_forest *forest)
+{
+	t_tree	*temp;
+
+	temp = forest->root;
+	while (temp)
+	{
+		if (temp->left_child && (temp->left_child->type == CMD))
+			return (temp->left_child->data);
+		temp = temp->right_child;
+	}
+	return (NULL);
+}
 
 void	pipe_setting(t_forest *cur_forest)
 {
@@ -29,6 +43,20 @@ void	pipe_setting(t_forest *cur_forest)
 		close(cur_forest->fd[OUT]);
 		close(cur_forest->fd[IN]);
 	}
+}
+
+
+int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
+{
+	if (cmd == CMD_PWD)
+		return (custom_pwd(opts_arr));
+	else if (cmd == CMD_EXPORT)
+		return (custom_export(info, opts_arr));
+	else if (cmd == CMD_UNSET)
+		return (custom_unset(info, opts_arr));
+	else if (cmd == CMD_CD)
+		return (custom_cd(info, opts_arr));
+	return (0);
 }
 
 int		cmd_action(t_info *info, char *cmd, char *optarg)
@@ -54,19 +82,6 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 	else
 		return(ERR_CMD);
 	return(0);
-}
-
-int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
-{
-	if (cmd == CMD_PWD)
-		return (custom_pwd(opts_arr));
-	else if (cmd == CMD_EXPORT)
-		return (custom_export(info, opts_arr));
-	else if (cmd == CMD_UNSET)
-		return (custom_unset(info, opts_arr));
-	else if (cmd == CMD_CD)
-		return (custom_cd(info, opts_arr));
-	return (0);
 }
 
 void	preorder(t_info *info, t_forest *forest, t_tree *tree)
@@ -114,6 +129,8 @@ int	exit_status_chk(t_forest *forest)
 {
 	int	status;
 
+	if (no_fork_cmd(setting_cmd(forest)))
+		forest = forest->next;
 	while (forest)
 	{
 		if (waitpid(forest->pid, &status, 0) == -1)
@@ -138,6 +155,11 @@ void	action(t_info *info)
 	cur_forest = info->forest;
 	in = dup(STDIN_FILENO);
 	out = dup(STDOUT_FILENO);
+	if (no_fork_cmd(setting_cmd(cur_forest)))
+	{
+		preorder(info, cur_forest, cur_forest->root);
+		cur_forest = cur_forest->next;
+	}
 	while (cur_forest)
 	{
 		if (cur_forest->next)

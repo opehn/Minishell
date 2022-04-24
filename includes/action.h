@@ -28,6 +28,7 @@ void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out);
 void	preorder(t_info *info, t_forest *forest, t_tree *tree);
 void	pipe_setting(t_forest *cur_forest);
 int		custom_cmd_action(t_info *info, int cmd, char **opts_arr);
+char	*setting_cmd(t_forest *forest);
 
 
 /*
@@ -72,6 +73,7 @@ char	*find_builtin_cmd(t_env_list *env_list, char *cmd);
 char    *find_env_path(t_env_list *env_list);
 char    *match_builtin_cmd(char **cmd_array, char *cmd);
 int		find_custom_cmd(char *cmd);
+int		no_fork_cmd(char *cmd);
 
 char    **split_opts(char const *cmd, char const *opts, char c);
 
