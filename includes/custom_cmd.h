@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 23:50:39 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 23:37:24 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/24 19:36:08 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ int		custom_cd(t_info *info, char **optarg);
 
 int custom_export(t_info *info, char **opts_arr);
 int custom_unset(t_info *info, char **opts_arr);
+
+int	custom_echo(char **optarg);
 
 #endif
