@@ -11,6 +11,7 @@ extern int g_exit_status;
 
 int expand_ds(char *data, int *i, char **res, t_env_list *env_list, int quot_flag)
 {
+	printf("expand_ds\n");
     (*i)++;
 	if (quot_flag)
 	{
@@ -30,6 +31,7 @@ int expand_ds(char *data, int *i, char **res, t_env_list *env_list, int quot_fla
 
 void    no_quot_expand(char *data, int *i, char **res, t_env_list *env_list)
 {
+	printf("no_quot_expand_ds\n");
     char *key;
     int  result;
 
@@ -71,6 +73,8 @@ char    *make_key(char *data, int *i)
 
 int expand_if_match(int *i, char *key, char** res, t_env_list *env_list)
 {
+	printf("expand_if_match\n");
+	printf("key : %s\n", key);
     if (!ft_strcmp(key, "?", ft_strlen(key), 1))
     {
         expand_exit_status(i, res);
@@ -91,9 +95,13 @@ int expand_if_match(int *i, char *key, char** res, t_env_list *env_list)
 
 void    expand_exit_status(int *i, char **res)
 {
+	printf("expand_exit_status\n");
     char *exit_status;
+	printf("i : %d\n", *i);
 
     exit_status = ft_itoa(g_exit_status);
     *res = ft_strjoin(*res, exit_status);
-    *i += ft_strlen(exit_status);
+    (*i)++; 
+	printf("i : %d\n", *i);
+
 }
