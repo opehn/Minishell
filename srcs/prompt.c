@@ -4,19 +4,47 @@
 #include "parsing.h"
 #include "action.h"
 
-void    sigint_handler(int signum)
+void	signal_handler(int signum)
 {
-    ++signum;
-    printf("\n");
-    rl_on_new_line();
-    rl_replace_line("", 0);
-    rl_redisplay();
+    pid_t   pid;
+    int     status;
+
+    pid = waitpid(-1, &status, WNOHANG);
+    if (signum == SIGINT)
+    {
+        if (pid == -1)
+        {
+            ft_putendl_fd("", STDOUT_FILENO);
+            rl_on_new_line();
+            rl_replace_line("", 0);
+            rl_redisplay();
+        }
+        else
+            ft_putendl_fd("", STDOUT_FILENO);
+    }
+    else if (signum == SIGQUIT)
+    {
+        if (pid == 0)
+        {
+            printf("checking %d in signal\n", pid);
+            ft_putendl_fd("Quit: 3", STDOUT_FILENO);
+            rl_on_new_line();
+		    rl_replace_line("", 0);
+        }
+        else
+        {
+            rl_on_new_line();
+            rl_replace_line("", 1);
+	    	rl_redisplay();
+            // write(1, "  \b\b", 4);
+        }
+    }
 }
 
 void    set_signal(void)
 {
-    signal(SIGINT, sigint_handler);
-    signal(SIGQUIT, SIG_IGN);
+    signal(SIGINT, signal_handler);
+    signal(SIGQUIT, signal_handler);
 }
 
 void    init_env(t_env_list **env_list, char **envp)
@@ -69,7 +97,7 @@ void    prompt(char **envp, t_env_list *env_list)
         if (!input)
         {
             rl_replace_line("", 0);
-            printf("exit");
+            printf("exit\n");
             exit(0);
         }
         add_history(input);
