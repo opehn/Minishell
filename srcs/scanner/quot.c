@@ -69,8 +69,8 @@ int find_next_dq(char *data, int *i, char **res, t_env_list *env_list)
 
 	while (data[*i])
 	{
-		//printf("remain[%d] : %c\n", *i, data[*i]);
-		//printf("cmd : %s\n", *remain);
+//		printf("remain[%d] : %c\n", *i, data[*i]);
+//		printf("cmd : %s\n", *res);
 		start = *i;
 		if (data[*i] == DS)
 			expand_ds(data, i, res, env_list, 1);

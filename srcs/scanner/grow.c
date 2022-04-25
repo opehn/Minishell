@@ -53,7 +53,7 @@ void	parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 
 void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i)
 {
-	printf("make_Cmd\n");
+	//printf("make_Cmd\n");
 	int	start;
 
 	while (remain[*i] && remain[*i] != SEP)
@@ -77,10 +77,10 @@ void	make_opts(char *remain, t_env_list *env_list, char **opts, int *i)
 {
 	int	start;
 
-	printf("remain : %s\n", remain);
+	//printf("remain : %s\n", remain);
 	while (remain[*i])
 	{
-		printf("remain[%d] : %c\n", *i, remain[*i]);
+	//	printf("remain[%d] : %c\n", *i, remain[*i]);
 		start = *i;
 		if_quot_expand(remain, i, opts, env_list);
 		if (remain[*i] == DS)

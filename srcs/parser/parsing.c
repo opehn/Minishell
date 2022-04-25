@@ -35,14 +35,14 @@ int	parsing(t_info *info, char *input)
 		return (print_err(res));
 	if (!pipe->pipe_data)
 		return (0);
-	printf("파이프파싱 완료\n");
+	//printf("파이프파싱 완료\n");
 	
 	res = parsing_tree(info, pipe);
 	if (res)
 		return (print_err(res));
-	printf("트리 파싱 완료\n");
+//	printf("트리 파싱 완료\n");
 	
-	   int	i;
+/*	   int	i;
 	   int	j;
 	   i = 0;
 	   t_tree	*temp;
@@ -66,7 +66,7 @@ int	parsing(t_info *info, char *input)
 	   		j++;
 	   	}
 	   	i++;
-	   }
+	   }*/
 	free(pipe);
 	pipe = 0;
 	return (0);
