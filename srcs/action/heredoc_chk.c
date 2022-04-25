@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:33 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/22 16:42:39 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 01:07:52 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	init_heredoc_buf(t_info *info, char *end_word, int index)
 void	heredoc_chk(t_info *info)
 {
 	t_forest	*cur_forest;
+	t_tree		*temp;
 	int			cnt;
 	int			index;
 
@@ -90,8 +91,7 @@ void	heredoc_chk(t_info *info)
 	if (cnt == 0)
 		return ;
 	info->heredoc = (t_heredoc *)malloc(sizeof(t_heredoc) * cnt);
-	info->heredoc->fd[IN] = 0;
-	info->heredoc->fd[OUT] = 0;
+	temp = info->forest->root;
 	index = 0;
 	while (cur_forest)
 	{
@@ -108,4 +108,5 @@ void	heredoc_chk(t_info *info)
 		}
 		cur_forest = cur_forest->next;
 	}
+	info->forest->root = temp;
 }

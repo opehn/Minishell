@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 17:15:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/21 21:14:58 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 01:11:27 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	heredoc(t_info *info)
 		i++;
 	if (dup2(info->heredoc[i].fd[OUT], STDIN_FILENO) == -1)
 		exit_error(ERR_HEREDOC);
+	info->heredoc[i].index = -1;
 	close(info->heredoc[i].fd[OUT]);
 	return (0);
 }
