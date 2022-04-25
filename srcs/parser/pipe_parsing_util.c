@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:26:00 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/11 19:55:25 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/25 16:34:15 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,29 @@ void	quot_chk(int *d_quot_flag, int *s_quot_flag, char input)
 		++(*s_quot_flag);
 }
 
-int	pipe_split(char *input, t_pipe_list *temp)
+bool    is_odd(int num)
 {
-	int	s_idx;
-	int	l_idx;
-	int	input_len;
-
-	s_idx = temp->s_idx;
-	l_idx = temp->l_idx;
-	input_len = (int)ft_strlen(input);
-	if (!input || !temp)
-		exit_error(ERR_PIPE_SPLIT);
-	temp->pipe_data = ft_strndup(input + s_idx, l_idx - s_idx);
-	if (l_idx < input_len && find_char(input, l_idx + 1, input_len))//끝이 아니면서 문자가 있을때
-	{
-		append_pipe_list(temp, l_idx);
-		return (0);
-	}
-	return (ERR_SYNTAX);
+    if (num % 2 == 1)
+        return (true);
+    else
+        return (false);
 }
 
-int	split_if_even(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *temp)
+int     chk_data_null(char *input, int start, int end)
 {
-	int	res;
+    int         d_quot_flag;
+    int         s_quot_flag;
 
-	if (!is_odd(d_quot_flag) && !is_odd(s_quot_flag))
-	{
-		res = pipe_split(input, temp);
-		if (res)
-			return (res);
-		// temp = temp->next;
-	}
-	return (0);
+    while(start < end)
+    {
+        quot_chk(&d_quot_flag, &s_quot_flag, input[start]);
+        if (!is_odd(d_quot_flag) || !is_odd(s_quot_flag))
+        {
+            if (input[start] != ' ')
+                return (1); // if character (except space)
+        }
+        start++;
+    }
+    return (0);
 }
-
 

@@ -1,11 +1,9 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+/*                                                                            */ /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
+/*                                                +#+#+#+#+#+   +#+           */ /*   Created: 2022/03/27 14:56:47 by taeheoki          #+#    #+#             */
 /*   Updated: 2022/04/23 23:55:19 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -16,29 +14,6 @@
 
 char	*test_type(int	type);
 
-bool	is_odd(int num)
-{
-	if (num % 2 == 1)
-		return (true);
-	else
-		return (false);
-}
-
-int		find_char(char *input, int start, int end)
-{
-	int i;
-
-	i = 0;
-	while(i < end && input[start] != '|')
-	{
-		if (input[start] != ' ')
-			return (1);  // if character (except space)
-		start++;
-		i++;
-	}
-	return (0);
-}
-
 /*
 ** =============================================================================
 ** pipe_parsing에 대한 의문점
@@ -46,48 +21,20 @@ int		find_char(char *input, int start, int end)
 **	  널이 아닌 경우가 있다. 하지만 길이는 항상 일정하게 나온다.
 */
 
-int		pipe_parsing(char *input, t_pipe_list *pipe)
-{
-	t_pipe_list *temp;
-	int			d_quot_flag;
-	int			s_quot_flag;
-	int			res;
-
-	d_quot_flag = 0;
-	s_quot_flag = 0;
-	res = 0;
-	temp = pipe;
-	while (input[temp->l_idx] != '\0')
-	{
-		quot_chk(&d_quot_flag, &s_quot_flag, input[temp->l_idx]);
-		if (input[temp->l_idx] == PIPE)
-		{
-			res = split_if_even(d_quot_flag, s_quot_flag, input, temp);
-			if (temp->next)
-				temp = temp->next;
-		}
-		if (res)
-			return (res);
-		temp->l_idx++;
-	}
-	if (is_odd(d_quot_flag) || is_odd(s_quot_flag))
-		return(ERR_UNCLOSED);
-	if (temp->s_idx != temp->l_idx)
-		if (find_char(input, temp->s_idx, temp->l_idx))
-			pipe_split(input, temp);
-	return (0);
-}
-
 int	parsing(t_info *info, char *input)
 {
 	t_pipe_list	*pipe;
 	int	res;
 
 	res = 0;
+	if (!input[0])
+		return (1);
 	pipe = init_pipe_list();
 	res = pipe_parsing(input, pipe);
 	if (res)
 		return (print_err(res));
+	if (!pipe->pipe_data)
+		return (0);
 	printf("파이프파싱 완료\n");
 	
 	res = parsing_tree(info, pipe);

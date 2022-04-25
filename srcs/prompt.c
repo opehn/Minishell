@@ -60,6 +60,7 @@ void    prompt(char **envp, t_env_list *env_list)
 {
     t_info  *info;
     char	*input;
+	int		res;
 
     init_info(&info, envp, env_list);
     while(1)
@@ -72,8 +73,11 @@ void    prompt(char **envp, t_env_list *env_list)
             exit(0);
         }
         add_history(input);
-        parsing(info, input);
-        action(info);
+        res = parsing(info, input);
+		if (!res)
+		{
+			action(info);
+		}
     }
 }
 

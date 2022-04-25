@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>	+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/03/27 15:24:33 by taeheoki		  #+#	#+#			 */
-/*   Updated: 2022/04/23 19:20:57 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/25 16:29:05 by acho             ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -61,30 +61,54 @@ typedef struct s_info
 
 /*
 ** =============================================================================
-** parse_chk.c
+** parsing.c
 ** =============================================================================
 */
 
-void	quot_chk(int *d_quot_flag, int *s_quot_flag, char input);
-int		pipe_split(char *input, t_pipe_list *temp);
-int		split_if_even(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *temp);
-
-
 int		parsing(t_info *info, char *input);
-int		pipe_split(char *input, t_pipe_list *temp);
-void	exit_error(char *str);
+
+/*
+** =============================================================================
+** pipe_parsing_util.c
+** =============================================================================
+*/
+
 bool	is_odd(int num);
+void	quot_chk(int *d_quot_flag, int *s_quot_flag, char input);
+int		chk_data_null(char *input, int start, int end);
+
+/*
+** =============================================================================
+** pipe_parsing.c
+** =============================================================================
+*/
+
+int		init_if_even(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *temp);
+int		init_last(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *temp);
+void	init_cur_pipe(char *input, t_pipe_list *temp);
 int		pipe_parsing(char *input, t_pipe_list *pipe);
 
+/*
+** =============================================================================
+** pipe_list_util.c
+** =============================================================================
+*/
 t_pipe_list	*init_pipe_list(void);
-void	append_pipe_list(t_pipe_list *cur, int l_idx);
-bool	add_list(t_pipe_list *list, char *new_data);
-int		find_char(char *input, int start, int end);
+void		append_pipe_list(t_pipe_list *cur, int l_idx);
 
-void	ft_putendl_fd(char *s, int fd);
-char	*ft_strndup(const char *s1, int n);
+/*
+** =============================================================================
+** parsing_tree.c
+** =============================================================================
+*/
 
 int		parsing_tree(t_info *info, t_pipe_list *pipe);
 int		count_tree(t_pipe_list *pipe);
+
+void	exit_error(char *str);
+bool		add_list(t_pipe_list *list, char *new_data);
+void	ft_putendl_fd(char *s, int fd);
+char	*ft_strndup(const char *s1, int n);
+
 
 #endif
