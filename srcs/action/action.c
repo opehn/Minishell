@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/25 21:17:34 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/25 21:39:18 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 		execve(builtin_cmd_path, opts_arr, info->envp);
 	}
 	else
+	{
+		g_exit_status = 127;
 		return(ERR_CMD);
+	}
 	return(0);
 }
 
