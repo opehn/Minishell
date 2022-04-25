@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/25 21:39:18 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/25 21:54:52 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
 	return (0);
 }
 
+static int	perror_cmd(char *project, char *cmd)
+{
+	ft_putstr_fd(project, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd("command not found", STDERR_FILENO);
+	return (127);
+}
+
 int		cmd_action(t_info *info, char *cmd, char *optarg)
 {
 	int		custom_cmd;
@@ -85,7 +95,7 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 	}
 	else
 	{
-		g_exit_status = 127;
+		g_exit_status = perror_cmd("minishell", cmd);
 		return(ERR_CMD);
 	}
 	return(0);
@@ -93,9 +103,6 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 
 void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 {
-	int	res;
-
-	res = 0;
 	if (tree == NULL)
 		return ;
 	if (tree->left_child && (tree->left_child->type == INPUT_RED || tree->left_child->type == OUTPUT_RED || \
@@ -106,12 +113,8 @@ void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 	}
 	if (tree->left_child && (tree->left_child->type == CMD))
 	{
-		res = cmd_action(info, tree->left_child->data, tree->right_child->data);
-		if (res)
-		{
-			print_err(res);
+		if (cmd_action(info, tree->left_child->data, tree->right_child->data) != 0)
 			return ;
-		}
 	}
 	preorder(info, forest, tree->right_child);
 }
