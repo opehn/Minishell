@@ -36,7 +36,7 @@ void	signal_handler(int signum)
             rl_on_new_line();
             rl_replace_line("", 1);
 	    	rl_redisplay();
-            // write(1, "  \b\b", 4);
+            write(1, "  \b\b", 4);
         }
     }
 }

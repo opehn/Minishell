@@ -25,6 +25,7 @@ int init_last(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *pipe)
     }
     return (0);
 }
+
 void    init_cur_pipe(char *input, t_pipe_list *pipe)
 {
     int s_idx;

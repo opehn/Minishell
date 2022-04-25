@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/25 20:15:31 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/25 21:17:34 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 
 void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 {
+	int	res;
+
+	res = 0;
 	if (tree == NULL)
 		return ;
 	if (tree->left_child && (tree->left_child->type == INPUT_RED || tree->left_child->type == OUTPUT_RED || \
@@ -99,8 +102,14 @@ void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 			return ;
 	}
 	if (tree->left_child && (tree->left_child->type == CMD))
-		if (cmd_action(info, tree->left_child->data, tree->right_child->data) != 0)
+	{
+		res = cmd_action(info, tree->left_child->data, tree->right_child->data);
+		if (res)
+		{
+			print_err(res);
 			return ;
+		}
+	}
 	preorder(info, forest, tree->right_child);
 }
 
