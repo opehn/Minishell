@@ -36,7 +36,7 @@ void	signal_handler(int signum)
             rl_on_new_line();
             rl_replace_line("", 1);
 	    	rl_redisplay();
-            // write(1, "  \b\b", 4);
+            // write(1, "\b\b\b\b", 4);
         }
     }
 }
@@ -93,7 +93,7 @@ void    prompt(char **envp, t_env_list *env_list)
     init_info(&info, envp, env_list);
     while(1)
     {
-        input = readline("acho> ");
+        input = readline("minishell> ");
         if (!input)
         {
             rl_replace_line("", 0);
