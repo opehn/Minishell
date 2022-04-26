@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_find.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 13:27:44 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 13:30:02 by taeheoki         ###   ########.fr       */
+/*   Created: 2022/04/26 15:54:35 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 15:55:13 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
-#include <stdio.h>
 #include <dirent.h>
 
 int	no_fork_cmd(char *cmd)
@@ -77,8 +76,8 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 		cur_dir_info = readdir(cur_dir);
 		while (cur_dir_info != NULL)
 		{
-			if (!ft_strcmp(cmd, cur_dir_info->d_name, ft_strlen(cmd), \
-				ft_strlen(cur_dir_info->d_name)))
+			if (!ft_strcmp(cmd, cur_dir_info->d_name, ft_strlen(cmd),
+					ft_strlen(cur_dir_info->d_name)))
 			{
 				path_array[i] = ft_strjoin_ch(path_array[i], '/');
 				return (ft_strjoin(path_array[i], cmd));

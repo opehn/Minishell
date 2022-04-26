@@ -6,47 +6,15 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:09:53 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/25 22:18:06 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 16:05:12 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree.h"
 #include "error.h"
-#include <stdio.h>
 #include "env.h"
 #include "parsing.h"
 #include "scanner.h"
-
-t_tree	*init_tree(int type, char *data, t_tree *left_child, t_tree *right_child)
-{
-	t_tree	*tree;
-
-	tree = (t_tree *)malloc(sizeof(t_tree));
-	if (!tree)
-		exit_error(ERR_MALLOC);
-	tree->type = type;
-	tree->data = data;
-	tree->left_child = left_child;
-	tree->right_child = right_child;
-	return (tree);
-}
-
-void	delete_tree(t_tree *tree)
-{
-	t_tree	*left_child;
-	t_tree	*right_child;
-
-	if (tree == NULL)
-		return ;
-	left_child = tree->left_child;
-	right_child = tree->right_child;
-	free(tree);
-	tree = 0;
-	if (tree->left_child != NULL)
-		delete_tree(left_child);
-	if (tree->right_child != NULL)
-		delete_tree(right_child);
-}
 
 int	count_tree(t_pipe_list *pipe)
 {
@@ -74,7 +42,23 @@ t_forest	*init_forest(t_tree *pipe_tree)
 	return (forest);
 }
 
-int		parsing_tree(t_info *info, t_pipe_list *pipe)
+t_forest	*setting_forest(t_info *info, t_tree **pipe_tree, int i, \
+							t_forest *temp)
+{
+	if (i == 0)
+	{
+		info->forest = init_forest(pipe_tree[i]);
+		temp = info->forest;
+	}
+	else if (i < info->pipe_cnt)
+	{
+		info->forest->next = init_forest(pipe_tree[i]);
+		info->forest = info->forest->next;
+	}
+	return (temp);
+}
+
+int	parsing_tree(t_info *info, t_pipe_list *pipe)
 {
 	int			i;
 	t_tree		**pipe_tree;
@@ -91,20 +75,10 @@ int		parsing_tree(t_info *info, t_pipe_list *pipe)
 	while (++i < info->pipe_cnt)
 	{
 		pipe_tree[i] = init_tree(0, pipe->pipe_data, NULL, NULL);
-		//printf("pipe_tree[%d] : %s\n", i, pipe_tree[i]->data);
 		res = scan_token(pipe_tree[i], info->env_list);
 		if (res)
 			return (res);
-		if (i == 0)
-		{
-			info->forest = init_forest(pipe_tree[i]);
-			temp = info->forest;
-		}
-		else if (i < info->pipe_cnt)
-		{
-			info->forest->next = init_forest(pipe_tree[i]);
-			info->forest = info->forest->next;
-		}
+		temp = setting_forest(info, pipe_tree, i, temp);
 		pipe = pipe->next;
 	}
 	info->forest = temp;
