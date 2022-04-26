@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_chk.c                                        :+:      :+:    :+:   */
+/*   pipe_parsing_util.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:26:00 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/25 16:34:15 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 16:26:25 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,28 @@ void	quot_chk(int *d_quot_flag, int *s_quot_flag, char input)
 		++(*s_quot_flag);
 }
 
-bool    is_odd(int num)
+bool	is_odd(int num)
 {
-    if (num % 2 == 1)
-        return (true);
-    else
-        return (false);
+	if (num % 2 == 1)
+		return (true);
+	else
+		return (false);
 }
 
-int     chk_data_null(char *input, int start, int end)
+int	chk_data_null(char *input, int start, int end)
 {
-    int         d_quot_flag;
-    int         s_quot_flag;
+	int	d_quot_flag;
+	int	s_quot_flag;
 
-    while(start < end)
-    {
-        quot_chk(&d_quot_flag, &s_quot_flag, input[start]);
-        if (!is_odd(d_quot_flag) || !is_odd(s_quot_flag))
-        {
-            if (input[start] != ' ')
-                return (1); // if character (except space)
-        }
-        start++;
-    }
-    return (0);
+	while (start < end)
+	{
+		quot_chk(&d_quot_flag, &s_quot_flag, input[start]);
+		if (!is_odd(d_quot_flag) || !is_odd(s_quot_flag))
+		{
+			if (input[start] != ' ')
+				return (1);
+		}
+		start++;
+	}
+	return (0);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompt.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 16:02:05 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 16:29:22 by taeheoki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "prompt.h"
 #include "error.h"
 #include "env.h"
@@ -96,7 +108,7 @@ void    prompt(char **envp, t_env_list *env_list)
     init_info(&info, envp, env_list);
     while(1)
     {
-        input = readline("minishell> ");
+        input = readline("minishell$ ");
         if (!input)
         {
             rl_replace_line("", 0);

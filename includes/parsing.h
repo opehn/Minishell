@@ -73,8 +73,8 @@ int			parsing(t_info *info, char *input);
 ** =============================================================================
 */
 
-bool		is_odd(int num);
 void		quot_chk(int *d_quot_flag, int *s_quot_flag, char input);
+bool		is_odd(int num);
 int			chk_data_null(char *input, int start, int end);
 
 /*
