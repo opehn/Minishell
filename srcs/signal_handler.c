@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:39:58 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 17:38:04 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:07:13 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,12 @@ static void	sigint_handler(pid_t pid)
 	g_exit_status = 130;
 }
 
-static void	sigquit_handler(pid_t pid)
+static void	sigquit_handler(void)
 {
-	if (pid == 0)
-	{
-		ft_putendl_fd("Quit: 3", STDOUT_FILENO);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
-	else
-		signal(SIGQUIT, SIG_IGN);
-	// {
-	// 	rl_on_new_line();
-	// 	rl_replace_line("", 0);
-	// 	rl_redisplay();
-	// 	write(1, "  \b\b", 4);
-	// }
+	ft_putstr_fd("Quit: 3", STDERR_FILENO);
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
 }
 
 void	signal_handler(int signum)
@@ -55,7 +45,7 @@ void	signal_handler(int signum)
 	if (signum == SIGINT)
 		sigint_handler(pid);
 	else if (signum == SIGQUIT)
-		sigquit_handler(pid);
+		sigquit_handler();
 }
 
 void	set_signal(void)

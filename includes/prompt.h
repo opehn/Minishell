@@ -19,4 +19,6 @@
 void	signal_handler(int signum);
 void	set_signal(void);
 
+char	*prompt_readline(char *prompt);
+
 #endif

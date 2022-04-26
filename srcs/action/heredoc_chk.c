@@ -6,13 +6,15 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:33 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 14:20:58 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:10:01 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
 #include "scanner.h"
 #include "prompt.h"
+
+extern int	g_exit_status;
 
 int	heredoc_cnt(t_forest *forest)
 {
@@ -64,7 +66,7 @@ void	init_heredoc_buf(t_info *info, char *end_word, int index)
 	info->heredoc[index].index = index;
 	while (1)
 	{
-		line = readline("> ");
+		line = prompt_readline("> ");
 		if (line != NULL && ft_strcmp(line, end_word, ft_strlen(line), \
 			ft_strlen(end_word)))
 		{

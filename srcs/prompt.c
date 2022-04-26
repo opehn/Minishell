@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:02:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 16:40:12 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:06:57 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ void	init_info(t_info **info, char **envp, t_env_list *env_list)
 	(*info)->heredoc = NULL;
 }
 
+char	*prompt_readline(char *prompt)
+{
+		char	*input;
+
+		signal(SIGQUIT, SIG_IGN);
+		input = readline(prompt);
+		set_signal();
+		return (input);
+}
+
 void	prompt(char **envp, t_env_list *env_list)
 {
 	t_info	*info;
@@ -62,7 +72,7 @@ void	prompt(char **envp, t_env_list *env_list)
 	init_info(&info, envp, env_list);
 	while (1)
 	{
-		input = readline("minishell$ ");
+		input = prompt_readline("minishell$ ");
 		if (!input)
 		{
 			rl_replace_line("", 0);
@@ -85,7 +95,6 @@ int	main(int argc, char **argv, char **envp)
 	argc = 0;
 	argv = NULL;
 	printf("%d %p\n", argc, argv);
-	set_signal();
 	init_env(&env_list, envp);
 	prompt(envp, env_list);
 	return (0);
