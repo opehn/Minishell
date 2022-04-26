@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:54:29 by acho              #+#    #+#             */
-/*   Updated: 2022/04/23 19:13:52 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 13:57:59 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,12 @@ static void	mem_free(char **array, int index)
 	free(array);
 }
 
-static void	make_array(char **array,  char *cmd,  char *opts, char c, int array_len)
+static void	make_array(char **array,  char *opts, char c, int array_len)
 {
-	int	cmd_len;
 	int	opts_len;
 	int	i;
 	int	j;
 
-	cmd_len = ft_strlen(cmd);
-	array[0] = (char *)malloc(cmd_len + 1);
-	array[0] = ft_strdup(cmd);
 	i = 1;
 	while (i < array_len)
 	{
@@ -88,12 +84,16 @@ static void	make_array(char **array,  char *cmd,  char *opts, char c, int array_
 char	**split_opts(char  *cmd, char  *opts, char c)
 {
 	int		array_len;
+	int		cmd_len;
 	char	**array;
 
 	array_len = count_same((char *)opts, c) + 1;
 	array = (char **)malloc(sizeof(char *) * (array_len + 1));
 	if (!array)
 		return (0);
-	make_array(array, cmd, opts, c, array_len);
+	cmd_len = ft_strlen(cmd);
+	array[0] = (char *)malloc(cmd_len + 1);
+	array[0] = ft_strdup(cmd);
+	make_array(array, opts, c, array_len);
 	return (array);
 }
