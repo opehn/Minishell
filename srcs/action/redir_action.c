@@ -6,24 +6,12 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 17:15:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 01:11:27 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 13:34:32 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
-#include <errno.h>
-#include <string.h>
 #include <stdio.h>
-
-int	perror_redir(char *project, char *pathname)
-{
-	ft_putstr_fd(project, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(pathname, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	return (1);
-}
 
 int	input_redir(char *pathname)
 {
@@ -44,7 +32,7 @@ int	output_redir(char *pathname)
 	fd = open(pathname, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fd == -1)
 		return (perror_redir("minishell", pathname));
-	dup2(fd , STDOUT_FILENO);
+	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (0);
 }
@@ -56,7 +44,7 @@ int	append(char *pathname)
 	fd = open(pathname, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd == -1)
 		return (perror_redir("minishell", pathname));
-	dup2(fd , STDOUT_FILENO);
+	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (0);
 }
@@ -87,8 +75,3 @@ int	redir_action(t_info *info, t_tree *tree)
 		return (heredoc(info));
 	return (0);
 }
-
-// void	cmd_action(info, tree->data)
-// {
-	
-// }

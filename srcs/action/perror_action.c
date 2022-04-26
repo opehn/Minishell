@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wait.c                                          :+:      :+:    :+:   */
+/*   perror_action.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 16:41:26 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 13:30:23 by taeheoki         ###   ########.fr       */
+/*   Created: 2022/04/26 13:32:08 by taeheoki          #+#    #+#             */
+/*   Updated: 2022/04/26 13:32:28 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_wifexited(int status)
-{
-	return ((status & 0177) == 0);
-}
+#include "action.h"
 
-int	ft_wifsignaled(int status)
+int	perror_redir(char *project, char *pathname)
 {
-	return ((status & 0177) != 0);
-}
-
-int	ft_wexitstatus(int status)
-{
-	return (((status >> 8) & 0x000000ff) % 128);
-}
-
-int	ft_wtermsig(int status)
-{
-	return ((status & 0177) + 128);
+	ft_putstr_fd(project, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(pathname, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	return (1);
 }
