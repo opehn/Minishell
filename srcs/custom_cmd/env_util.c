@@ -1,25 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_util.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 16:54:47 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 16:54:48 by acho             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parsing.h"
 #include "error.h"
 #include "env.h"
 #include <stdbool.h>
 #include <stdio.h>
 
-t_env_list  *new_env_list(char *key, char *value)
+t_env_list	*new_env_list(char *key, char *value)
 {
-	t_env_list *new;
+	t_env_list	*new;
 
 	new = (t_env_list *)malloc(sizeof(t_env_list));
 	if (!new)
 		exit_error(ERR_MALLOC);
 	new->key = key;
-	new->value = value; 
+	new->value = value;
 	new->next = NULL;
 	return (new);
 }
 
 void	append_env_list(t_info *info, char *key, char *value)
 {
-	t_env_list *temp;
+	t_env_list	*temp;
 
 	temp = info->env_list;
 	while (temp->next)
@@ -46,7 +58,7 @@ void	modify_env_list(t_info *info, char **key_value, int key_index)
 	next = temp->next->next;
 	new = new_env_list(key_value[0], key_value[1]);
 	temp->next = new;
-	new->next =next;
+	new->next = next;
 	free(old);
 }
 
@@ -55,9 +67,10 @@ int	find_match_key(t_env_list *env_list, char *key)
 	int	i;
 
 	i = 0;
-	while(env_list)
+	while (env_list)
 	{
-		if(!ft_strcmp(env_list->key, key, ft_strlen(env_list->key), ft_strlen(key)))
+		if (!ft_strcmp(env_list->key, key, ft_strlen(env_list->key),
+				ft_strlen(key)))
 		{
 			return (i);
 		}
@@ -67,14 +80,14 @@ int	find_match_key(t_env_list *env_list, char *key)
 	return (0);
 }
 
-int make_key_value(char *arg, char **key_value)
+int	make_key_value(char *arg, char **key_value)
 {
 	char	*argend;
 	char	*equal;
 
 	equal = ft_strchr(arg, '=');
 	argend = arg;
-	while(*argend)
+	while (*argend)
 		argend++;
 	key_value[0] = ft_strndup(arg, (equal - arg));
 	key_value[1] = ft_strndup(equal + 1, argend - equal);
