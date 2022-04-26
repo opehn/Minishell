@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   custom_export.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 16:40:26 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 16:42:48 by acho             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "action.h"
 #include "custom_cmd.h"
 #include "error.h"
@@ -5,9 +17,9 @@
 
 #include <stdio.h>
 
-extern int g_exit_status;
+extern int	g_exit_status;
 
-int		find_equal_args(char **opts_arr)
+int	find_equal_args(char **opts_arr)
 {
 	int	i;
 
@@ -25,22 +37,18 @@ int	chk_export_error(char **opts_arr)
 {
 	if (opts_arr[0][0] == '-') //if option
 	{
-		ft_putendl_fd("minishell : export : no option", STDERR_FILENO);
-		g_exit_status = 0;
+		custom_err_msg("export", "no option", NULL, 0);
 		return (1);
 	}
-	if (opts_arr[1]) //if arg > 1
+	else if (opts_arr[1]) //if arg > 1
 	{
 		if (find_equal_args(opts_arr))
-			ft_putendl_fd("minishell : export : bad assignment", STDERR_FILENO);
-		g_exit_status = 0;
+			custom_err_msg("export", "bad assignment", NULL, 0);
 		return (1);
 	}
-	if (find_space(opts_arr[0])) //if arg has space
+	else if (find_space(opts_arr[0])) //if arg has space
 	{
-		ft_putstr_fd("minishell : export : not valid in the context : ", STDERR_FILENO);
-		ft_putendl_fd(opts_arr[0], STDERR_FILENO);
-		g_exit_status = 1;
+		custom_err_msg("export", "not valid in the context", opts_arr[0], 1);
 		return (1);
 	}
 	if (!ft_strchr(opts_arr[0], '=')) //no equal in arg
@@ -53,10 +61,10 @@ int	chk_export_error(char **opts_arr)
 
 void	print_env_list(t_info *info)
 {
-	t_env_list *env_list;
+	t_env_list	*env_list;
 
 	env_list = info->env_list;
-	while(env_list)
+	while (env_list)
 	{
 		write(STDOUT_FILENO, env_list->key, ft_strlen(env_list->key));
 		write(STDOUT_FILENO, "=", 1);
@@ -65,9 +73,9 @@ void	print_env_list(t_info *info)
 	}
 }
 
-int  find_space(char *s)
+int	find_space(char *s)
 {
-	while(*s)
+	while (*s)
 	{
 		if (*s == ' ')
 			return (1);
