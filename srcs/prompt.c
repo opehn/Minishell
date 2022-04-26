@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:02:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 17:52:25 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 17:58:48 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int main(int argc, char **argv, char **envp)
     t_env_list  *env_list;
 
 	argv += argc;
-	free(argv);
+	free(*argv);
     set_signal();
     init_env(&env_list, envp);
     prompt(envp, env_list);
