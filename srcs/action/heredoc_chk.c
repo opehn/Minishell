@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:33 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 01:07:52 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 12:03:08 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ char	*line_expand(t_info *info, char *line)
 	temp[0] = 0;
 	while (*i < len)
 	{
-		if (line[*i] == '&')
+		if (line[*i] == '$')
+		{
+			(*i)++;
 			no_quot_expand(line, i, &temp, info->env_list);
+		}
 		temp = ft_strjoin_ch(temp, line[*i]);
 		(*i)++;
 	}

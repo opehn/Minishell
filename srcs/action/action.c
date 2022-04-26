@@ -6,12 +6,13 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 01:08:21 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 13:01:59 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
 #include "custom_cmd.h"
+#include <errno.h>
 #include <stdio.h>
 
 int	g_exit_status;
@@ -60,6 +61,8 @@ int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
 		return (custom_echo(opts_arr));
 	else if (cmd == CMD_EXIT)
 		return (custom_exit(opts_arr));
+	else if (cmd == CMD_ENV)
+		return (custom_env(info, opts_arr));
 	return (0);
 }
 
@@ -93,10 +96,11 @@ int		cmd_action(t_info *info, char *cmd, char *optarg)
 		opts_arr = split_opts(builtin_cmd_path, optarg, SEP);
 		execve(builtin_cmd_path, opts_arr, info->envp);
 	}
-	else
+	else if (!builtin_cmd_path) 
 	{
+		opts_arr = split_opts(cmd, optarg, SEP);
+		execve(cmd, opts_arr, info->envp);
 		g_exit_status = perror_cmd("minishell", cmd);
-		return(ERR_CMD);
 	}
 	return(0);
 }

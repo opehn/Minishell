@@ -11,7 +11,6 @@ extern int g_exit_status;
 
 int expand_ds(char *data, int *i, char **res, t_env_list *env_list, int quot_flag)
 {
-	//printf("expand_ds\n");
     (*i)++;
 	if (quot_flag)
 	{
@@ -30,7 +29,6 @@ int expand_ds(char *data, int *i, char **res, t_env_list *env_list, int quot_fla
 
 void    no_quot_expand(char *data, int *i, char **res, t_env_list *env_list)
 {
-//	printf("no_quot_expand_ds\n");
     char *key;
     int  result;
 

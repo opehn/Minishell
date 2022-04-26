@@ -36,7 +36,7 @@ SCANNER_SRCS := $(addprefix $(SCANNER_DIR), $(SCANNER_SRCS))
 ACTION_SRCS := action.c ft_wait.c heredoc_chk.c redir_action.c cmd_find.c split_opts.c
 ACTION_SRCS := $(addprefix $(ACTION_DIR), $(ACTION_SRCS))
 
-CUSTOM_SRCS := custom_pwd.c custom_export.c custom_unset.c custom_cd.c custom_echo.c custom_exit.c env_util.c
+CUSTOM_SRCS := custom_pwd.c custom_export.c custom_unset.c custom_cd.c custom_echo.c custom_exit.c custom_env.c env_util.c
 CUSTOM_SRCS := $(addprefix $(CUSTOM_DIR), $(CUSTOM_SRCS))
 
 SRCS = $(PARSER_SRCS) $(MAIN_SRCS) $(ERROR_SRCS) $(SCANNER_SRCS) $(ACTION_SRCS) $(CUSTOM_SRCS)

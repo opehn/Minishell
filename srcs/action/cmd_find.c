@@ -15,6 +15,8 @@ int	no_fork_cmd(char *cmd)
 		return (CMD_UNSET);
 	if (!ft_strcmp(cmd, "exit", cmd_len, 4))
 		return (CMD_EXIT);
+	if (!ft_strcmp(cmd, "env", cmd_len, 3)) 
+		return (CMD_ENV);
 	return (0);
 }
 
@@ -35,6 +37,8 @@ int	find_custom_cmd(char *cmd)
 		return (CMD_UNSET);
 	if (!ft_strcmp(cmd, "exit", cmd_len, 4))
 		return (CMD_EXIT);
+	if (!ft_strcmp(cmd, "env", cmd_len, 3)) 
+		return (CMD_ENV);
 	return (0);
 }
 

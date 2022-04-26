@@ -15,7 +15,8 @@ typedef enum e_custom_cmd
 	CMD_PWD = 4,
 	CMD_EXPORT = 5,
 	CMD_UNSET = 6,
-	CMD_EXIT = 7
+	CMD_EXIT = 7,
+	CMD_ENV = 8,
 } t_custom_cmd;
 /*
 ** =============================================================================
