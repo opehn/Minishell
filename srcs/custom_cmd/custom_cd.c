@@ -6,12 +6,11 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 17:15:27 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 18:39:32 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:58:22 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
-#include <unistd.h>
 
 static int	perror_cd_many(char *project, char *pathname)
 {

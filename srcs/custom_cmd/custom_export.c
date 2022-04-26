@@ -6,14 +6,11 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:40:26 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 18:50:31 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 19:00:09 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "action.h"
 #include "custom_cmd.h"
-#include "error.h"
-#include "env.h"
 
 extern int	g_exit_status;
 

@@ -6,13 +6,12 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 21:45:42 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 16:27:12 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 19:03:04 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "error.h"
-#include "env.h"
 
 t_pipe_list	*init_pipe_list(void)
 {

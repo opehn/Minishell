@@ -6,13 +6,11 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:49:56 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 18:48:50 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:55:32 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include "scanner.h"
-#include "tree.h"
 #include "error.h"
 #include "parsing.h"
 #include "libft.h"

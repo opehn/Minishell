@@ -6,14 +6,11 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:42:08 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 18:46:09 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:59:45 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "action.h"
 #include "custom_cmd.h"
-#include "error.h"
-#include "env.h"
 
 void	print_env(t_info *info)
 {

@@ -6,13 +6,11 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:09:53 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 16:05:12 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 19:02:28 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
 #include "error.h"
-#include "env.h"
 #include "parsing.h"
 #include "scanner.h"
 

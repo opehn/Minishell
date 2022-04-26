@@ -6,12 +6,11 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 18:50:11 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:59:59 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
-#include "error.h"
 
 int	chk_unset_err(char **opts_arr)
 {
