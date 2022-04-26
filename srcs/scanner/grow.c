@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   grow.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 15:21:29 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 15:21:33 by acho             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "scanner.h"
 #include "tree.h"
@@ -7,36 +19,39 @@
 
 #include <stdio.h>
 
-void	grow_tree(char *red_data, char *remain, t_tree *root, int res, t_env_list *env_list)
+void	grow_red(char *red_data, int type, t_tree *root)
 {
-	t_tree  *left_child;
-	t_tree  *right_child;
+	t_tree	*left_child;
+	t_tree	*right_child;
+
+	while (root->right_child)
+		root = root->right_child;
+	left_child = init_tree(type, red_data, NULL, NULL);
+	root->left_child = left_child;
+	right_child = init_tree(BRANCH, NULL, NULL, NULL);
+	root->right_child = right_child;
+}
+
+void	grow_cmd(char *remain, t_tree *root, t_env_list *env_list)
+{
+	t_tree	*left_child;
+	t_tree	*right_child;
 	char	*cmds[2];
 
 	while (root->right_child)
 		root = root->right_child;
-	if (red_data) //if redirection
-	{
-		left_child = init_tree(res, red_data, NULL, NULL);
-		root->left_child = left_child;
-		right_child = init_tree(BRANCH, remain, NULL, NULL);
-		root->right_child = right_child;
-	}
-	else //if cmd
-	{
-		parse_cmd(remain, cmds, env_list);
-		left_child = init_tree(CMD, cmds[0], NULL, NULL);
-		root->left_child = left_child;
-		right_child = init_tree(OPTARG, cmds[1], NULL, NULL);
-		root->right_child = right_child;
-	}
+	parse_cmd(remain, cmds, env_list);
+	left_child = init_tree(CMD, cmds[0], NULL, NULL);
+	root->left_child = left_child;
+	right_child = init_tree(OPTARG, cmds[1], NULL, NULL);
+	root->right_child = right_child;
 }
 
 void	parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 {
 	char	**cmd;
 	char	**opts;
-	int	 *i;
+	int		*i;
 
 	i = malloc(sizeof(int) * 1);
 	cmd = malloc(sizeof(char *) * 1);
@@ -53,7 +68,6 @@ void	parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 
 void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i)
 {
-	//printf("make_Cmd\n");
 	int	start;
 
 	while (remain[*i] && remain[*i] != SEP)
@@ -61,10 +75,11 @@ void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i)
 		start = *i;
 		if_quot_expand(remain, i, cmd, env_list);
 		if (remain[*i] == DS)
-				expand_ds(remain, i, cmd, env_list, 0);
+			expand_ds(remain, i, cmd, env_list);
 		if (start == *i)
 		{
-			if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT && remain[*i] != DS && remain[*i] != SEP)
+			if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT
+				&& remain[*i] != DS && remain[*i] != SEP)
 			{
 				*cmd = ft_strjoin_ch(*cmd, remain[*i]);
 				(*i)++;
@@ -77,17 +92,16 @@ void	make_opts(char *remain, t_env_list *env_list, char **opts, int *i)
 {
 	int	start;
 
-	//printf("remain : %s\n", remain);
 	while (remain[*i])
 	{
-	//	printf("remain[%d] : %c\n", *i, remain[*i]);
 		start = *i;
 		if_quot_expand(remain, i, opts, env_list);
 		if (remain[*i] == DS)
-				expand_ds(remain, i, opts, env_list, 0);
+			expand_ds(remain, i, opts, env_list);
 		if (start == *i)
 		{
-			if (remain[*i] && remain[*i] != D_QUOT && remain[*i] != S_QUOT && remain[*i] != DS)
+			if (remain[*i] && remain[*i] != D_QUOT
+				&& remain[*i] != S_QUOT && remain[*i] != DS)
 			{
 				*opts = ft_strjoin_ch(*opts, remain[*i]);
 				(*i)++;

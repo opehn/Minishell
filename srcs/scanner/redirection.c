@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 14:49:56 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 15:17:16 by acho             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "scanner.h"
 #include "tree.h"
@@ -7,48 +19,45 @@
 
 #include <stdio.h>
 
-int if_red(char *data, int *i, char **remain, t_tree *root, t_env_list *env_list)
+int	if_red(char *data, int *i, t_tree *root, t_env_list *env_list)
 {
 	char	**red_data;
-	int	 type;
-	int	res;
+	int		type;
+	int		res;
 
 	red_data = malloc(sizeof(char *) * 1);
 	init_str(red_data);
-	type = chk_red(data, i); //check red type
+	type = return_red_type(data, i); //check red type
 	if (type)
 	{
 		pass_sign(type, i); //move idx of data to file name
-		ignore_space(data, i); 
+		ignore_space(data, i);
 		res = iter_red(data, i, red_data, env_list);
 		if (res)
 			return (res);
-		grow_tree(*red_data, *remain, root, type, env_list);
+		grow_red(*red_data, type, root);
 	}
 	return (0);
 }
 
-int		iter_red(char *data, int *i, char **red_data, t_env_list *env_list)
+int	iter_red(char *data, int *i, char **red_data, t_env_list *env_list)
 {
-
-	int	 quot_flag;
+	int	quot_flag;
 	int	ds_flag;
 	int	start;
-	
+
 	quot_flag = 0;
 	ds_flag = 0;
 	start = *i;
-	while(!chk_red(data, i) && data[*i] != ' ' && data[*i])
+	while (!return_red_type(data, i) && data[*i] != ' ' && data[*i])
 	{
 		start = *i;
-		//printf("remain[%d] : %c\n", *i, data[*i]);
 		quot_flag = if_quot_expand(data, i, red_data, env_list);
 		if (data[*i] == DS)
 		{
 			ds_flag = 1;
-			quot_flag = expand_ds(data, i, red_data, env_list, 0);
+			quot_flag = expand_ds(data, i, red_data, env_list);
 		}
-
 		if (start == *i)
 		{
 			*red_data = ft_strjoin_ch(*red_data, data[*i]);
@@ -60,7 +69,7 @@ int		iter_red(char *data, int *i, char **red_data, t_env_list *env_list)
 	return (0);
 }
 
-int	chk_red_err(int	quot_flag, int ds_flag)
+int	chk_red_err(int quot_flag, int ds_flag)
 {
 	if (!quot_flag && !ds_flag)
 		return (ERR_SYNTAX);
@@ -70,7 +79,7 @@ int	chk_red_err(int	quot_flag, int ds_flag)
 		return (0);
 }
 
-int chk_red(char *data, int *i)
+int	return_red_type(char *data, int *i)
 {
 	if (!ft_strncmp(ft_substr(data, *i, 2), ">>", 2))
 		return (3);

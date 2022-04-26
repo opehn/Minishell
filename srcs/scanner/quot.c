@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quot.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 15:24:07 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 15:24:18 by acho             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "scanner.h"
 #include "tree.h"
@@ -7,19 +19,19 @@
 
 #include <stdio.h>
 
-int if_quot(char *data, int *i, char **remain)
+int	if_quot(char *data, int *i, char **remain)
 {
-	char cur;
+	char	cur;
 
 	cur = data[*i];
 	if (cur == S_QUOT || cur == D_QUOT)
 	{
 		(*i)++;
 		*remain = ft_strjoin_ch(*remain, cur);
-		while(data[*i] && data[*i] != cur)
+		while (data[*i] && data[*i] != cur)
 		{
 			if (!data[*i])
-				break;
+				break ;
 			*remain = ft_strjoin_ch(*remain, data[*i]);
 			(*i)++;
 		}
@@ -31,31 +43,31 @@ int if_quot(char *data, int *i, char **remain)
 	return (0);
 }
 
-int if_quot_expand(char *data, int *i, char **res, t_env_list *env_list)
+int	if_quot_expand(char *data, int *i, char **res, t_env_list *env_list)
 {
-    char cur;
+	char	cur;
 
-    if (data[*i] == S_QUOT || data[*i] == D_QUOT)
-    {
-        cur = data[*i];
-        (*i)++;
-        if (cur == S_QUOT)
-            find_next_sq(data, i, res);
-        else if (cur == D_QUOT)
-            find_next_dq(data, i, res, env_list);
-        return (1);
-    }
-    return (0);
+	if (data[*i] == S_QUOT || data[*i] == D_QUOT)
+	{
+		cur = data[*i];
+		(*i)++;
+		if (cur == S_QUOT)
+			find_next_sq(data, i, res);
+		else if (cur == D_QUOT)
+			find_next_dq(data, i, res, env_list);
+		return (1);
+	}
+	return (0);
 }
 
-int find_next_sq(char *data, int *i, char **res)
+int	find_next_sq(char *data, int *i, char **res)
 {
 	while (data[*i])
 	{
 		if (data[*i] == S_QUOT)
 		{
 			(*i)++; //move data idx from '
-			break;
+			break ;
 		}
 		*res = ft_strjoin_ch(*res, data[*i]);
 		(*i)++;
@@ -63,21 +75,22 @@ int find_next_sq(char *data, int *i, char **res)
 	return (0);
 }
 
-int find_next_dq(char *data, int *i, char **res, t_env_list *env_list)
+int	find_next_dq(char *data, int *i, char **res, t_env_list *env_list)
 {
 	int	start;
 
 	while (data[*i])
 	{
-//		printf("remain[%d] : %c\n", *i, data[*i]);
-//		printf("cmd : %s\n", *res);
 		start = *i;
 		if (data[*i] == DS)
-			expand_ds(data, i, res, env_list, 1);
+		{
+			(*i)++;
+			no_quot_expand(data, i, res, env_list);
+		}
 		if (data[*i] == D_QUOT)
 		{
 			(*i)++; //move data idx from "
-			break;
+			break ;
 		}
 		if (start == *i)
 		{

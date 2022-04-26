@@ -1,17 +1,24 @@
-#include "env.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scanner.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 14:14:51 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 15:17:52 by acho             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scanner.h"
-#include "tree.h"
 #include "error.h"
 #include "parsing.h"
 #include "libft.h"
 
-#include <stdio.h>
-
 int	scan_token(t_tree *root, t_env_list *env_list)
 {
-	int	 	res;
-	int	 	i;
-	char	*data;
+	int		res;
+	int		i;
 	char	**remain;
 
 	if (!root->data)
@@ -22,24 +29,25 @@ int	scan_token(t_tree *root, t_env_list *env_list)
 	init_str(remain);
 	i = 0;
 	res = 0;
-	data = ft_strndup(root->data, ft_strlen(root->data));
-	res = iterate_scan(data, remain, &i, root, env_list);
+	res = iterate_scan(remain, &i, root, env_list);
 	return (res);
 }
 
-int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *env_list)
+int	iterate_scan(char **remain, int *i, t_tree *root, t_env_list *env_list)
 {
-	int	 flag;
-	int	 res;
+	int		flag;
+	int		res;
+	char	*data;
 
 	flag = 0;
 	res = 0;
+	data = ft_strndup(root->data, ft_strlen(root->data));
 	ignore_space(data, i);
 	while (data[*i] && !res)
 	{
 		flag = *i;
 		res = if_quot(data, i, remain);
-		res = if_red(data, i, remain, root, env_list);
+		res = if_red(data, i, root, env_list);
 		if (res)
 			return (res);
 		if (flag == *i) //if data[*i] is not special
@@ -49,21 +57,6 @@ int	 iterate_scan(char *data, char **remain, int *i, t_tree *root, t_env_list *e
 			append_seperater(data, remain, i);
 		}
 	}
-	grow_tree(NULL, *remain, root, 0, env_list);
+	grow_cmd(*remain, root, env_list);
 	return (res);
-}
-
-void	append_char(char *data, char **remain, int *i)
-{
-	if (data[*i] && data[*i] != ' ')
-	{
-		*remain = ft_strjoin_ch(*remain, data[*i]);
-		(*i)++;
-	}
-}
-
-void	append_seperater(char *data, char **remain, int *i)
-{
-	if (data[*i - 1] == ' ' && (*remain)[0] && (*remain)[ft_strlen(*remain) - 1] != '\n')
-		*remain = ft_strjoin_ch(*remain, '\n');
 }
