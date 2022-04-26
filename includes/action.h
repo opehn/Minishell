@@ -4,6 +4,7 @@
 # include "parsing.h"
 # include "error.h"
 # include <errno.h>
+# include <string.h>
 
 # define OUT 0
 # define IN 1

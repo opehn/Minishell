@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_opts.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:54:29 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 13:57:59 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 14:09:13 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	mem_free(char **array, int index)
 	free(array);
 }
 
-static void	make_array(char **array,  char *opts, char c, int array_len)
+static void	make_array(char **array, char *opts, char c, int array_len)
 {
 	int	opts_len;
 	int	i;
@@ -81,7 +81,7 @@ static void	make_array(char **array,  char *opts, char c, int array_len)
 	array[i] = 0;
 }
 
-char	**split_opts(char  *cmd, char  *opts, char c)
+char	**split_opts(char *cmd, char *opts, char c)
 {
 	int		array_len;
 	int		cmd_len;

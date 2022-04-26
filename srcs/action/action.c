@@ -6,118 +6,41 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 13:01:59 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 15:00:26 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
-#include "custom_cmd.h"
 #include <errno.h>
 #include <stdio.h>
 
 int	g_exit_status;
 
-char	*setting_cmd(t_forest *forest)
+void	single_preorder(t_info *info, t_forest *cur_forest, int in, int out)
 {
-	t_tree	*temp;
-
-	temp = forest->root;
-	while (temp)
-	{
-		if (temp->left_child && (temp->left_child->type == CMD))
-			return (temp->left_child->data);
-		temp = temp->right_child;
-	}
-	return (NULL);
-}
-
-void	pipe_setting(t_forest *cur_forest)
-{
-	if (cur_forest->prefd > -1)
-	{
-		dup2(cur_forest->prefd, 0);
-		close(cur_forest->prefd);
-	}
-	if (cur_forest->next)
-	{
-		dup2(cur_forest->fd[IN], 1);
-		close(cur_forest->fd[OUT]);
-		close(cur_forest->fd[IN]);
-	}
-}
-
-
-int	custom_cmd_action(t_info *info, int cmd, char **opts_arr)
-{
-	if (cmd == CMD_PWD)
-		return (custom_pwd(opts_arr));
-	else if (cmd == CMD_EXPORT)
-		return (custom_export(info, opts_arr));
-	else if (cmd == CMD_UNSET)
-		return (custom_unset(info, opts_arr));
-	else if (cmd == CMD_CD)
-		return (custom_cd(info, opts_arr));
-	else if (cmd == CMD_ECHO)
-		return (custom_echo(opts_arr));
-	else if (cmd == CMD_EXIT)
-		return (custom_exit(opts_arr));
-	else if (cmd == CMD_ENV)
-		return (custom_env(info, opts_arr));
-	return (0);
-}
-
-static int	perror_cmd(char *project, char *cmd)
-{
-	ft_putstr_fd(project, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd("command not found", STDERR_FILENO);
-	return (127);
-}
-
-int		cmd_action(t_info *info, char *cmd, char *optarg)
-{
-	int		custom_cmd;
-	char	*builtin_cmd_path;
-	char	**opts_arr;
-
-	custom_cmd = 0;
-	custom_cmd = find_custom_cmd(cmd);
-	builtin_cmd_path = find_builtin_cmd(info->env_list, cmd);
-
-	if(custom_cmd)
-	{
-		opts_arr = ft_split(optarg, '\n');
-		g_exit_status = custom_cmd_action(info, custom_cmd, opts_arr);
-	}
-	else if (builtin_cmd_path)
-	{
-		opts_arr = split_opts(builtin_cmd_path, optarg, SEP);
-		execve(builtin_cmd_path, opts_arr, info->envp);
-	}
-	else if (!builtin_cmd_path) 
-	{
-		opts_arr = split_opts(cmd, optarg, SEP);
-		execve(cmd, opts_arr, info->envp);
-		g_exit_status = perror_cmd("minishell", cmd);
-	}
-	return(0);
+	preorder(info, cur_forest, cur_forest->root);
+	dup2(in, STDIN_FILENO);
+	dup2(out, STDOUT_FILENO);
+	close(in);
+	close(out);
 }
 
 void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 {
 	if (tree == NULL)
 		return ;
-	if (tree->left_child && (tree->left_child->type == INPUT_RED || tree->left_child->type == OUTPUT_RED || \
-		tree->left_child->type == APPEND_RED || tree->left_child->type == HEREDOC))
+	if (tree->left_child && (tree->left_child->type == INPUT_RED || \
+							tree->left_child->type == OUTPUT_RED || \
+							tree->left_child->type == APPEND_RED || \
+							tree->left_child->type == HEREDOC))
 	{
 		if (redir_action(info, tree->left_child) != 0)
 			return ;
 	}
 	if (tree->left_child && (tree->left_child->type == CMD))
 	{
-		if (cmd_action(info, tree->left_child->data, tree->right_child->data) != 0)
+		if (cmd_action(info, tree->left_child->data, \
+							tree->right_child->data) != 0)
 			return ;
 	}
 	preorder(info, forest, tree->right_child);
@@ -179,13 +102,7 @@ void	action(t_info *info)
 	in = dup(STDIN_FILENO);
 	out = dup(STDOUT_FILENO);
 	if (no_fork_cmd(setting_cmd(cur_forest)) && (info->pipe_cnt == 1))
-	{
-		preorder(info, cur_forest, cur_forest->root);
-		dup2(in, STDIN_FILENO);
-		dup2(out, STDOUT_FILENO);
-		close(in);
-		close(out);
-	}
+		single_preorder(info, cur_forest, in, out);
 	else
 	{
 		while (cur_forest)
