@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_find.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 15:51:32 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 15:53:07 by acho             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "action.h"
-#include <stdio.h>
 #include <dirent.h>
 
 int	no_fork_cmd(char *cmd)
-{ 
+{
 	int	cmd_len;
 
 	cmd_len = ft_strlen(cmd);
@@ -15,13 +26,13 @@ int	no_fork_cmd(char *cmd)
 		return (CMD_UNSET);
 	if (!ft_strcmp(cmd, "exit", cmd_len, 4))
 		return (CMD_EXIT);
-	if (!ft_strcmp(cmd, "env", cmd_len, 3)) 
+	if (!ft_strcmp(cmd, "env", cmd_len, 3))
 		return (CMD_ENV);
 	return (0);
 }
 
 int	find_custom_cmd(char *cmd)
-{ 
+{
 	int	cmd_len;
 
 	cmd_len = ft_strlen(cmd);
@@ -37,7 +48,7 @@ int	find_custom_cmd(char *cmd)
 		return (CMD_UNSET);
 	if (!ft_strcmp(cmd, "exit", cmd_len, 4))
 		return (CMD_EXIT);
-	if (!ft_strcmp(cmd, "env", cmd_len, 3)) 
+	if (!ft_strcmp(cmd, "env", cmd_len, 3))
 		return (CMD_ENV);
 	return (0);
 }
@@ -65,7 +76,8 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 		cur_dir_info = readdir(cur_dir);
 		while (cur_dir_info != NULL)
 		{
-			if (!ft_strcmp(cmd,cur_dir_info->d_name, ft_strlen(cmd), ft_strlen(cur_dir_info->d_name)))
+			if (!ft_strcmp(cmd, cur_dir_info->d_name, ft_strlen(cmd),
+					ft_strlen(cur_dir_info->d_name)))
 			{
 				path_array[i] = ft_strjoin_ch(path_array[i], '/');
 				return (ft_strjoin(path_array[i], cmd));
@@ -75,18 +87,17 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 		i++;
 	}
 	return (NULL);
-
 }
 
 char	*find_env_path(t_env_list *env_list)
 {
-	char *path;
+	char	*path;
 
 	path = malloc(1);
 	path[0] = '\0';
-	while(env_list)
+	while (env_list)
 	{
-		if(!ft_strcmp(env_list->key, "PATH", ft_strlen(env_list->key), 4))
+		if (!ft_strcmp(env_list->key, "PATH", ft_strlen(env_list->key), 4))
 			path = ft_strndup(env_list->value, ft_strlen(env_list->value));
 		env_list = env_list->next;
 	}
