@@ -4,6 +4,8 @@
 #include "parsing.h"
 #include "action.h"
 
+extern int  g_exit_status;
+
 void	signal_handler(int signum)
 {
     pid_t   pid;
@@ -21,6 +23,7 @@ void	signal_handler(int signum)
         }
         else
             ft_putendl_fd("", STDOUT_FILENO);
+        g_exit_status = 130;
     }
     else if (signum == SIGQUIT)
     {
