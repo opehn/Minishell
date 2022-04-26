@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:21:29 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 15:21:33 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:48:43 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "error.h"
 #include "parsing.h"
 #include "libft.h"
-
-#include <stdio.h>
 
 void	grow_red(char *red_data, int type, t_tree *root)
 {

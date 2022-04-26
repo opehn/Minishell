@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:54:47 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 16:54:48 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:50:20 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "error.h"
 #include "env.h"
 #include <stdbool.h>
-#include <stdio.h>
 
 t_env_list	*new_env_list(char *key, char *value)
 {

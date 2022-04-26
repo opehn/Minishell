@@ -6,18 +6,12 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:17:24 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 14:17:32 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:49:31 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include "scanner.h"
-#include "tree.h"
-#include "error.h"
-#include "parsing.h"
 #include "libft.h"
-
-#include <stdio.h>
 
 void	ignore_space(char *data, int *i)
 {

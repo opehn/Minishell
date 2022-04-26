@@ -6,12 +6,11 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 17:15:47 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 13:34:32 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:50:50 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
-#include <stdio.h>
 
 int	input_redir(char *pathname)
 {

@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:49:56 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 15:17:16 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:48:50 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "error.h"
 #include "parsing.h"
 #include "libft.h"
-
-#include <stdio.h>
 
 int	if_red(char *data, int *i, t_tree *root, t_env_list *env_list)
 {

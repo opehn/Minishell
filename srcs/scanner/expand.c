@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:22:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 14:46:11 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 18:48:23 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "error.h"
 #include "parsing.h"
 #include "libft.h"
-
-#include <stdio.h>
 
 extern int	g_exit_status;
 

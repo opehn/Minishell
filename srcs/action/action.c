@@ -6,13 +6,12 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 18:38:30 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:50:42 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
 #include <errno.h>
-#include <stdio.h>
 
 int	g_exit_status;
 
