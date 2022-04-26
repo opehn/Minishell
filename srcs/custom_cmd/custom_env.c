@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:42:08 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 21:29:23 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 22:09:34 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	custom_env(t_info *info, char **opts_arr)
 {
 	if (opts_arr[0]) //if arg >= 1
 	{
-		if (opts_arr[0][0] ==  '-')
+		if (opts_arr[0][0] == '-')
 			custom_err_msg("env", "illegal option -- ", &opts_arr[0][1]);
 		else
 			custom_err_msg("env", "illegal argument -- ", &opts_arr[0][1]);

@@ -1,5 +1,17 @@
-#ifndef MINISHELL_ERROR_H
-# define MINISHELL_ERROR_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/27 00:40:45 by taeheoki          #+#    #+#             */
+/*   Updated: 2022/04/27 00:41:57 by taeheoki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef ERROR_H
+# define ERROR_H
 
 //===========================exit error=====================================//
 # define ERR_PIPE_SPLIT "Failure to split pipe"
@@ -29,14 +41,7 @@
 ** error_msg.c
 ** =============================================================================
 */
-
-#include <unistd.h>
-
 int		print_err(int res);
 void	exit_error(char *str);
 
-
 #endif
-
-
-

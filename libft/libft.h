@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 11:14:15 by acho              #+#    #+#             */
-/*   Updated: 2022/04/24 17:51:30 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 01:06:45 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ size_t			ft_strlcpy(char *dst, const char *src, size_t len);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
-int				ft_strcmp(const char *s1, const char *s2, int s1_len, int s2_len);
+int				ft_strcmp(const char *s1, const char *s2, int s1_len, \
+							int s2_len);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnstr(const char *haystack, \
 				const char *needle, size_t len);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   action.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/27 00:42:24 by taeheoki          #+#    #+#             */
+/*   Updated: 2022/04/27 00:43:22 by taeheoki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ACTION_H
 # define ACTION_H
 
@@ -18,7 +30,8 @@ typedef enum e_custom_cmd
 	CMD_UNSET = 6,
 	CMD_EXIT = 7,
 	CMD_ENV = 8,
-} t_custom_cmd;
+}	t_custom_cmd;
+
 /*
 ** =============================================================================
 ** action.c
@@ -84,12 +97,11 @@ int		heredoc(t_info *info);
 ** =============================================================================
 */
 char	*find_builtin_cmd(t_env_list *env_list, char *cmd);
-char    *find_env_path(t_env_list *env_list);
-char    *match_builtin_cmd(char **cmd_array, char *cmd);
+char	*find_env_path(t_env_list *env_list);
+char	*match_builtin_cmd(char **cmd_array, char *cmd);
 int		find_custom_cmd(char *cmd);
 int		no_fork_cmd(char *cmd);
-
-char    **split_opts(char const *cmd, char const *opts, char c);
+char	**split_opts(char const *cmd, char const *opts, char c);
 
 /*
 ** =============================================================================

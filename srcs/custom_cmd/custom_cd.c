@@ -6,31 +6,11 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 17:15:27 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 18:58:22 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 23:17:07 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
-
-static int	perror_cd_many(char *project, char *pathname)
-{
-	ft_putstr_fd(project, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(pathname, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd("too many arguments", STDERR_FILENO);
-	return (1);
-}
-
-static int	perror_cd(char *project, char *pathname)
-{
-	ft_putstr_fd(project, STDERR_FILENO);
-	ft_putstr_fd(": cd: ", STDERR_FILENO);
-	ft_putstr_fd(pathname, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	return (1);
-}
 
 char	*get_env_value(t_env_list *env_list, char *key)
 {
@@ -47,6 +27,26 @@ char	*get_env_value(t_env_list *env_list, char *key)
 	return (NULL);
 }
 
+t_env_list	*update_env(t_env_list *env_temp, char *pwd, \
+						char *oldpwd, int *flag)
+{
+	if (!ft_strcmp(env_temp->key, "PWD", ft_strlen(env_temp->key), \
+		ft_strlen("PWD")))
+	{
+		free(env_temp->value);
+		env_temp->value = pwd;
+	}
+	if (!ft_strcmp(env_temp->key, "OLDPWD", ft_strlen(env_temp->key), \
+		ft_strlen("OLDPWD")))
+	{
+		free(env_temp->value);
+		env_temp->value = oldpwd;
+		*flag = 1;
+	}
+	env_temp = env_temp->next;
+	return (env_temp);
+}
+
 void	change_env(t_info *info)
 {
 	char		*pwd;
@@ -59,22 +59,7 @@ void	change_env(t_info *info)
 	pwd = getcwd(NULL, 0);
 	oldpwd = get_env_value(info->env_list, "PWD");
 	while (env_temp)
-	{
-		if (!ft_strcmp(env_temp->key, "PWD", ft_strlen(env_temp->key), \
-			ft_strlen("PWD")))
-		{
-			free(env_temp->value);
-			env_temp->value = pwd;
-		}
-		if (!ft_strcmp(env_temp->key, "OLDPWD", ft_strlen(env_temp->key), \
-			ft_strlen("OLDPWD")))
-		{
-			free(env_temp->value);
-			env_temp->value = oldpwd;
-			flag = 1;
-		}
-		env_temp = env_temp->next;
-	}
+		env_temp = update_env(env_temp, pwd, oldpwd, &flag);
 	if (flag == 0)
 		append_env_list(info, "OLDPWD", oldpwd);
 }

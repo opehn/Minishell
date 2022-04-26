@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:17:25 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/21 15:00:04 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:59:24 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include <fcntl.h>
 
+/*
+** =============================================================================
+** Type Definition
+** =============================================================================
+*/
 typedef enum s_type
 {
 	INPUT_RED = 1,
@@ -24,7 +29,7 @@ typedef enum s_type
 	CMD = 5,
 	OPTARG = 6,
 	BRANCH = 7,
-} t_type;
+}	t_type;
 
 typedef struct s_tree
 {
@@ -42,9 +47,6 @@ typedef struct s_forest
 	pid_t			pid;
 	t_tree			*root;
 	struct s_forest	*next;
-} t_forest;
-
-t_tree	*init_tree(int type, char *data, t_tree *left_child, t_tree *right_child);
-void	delete_tree(t_tree *tree);
+}	t_forest;
 
 #endif

@@ -6,11 +6,38 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 22:05:56 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 18:41:38 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:39:52 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
+
+int	update_perror(char **optarg, char *perror, int *i, int *j)
+{
+	++(*j);
+	if (!optarg[*i][*j])
+		return (0);
+	else if (optarg[*i][*j] != '-')
+	{
+		perror = ft_strjoin(ft_strjoin_ch("minishell: pwd : -", \
+				optarg[*i][*j]), ": invalid option\npwd: usage: pwd");
+		ft_putendl_fd(perror, 2);
+		free(perror);
+		perror = 0;
+		return (2);
+	}
+	if (optarg[*i][*j] == '-')
+	{
+		++(*j);
+		if (optarg[*i][*j] != '\0')
+		{
+			perror = "minishell: pwd : --: invalid option\npwd: usage: pwd";
+			ft_putendl_fd(perror, 2);
+			return (2);
+		}
+	}
+	return (0);
+}
 
 int	custom_pwd(char **optarg)
 {
@@ -25,29 +52,8 @@ int	custom_pwd(char **optarg)
 	{
 		j = 0;
 		if (optarg[i][j] == '-')
-		{
-			++j;
-			if ((optarg[i][j] != '\0') || optarg[i][j] != '-')
-			{
-				perror = ft_strjoin(ft_strjoin_ch("minishell: pwd : -", \
-						optarg[i][j]), ": invalid option\n pwd: usage: pwd");
-				ft_putendl_fd(perror, 2);
-				free(perror);
-				perror = 0;
+			if (update_perror(optarg, perror, &i, &j) == 2)
 				return (2);
-			}
-			if (optarg[i][j] == '-')
-			{
-				++j;
-				if (optarg[i][j] != '\0')
-				{
-					perror = "minishell: pwd : --: invalid option\n \
-							pwd: usage: pwd";
-					ft_putendl_fd(perror, 2);
-					return (2);
-				}
-			}
-		}
 		++i;
 	}
 	path = getcwd(NULL, 0);

@@ -33,7 +33,7 @@ typedef enum e_special
 	BS = '\\',
 	BT = '`',
 	SEP = '\n'
-} t_special;
+}	t_special;
 
 typedef struct s_pipe_list
 {
@@ -41,13 +41,13 @@ typedef struct s_pipe_list
 	int					l_idx;
 	char				*pipe_data;
 	struct s_pipe_list	*next;
-} t_pipe_list;
+}	t_pipe_list;
 
 typedef struct s_heredoc
 {
 	int		fd[2];
 	int		index;
-} t_heredoc;
+}	t_heredoc;
 
 typedef struct s_info
 {
@@ -57,7 +57,7 @@ typedef struct s_info
 	char		**envp;
 	t_env_list	*env_list;
 	t_heredoc	*heredoc;
-} t_info;
+}	t_info;
 
 /*
 ** =============================================================================
@@ -102,8 +102,10 @@ void		delete_tree(t_tree *tree);
 ** =============================================================================
 */
 
-int			init_if_even(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *temp);
-int			init_last(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *temp);
+int			init_if_even(int d_quot_flag, int s_quot_flag, \
+						char *input, t_pipe_list *temp);
+int			init_last(int d_quot_flag, int s_quot_flag, \
+					char *input, t_pipe_list *temp);
 void		init_cur_pipe(char *input, t_pipe_list *temp);
 int			pipe_parsing(char *input, t_pipe_list *pipe);
 
