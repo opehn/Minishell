@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:02:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 16:02:07 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 16:21:04 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,3 +136,5 @@ int	main(int argc, char **argv, char **envp)
 	prompt(envp, env_list);
 	return (0);
 }
+
+love taeheon
