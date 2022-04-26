@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:47:22 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/25 21:17:40 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 21:52:46 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	print_err(int res)
 		ft_putendl_fd(MSG_RED, STDERR_FILENO);
 	else if (res == 4)
 		ft_putendl_fd(MSG_CMD, STDERR_FILENO);
+	else if (res == 5)
+		return (5);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:40:26 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 19:00:09 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 21:28:55 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,22 @@ int	chk_export_error(char **opts_arr)
 {
 	if (opts_arr[0][0] == '-') //if option
 	{
-		custom_err_msg("export", "no option", NULL, 0);
-		return (1);
+		custom_err_msg("export", "no option", NULL);
+		return (2);
 	}
 	else if (opts_arr[1]) //if arg > 1
 	{
 		if (find_equal_args(opts_arr))
-			custom_err_msg("export", "bad assignment", NULL, 0);
+			custom_err_msg("export", "not a valid identifier", "=");
 		return (1);
 	}
 	else if (find_space(opts_arr[0])) //if arg has space
 	{
-		custom_err_msg("export", "not valid in the context", opts_arr[0], 1);
+		custom_err_msg("export", "not a valid identifier", opts_arr[0]);
 		return (1);
 	}
 	if (!ft_strchr(opts_arr[0], '=')) //no equal in arg
-	{
-		g_exit_status = 0;
-		return (1);
-	}
+		return (0);
 	return (0);
 }
 

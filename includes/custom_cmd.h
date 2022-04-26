@@ -29,7 +29,7 @@ int     custom_cd(t_info *info, char **optarg);
 
 int custom_export(t_info *info, char **opts_arr);
 int custom_unset(t_info *info, char **opts_arr);
-void	custom_err_msg(char *func_name, char *msg, char *arg, int status);
+void	custom_err_msg(char *func_name, char *msg, char *arg);
 
 int    find_match_key(t_env_list *env_list, char *key);
 void    append_env_list(t_info *info, char *key, char *value);

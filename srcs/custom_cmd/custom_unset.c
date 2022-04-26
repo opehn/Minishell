@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 18:59:59 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 21:28:05 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ int	chk_unset_err(char **opts_arr)
 	i = 0;
 	if (opts_arr[0][0] == '-') //if option
 	{
-		custom_err_msg("unset", "no option", NULL, 0);
-		return (1);
+		custom_err_msg("unset", "invalid option", opts_arr[0]);
+		ft_putendl_fd("unset : usage: unset", STDERR_FILENO);
+		return (2);
 	}
 	while (opts_arr[i]) //if args has space or =
 	{
 		if (ft_strchr(opts_arr[i], ' ') || ft_strchr(opts_arr[i], '='))
 		{
-			custom_err_msg("unset", "invalid parameter name", opts_arr[0], 1);
+			custom_err_msg("unset", "not a valid identifier", opts_arr[0]);
 			return (1);
 		}
 		i++;

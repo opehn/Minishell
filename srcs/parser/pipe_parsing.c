@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:06:32 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 16:25:08 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 21:40:52 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@ int	init_last(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *pipe)
 	if (pipe->s_idx != pipe->l_idx)
 	{
 		if (!chk_data_null(input, pipe->s_idx, pipe->l_idx))
-			return (ERR_SYNTAX);
+		{
+			if (pipe->s_idx == 0)
+				return (NOERR);
+			else
+				return (ERR_SYNTAX);
+		}
 		init_cur_pipe(input, pipe);
 	}
 	return (0);

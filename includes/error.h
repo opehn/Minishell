@@ -17,6 +17,7 @@
 # define ERR_SYNTAX 2
 # define ERR_RED 3
 # define ERR_CMD 4
+# define NOERR	5
 
 # define MSG_UNCLOSED "Unclosed sequence detected"
 # define MSG_SYNTAX "Syntex error"
