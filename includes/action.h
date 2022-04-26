@@ -27,11 +27,24 @@ typedef enum e_custom_cmd
 void	action(t_info *info);
 int		exit_status_chk(t_info *info);
 void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out);
+void	single_preorder(t_info *info, t_forest *cur_forest, int in, int out);
 void	preorder(t_info *info, t_forest *forest, t_tree *tree);
-void	pipe_setting(t_forest *cur_forest);
-int		custom_cmd_action(t_info *info, int cmd, char **opts_arr);
-char	*setting_cmd(t_forest *forest);
 
+/*
+** =============================================================================
+** cmd_action.c
+** =============================================================================
+*/
+int		custom_cmd_action(t_info *info, int cmd, char **opts_arr);
+int		cmd_action(t_info *info, char *cmd, char *optarg);
+
+/*
+** =============================================================================
+** action_utils.c
+** =============================================================================
+*/
+char	*setting_cmd(t_forest *forest);
+void	pipe_setting(t_forest *cur_forest);
 
 /*
 ** =============================================================================
@@ -51,6 +64,7 @@ int		ft_wtermsig(int status);
 void	heredoc_chk(t_info *info);
 void	init_heredoc_buf(t_info *info, char *end_word, int index);
 char	*line_expand(t_info *info, char *line);
+int		heredoc_setting(t_info *info, t_forest	*cur_forest, int index);
 int		heredoc_cnt(t_forest *forest);
 
 /*
@@ -70,7 +84,6 @@ int		perror_redir(char *project, char *pathname);
 ** find_cmd.c
 ** =============================================================================
 */
-int     cmd_action(t_info *info, char *cmd, char *optarg);
 char	*find_builtin_cmd(t_env_list *env_list, char *cmd);
 char    *find_env_path(t_env_list *env_list);
 char    *match_builtin_cmd(char **cmd_array, char *cmd);
