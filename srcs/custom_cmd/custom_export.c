@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:40:26 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 16:42:48 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/26 17:26:39 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	print_env_list(t_info *info)
 	env_list = info->env_list;
 	while (env_list)
 	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		write(STDOUT_FILENO, env_list->key, ft_strlen(env_list->key));
 		write(STDOUT_FILENO, "=", 1);
 		ft_putendl_fd(env_list->value, STDOUT_FILENO);

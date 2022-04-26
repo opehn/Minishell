@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 16:48:59 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 16:51:40 by acho             ###   ########.fr       */
+/*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
+/*   Updated: 2022/04/26 17:36:44 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "error.h"
 
 #include <stdio.h>
-
-extern int	g_exit_status;
 
 int	chk_unset_err(char **opts_arr)
 {
@@ -69,7 +67,7 @@ int	unset_env(t_info *info, char **opts_arr)
 
 int	custom_unset(t_info *info, char **opts_arr)
 {
-	chk_unset_err(opts_arr);
-	unset_env(info, opts_arr);
+	if (!chk_unset_err(opts_arr))
+		unset_env(info, opts_arr);
 	return (0);
 }
