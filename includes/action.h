@@ -24,11 +24,11 @@ typedef enum e_custom_cmd
 ** action.c
 ** =============================================================================
 */
-void	action(t_info *info);
-int		exit_status_chk(t_info *info);
-void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out);
 void	single_preorder(t_info *info, t_forest *cur_forest, int in, int out);
 void	preorder(t_info *info, t_forest *forest, t_tree *tree);
+void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out);
+int		exit_status_chk(t_info *info);
+void	action(t_info *info);
 
 /*
 ** =============================================================================
@@ -77,7 +77,6 @@ int		append(char *pathname);
 int		output_redir(char *pathname);
 int		input_redir(char *pathname);
 int		heredoc(t_info *info);
-int		perror_redir(char *project, char *pathname);
 
 /*
 ** =============================================================================
@@ -91,5 +90,13 @@ int		find_custom_cmd(char *cmd);
 int		no_fork_cmd(char *cmd);
 
 char    **split_opts(char const *cmd, char const *opts, char c);
+
+/*
+** =============================================================================
+** find_cmd.c
+** =============================================================================
+*/
+int		perror_redir(char *project, char *pathname);
+int		perror_exit_noarg(char *project, char *pathname);
 
 #endif

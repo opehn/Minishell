@@ -6,13 +6,11 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 22:05:56 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/23 23:13:11 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:41:38 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
-
-extern int	g_exit_status;
 
 int	custom_pwd(char **optarg)
 {
@@ -31,8 +29,8 @@ int	custom_pwd(char **optarg)
 			++j;
 			if ((optarg[i][j] != '\0') || optarg[i][j] != '-')
 			{
-				perror = ft_strjoin(ft_strjoin_ch("minishell: pwd : -", optarg[i][j]), \
-						": invalid option\n pwd: usage: pwd");
+				perror = ft_strjoin(ft_strjoin_ch("minishell: pwd : -", \
+						optarg[i][j]), ": invalid option\n pwd: usage: pwd");
 				ft_putendl_fd(perror, 2);
 				free(perror);
 				perror = 0;
@@ -43,7 +41,8 @@ int	custom_pwd(char **optarg)
 				++j;
 				if (optarg[i][j] != '\0')
 				{
-					perror = "minishell: pwd : --: invalid option\n pwd: usage: pwd";
+					perror = "minishell: pwd : --: invalid option\n \
+							pwd: usage: pwd";
 					ft_putendl_fd(perror, 2);
 					return (2);
 				}

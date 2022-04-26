@@ -1,15 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   custom_env.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 18:42:08 by taeheoki          #+#    #+#             */
+/*   Updated: 2022/04/26 18:46:09 by taeheoki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "action.h"
 #include "custom_cmd.h"
 #include "error.h"
 #include "env.h"
 
-#include <stdio.h>
-
-extern int g_exit_status;
-
 void	print_env(t_info *info)
 {
-	t_env_list  *env_list;
+	t_env_list	*env_list;
 
 	env_list = info->env_list;
 	while (env_list)
@@ -26,8 +34,7 @@ int	custom_env(t_info *info, char **opts_arr)
 	if (opts_arr[0]) //if arg >= 1
 	{
 		ft_putendl_fd("minishell : env : no args or options", STDERR_FILENO);
-		g_exit_status = 0;
-		return (1);
+		return (127);
 	}
 	else
 		print_env(info);
