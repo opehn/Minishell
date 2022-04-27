@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:14:51 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 10:57:56 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 18:47:54 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	scan_token(t_tree *root, t_env_list *env_list)
 	i = 0;
 	res = 0;
 	res = iterate_scan(remain, &i, root, env_list);
+	free(*remain);
+	free(remain);
 	return (res);
 }
 
@@ -57,5 +59,6 @@ int	iterate_scan(char **remain, int *i, t_tree *root, t_env_list *env_list)
 		}
 	}
 	grow_cmd(*remain, root, env_list);
+	free(data);
 	return (res);
 }

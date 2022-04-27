@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:21:29 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 18:54:40 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 18:38:13 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	parse_cmd(char *remain, char **cmds, t_env_list *env_list)
 	make_opts(remain, env_list, opts, i);
 	cmds[0] = *cmd;
 	cmds[1] = *opts;
+	free(cmd);
+	free(opts);
+	free(i);
 }
 
 void	make_cmd(char *remain, t_env_list *env_list, char **cmd, int *i)

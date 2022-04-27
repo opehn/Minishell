@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:49:56 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 10:58:00 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 18:13:39 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ int	if_red(char *data, int *i, t_tree *root, t_env_list *env_list)
 		if (res)
 			return (res);
 		grow_red(*red_data, type, root);
+		free(*red_data);
+		free(red_data);
 	}
+	free(*red_data);
+	free(red_data);
 	return (0);
 }
 
@@ -76,13 +80,29 @@ int	chk_red_err(int quot_flag, int ds_flag)
 
 int	return_red_type(char *data, int *i)
 {
-	if (!ft_strncmp(ft_substr(data, *i, 2), ">>", 2))
+	char	*substr;
+
+	substr = ft_substr(data, *i, 2);
+	if (!ft_strncmp(substr, ">>", 2))
+	{
+		free(substr);
 		return (3);
-	else if (!ft_strncmp(ft_substr(data, *i, 2), "<<", 2))
+	}
+	else if (!ft_strncmp(substr, "<<", 2))
+	{
+		free(substr);
 		return (4);
+	}
 	else if (data[*i] == LD)
+	{
+		free(substr);
 		return (1);
+	}
 	else if (data[*i] == RD)
+	{
+		free(substr);
 		return (2);
+	}
+	free(substr);
 	return (0);
 }

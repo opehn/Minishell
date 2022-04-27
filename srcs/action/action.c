@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/27 16:21:46 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 19:02:47 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,17 @@ void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out)
 
 int	exit_status_chk(t_info *info)
 {
-	int	status;
+	int			status;
+	t_forest	*temp;
 
-	if (no_fork_cmd(setting_cmd(info->forest)) && (info->pipe_cnt == 1))
-		info->forest = info->forest->next;
-	while (info->forest)
+	temp = info->forest;
+	if (no_fork_cmd(setting_cmd(temp)) && (info->pipe_cnt == 1))
+		temp = temp->next;
+	while (temp)
 	{
 		if (waitpid(info->forest->pid, &status, 0) == -1)
 			exit_error(ERR_WAITPID);
-		info->forest = info->forest->next;
+		temp = temp->next;
 	}
 	if (ft_wifexited(status))
 		return (ft_wexitstatus(status));

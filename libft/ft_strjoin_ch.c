@@ -6,13 +6,13 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 16:56:51 by acho              #+#    #+#             */
-/*   Updated: 2022/04/11 22:21:52 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 18:17:08 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_ch(char const *s, char const c)
+char	*ft_strjoin_ch(char *s, char c)
 {
 	char	*new_string;
 	int		len;
@@ -30,5 +30,6 @@ char	*ft_strjoin_ch(char const *s, char const c)
 	}
 	new_string[i] = c;
 	new_string[i + 1] = '\0';
+	free(s);
 	return (new_string);
 }
