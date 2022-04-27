@@ -1,8 +1,8 @@
 NAME = minishell
 CC = gcc
 FLAGS = -Wall -Wextra -g
-LIBRARIES = -L$(LIBFT_DIR) -L/Users/acho/.brew/opt/readline/lib 
-INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/Users/acho/.brew/opt/readline/include 
+LIBRARIES = -L$(LIBFT_DIR) -L/Users/taeheoki/.brew/opt/readline/lib 
+INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/Users/taeheoki/.brew/opt/readline/include 
 LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./libft/
 

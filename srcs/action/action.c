@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/27 19:02:47 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:58:25 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,46 @@ void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out)
 	}
 }
 
+void    free_forest(t_forest *forest)
+{
+    t_tree      *temp;
+    t_tree      *right_tree;
+
+    temp = forest->root;
+    while (temp)
+    {
+        right_tree = temp->right_child;
+        free(temp->left_child->data);
+        free(temp->left_child);
+        free(temp->data);
+        free(temp);
+        if (right_tree && (right_tree->type == OPTARG))
+        {
+            free(right_tree->data);
+            free(right_tree);
+            return ;
+        }
+        temp = right_tree;
+    }
+	free(forest);
+}
+
 int	exit_status_chk(t_info *info)
 {
 	int			status;
 	t_forest	*temp;
+	t_forest	*temp_next;
 
 	temp = info->forest;
 	if (no_fork_cmd(setting_cmd(temp)) && (info->pipe_cnt == 1))
 		temp = temp->next;
 	while (temp)
 	{
-		if (waitpid(info->forest->pid, &status, 0) == -1)
+		temp_next = temp->next;
+		if (waitpid(temp->pid, &status, 0) == -1)
 			exit_error(ERR_WAITPID);
-		temp = temp->next;
+		free_forest(temp);
+		temp = temp_next;
 	}
 	if (ft_wifexited(status))
 		return (ft_wexitstatus(status));

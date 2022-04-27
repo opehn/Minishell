@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:02:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 10:21:24 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 19:51:13 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,8 @@ void	prompt(char **envp, t_env_list *env_list)
 		add_history(input);
 		res = parsing(info, input);
 		if (!res)
-		{
 			action(info);
-		}
+		free(input);
 	}
 }
 
@@ -97,7 +96,5 @@ int	main(int argc, char **argv, char **envp)
 	set_signal();
 	init_env(&env_list, envp);
 	prompt(envp, env_list);
-	system("leaks minishell > leaks_result");
-	system("cat leaks_result | grep leaked && rm -rf leaks_result");
 	return (0);
 }

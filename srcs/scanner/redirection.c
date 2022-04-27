@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:49:56 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 19:15:28 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:51:20 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	if_red(char *data, int *i, t_tree *root, t_env_list *env_list)
 			return (res);
 		}
 		grow_red(*red_data, type, root);
-		free(*red_data);
 		free(red_data);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:05:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 15:26:07 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 20:08:22 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 int	parsing(t_info *info, char *input)
 {
 	t_pipe_list	*pipe;
+	t_pipe_list	*next;
 	int			res;
 
 	res = 0;
@@ -38,7 +39,11 @@ int	parsing(t_info *info, char *input)
 	res = parsing_tree(info, pipe);
 	if (res)
 		return (print_err(res));
-	free(pipe);
-	pipe = 0;
+	while (pipe)
+	{
+		next = pipe->next;
+		free(pipe);
+		pipe = next;
+	}
 	return (0);
 }

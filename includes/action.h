@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 00:42:24 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/27 00:43:22 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 21:30:22 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	action(t_info *info);
 */
 int		custom_cmd_action(t_info *info, int cmd, char **opts_arr);
 int		cmd_action(t_info *info, char *cmd, char *optarg);
+void	free_cmd_all(char **opts_arr, char *builtin_cmd_path);
 
 /*
 ** =============================================================================

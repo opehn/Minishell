@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_find.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:54:35 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 15:55:13 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 21:37:36 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,34 @@ int	find_custom_cmd(char *cmd)
 		return (CMD_ENV);
 	return (0);
 }
+#include <stdio.h>
 
 char	*find_builtin_cmd(t_env_list *env_list, char *cmd)
 {
 	char	*path;
 	char	**path_array;
+	char	*res;
+	int		i;
 
+	i = 0;
 	path = find_env_path(env_list);
 	path_array = ft_split(path, ':');
-	return (match_builtin_cmd(path_array, cmd));
+	res = match_builtin_cmd(path_array, cmd);
+	free(path);
+	while (path_array[i])
+	{
+		free(path_array[i]);
+		i++;
+	}
+	free(path_array);
+	return (res);
 }
 
 char	*match_builtin_cmd(char **path_array, char *cmd)
 {
 	DIR				*cur_dir;
 	struct dirent	*cur_dir_info;
+	char			*path;
 	int				i;
 
 	i = 0;
@@ -79,11 +92,13 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 			if (!ft_strcmp(cmd, cur_dir_info->d_name, ft_strlen(cmd),
 					ft_strlen(cur_dir_info->d_name)))
 			{
-				path_array[i] = ft_strjoin_ch(path_array[i], '/');
-				return (ft_strjoin(path_array[i], cmd));
+				path = ft_strjoin_ch(ft_strdup(path_array[i]), '/');
+				path = ft_strjoin(path, cmd);
+				return (path);
 			}
 			cur_dir_info = readdir(cur_dir);
 		}
+		closedir(cur_dir);
 		i++;
 	}
 	return (NULL);

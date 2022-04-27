@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_action.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:42:50 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 15:48:23 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 21:34:08 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,24 @@ static int	perror_cmd(char *project, char *cmd)
 	return (127);
 }
 
+void	free_cmd_all(char **opts_arr, char *builtin_cmd_path)
+{
+	int	i;
+
+	if (builtin_cmd_path)
+		free(builtin_cmd_path);
+	if (opts_arr)
+	{	
+		i = 0;
+		while((opts_arr)[i])
+		{
+			free((opts_arr)[i]);
+			i++;
+		}
+		free(opts_arr);
+	}
+}
+
 int	cmd_action(t_info *info, char *cmd, char *optarg)
 {
 	int		custom_cmd;
@@ -64,11 +82,12 @@ int	cmd_action(t_info *info, char *cmd, char *optarg)
 		opts_arr = split_opts(builtin_cmd_path, optarg, SEP);
 		execve(builtin_cmd_path, opts_arr, info->envp);
 	}
-	else if (!builtin_cmd_path)
+	else
 	{
 		opts_arr = split_opts(cmd, optarg, SEP);
 		execve(cmd, opts_arr, info->envp);
 		g_exit_status = perror_cmd("minishell", cmd);
 	}
+	free_cmd_all(opts_arr, builtin_cmd_path);
 	return (0);
 }
