@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:40:26 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 21:28:55 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 10:54:56 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	find_equal_args(char **opts_arr)
 	int	i;
 
 	i = 1;
-	while (opts_arr[i]) //if arg is '='
+	while (opts_arr[i])
 	{
 		if (!ft_strcmp(opts_arr[i], "=", ft_strlen(opts_arr[i]), 1))
 			return (1);
@@ -30,23 +30,23 @@ int	find_equal_args(char **opts_arr)
 
 int	chk_export_error(char **opts_arr)
 {
-	if (opts_arr[0][0] == '-') //if option
+	if (opts_arr[0][0] == '-')
 	{
 		custom_err_msg("export", "no option", NULL);
 		return (2);
 	}
-	else if (opts_arr[1]) //if arg > 1
+	else if (opts_arr[1])
 	{
 		if (find_equal_args(opts_arr))
 			custom_err_msg("export", "not a valid identifier", "=");
 		return (1);
 	}
-	else if (find_space(opts_arr[0])) //if arg has space
+	else if (find_space(opts_arr[0]))
 	{
 		custom_err_msg("export", "not a valid identifier", opts_arr[0]);
 		return (1);
 	}
-	if (!ft_strchr(opts_arr[0], '=')) //no equal in arg
+	if (!ft_strchr(opts_arr[0], '='))
 		return (0);
 	return (0);
 }

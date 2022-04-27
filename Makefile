@@ -1,9 +1,16 @@
 NAME = minishell
 CC = gcc
+<<<<<<< HEAD
 FLAGS = -Wall -Wextra
 FLAGS += -g -fsanitize=address
 LIBRARIES = -L$(LIBFT_DIR) -L/Users/acho/.brew/opt/readline/lib 
 INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/Users/acho/.brew/opt/readline/include 
+=======
+FLAGS = -Wall -Wextra -Werror
+LIBRARIES = -L$(LIBFT_DIR) -L/Users/taeheoki/.brew/opt/readline/lib
+INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/Users/taeheoki/.brew/opt/readline/include
+
+>>>>>>> 0f81ea4fd7a606db81e9043541adad014fd6991c
 LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./libft/
 

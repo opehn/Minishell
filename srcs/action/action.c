@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 18:50:42 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 10:58:32 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "action.h"
-#include <errno.h>
 
 int	g_exit_status;
 
@@ -33,7 +32,8 @@ void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 							tree->left_child->type == APPEND_RED || \
 							tree->left_child->type == HEREDOC))
 	{
-		if (redir_action(info, tree->left_child) != 0)
+		g_exit_status = redir_action(info, tree->left_child);
+		if (g_exit_status != 0)
 			return ;
 	}
 	if (tree->left_child && (tree->left_child->type == CMD))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_unset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 21:28:05 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 10:58:02 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	chk_unset_err(char **opts_arr)
 	int	i;
 
 	i = 0;
-	if (opts_arr[0][0] == '-') //if option
+	if (opts_arr[0][0] == '-')
 	{
 		custom_err_msg("unset", "invalid option", opts_arr[0]);
 		ft_putendl_fd("unset : usage: unset", STDERR_FILENO);
 		return (2);
 	}
-	while (opts_arr[i]) //if args has space or =
+	while (opts_arr[i])
 	{
 		if (ft_strchr(opts_arr[i], ' ') || ft_strchr(opts_arr[i], '='))
 		{

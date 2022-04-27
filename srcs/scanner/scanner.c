@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   scanner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:14:51 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 15:17:52 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 10:57:56 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scanner.h"
 #include "error.h"
 #include "parsing.h"
-#include "libft.h"
 
 int	scan_token(t_tree *root, t_env_list *env_list)
 {
@@ -50,7 +49,7 @@ int	iterate_scan(char **remain, int *i, t_tree *root, t_env_list *env_list)
 		res = if_red(data, i, root, env_list);
 		if (res)
 			return (res);
-		if (flag == *i) //if data[*i] is not special
+		if (flag == *i)
 		{
 			append_char(data, remain, i);
 			ignore_space(data, i);

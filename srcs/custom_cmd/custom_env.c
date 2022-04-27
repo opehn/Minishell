@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:42:08 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 22:09:34 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 10:54:37 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_env(t_info *info)
 
 int	custom_env(t_info *info, char **opts_arr)
 {
-	if (opts_arr[0]) //if arg >= 1
+	if (opts_arr[0])
 	{
 		if (opts_arr[0][0] == '-')
 			custom_err_msg("env", "illegal option -- ", &opts_arr[0][1]);

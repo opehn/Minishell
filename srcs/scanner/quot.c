@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quot.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:24:07 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 18:54:55 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 10:58:01 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scanner.h"
 #include "error.h"
 #include "parsing.h"
-#include "libft.h"
 
 int	if_quot(char *data, int *i, char **remain)
 {
@@ -62,7 +61,7 @@ int	find_next_sq(char *data, int *i, char **res)
 	{
 		if (data[*i] == S_QUOT)
 		{
-			(*i)++; //move data idx from '
+			(*i)++;
 			break ;
 		}
 		*res = ft_strjoin_ch(*res, data[*i]);
@@ -85,7 +84,7 @@ int	find_next_dq(char *data, int *i, char **res, t_env_list *env_list)
 		}
 		if (data[*i] == D_QUOT)
 		{
-			(*i)++; //move data idx from "
+			(*i)++;
 			break ;
 		}
 		if (start == *i)

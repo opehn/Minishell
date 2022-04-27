@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:22:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 18:53:44 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 11:02:03 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scanner.h"
 #include "parsing.h"
-#include "libft.h"
 
 extern int	g_exit_status;
 
@@ -82,7 +81,7 @@ int	expand_if_match(int *i, char *key, char **res, t_env_list *env_list)
 		if (!ft_strcmp(env_list->key, key,
 				ft_strlen(env_list->key), ft_strlen(key)))
 		{
-			*res = ft_strjoin(*res, env_list->value); //append value to remain
+			*res = ft_strjoin(*res, env_list->value);
 			*i += ft_strlen(env_list->key);
 			return (1);
 		}
