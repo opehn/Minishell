@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:14:51 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 18:47:54 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:05:37 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int	iterate_scan(char **remain, int *i, t_tree *root, t_env_list *env_list)
 		res = if_quot(data, i, remain);
 		res = if_red(data, i, root, env_list);
 		if (res)
+		{
+			free(data);
 			return (res);
+		}
 		if (flag == *i)
 		{
 			append_char(data, remain, i);

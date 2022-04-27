@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:49:56 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 18:13:39 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:15:28 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,20 @@ int	if_red(char *data, int *i, t_tree *root, t_env_list *env_list)
 		ignore_space(data, i);
 		res = iter_red(data, i, red_data, env_list);
 		if (res)
+		{
+			free(*red_data);
+			free(red_data);
 			return (res);
+		}
 		grow_red(*red_data, type, root);
 		free(*red_data);
 		free(red_data);
 	}
-	free(*red_data);
-	free(red_data);
+	else
+	{
+		free(*red_data);
+		free(red_data);
+	}
 	return (0);
 }
 
