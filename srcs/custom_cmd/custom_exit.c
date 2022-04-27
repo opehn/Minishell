@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 20:02:15 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 18:40:31 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/27 16:25:54 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,13 @@ int	custom_exit(char **optarg)
 	else if (optarg[1])
 		return (perror_exit_many("minishell", "exit"));
 	else if (!isvalid_arg(optarg[0]))
+	{
+		ft_putendl_fd("exit", STDOUT_FILENO);
 		exit(perror_exit_noarg("minishell", optarg[0]));
+	}
 	if (optarg[0])
 		status = ft_atoi(optarg[0]);
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	exit(status);
 	return (0);
 }
