@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:06:32 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 21:40:52 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 16:31:22 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	pipe_parsing(char *input, t_pipe_list *pipe)
 	while (input[pipe->l_idx] != '\0')
 	{
 		quot_chk(&d_quot_flag, &s_quot_flag, input[pipe->l_idx]);
-		if (input[pipe->l_idx] == PIPE)
+		if (input[pipe->l_idx] == PIPE && !is_odd(d_quot_flag) && \
+			!is_odd(s_quot_flag))
 		{
 			res = init_if_even(d_quot_flag, s_quot_flag, input, pipe);
 			append_pipe_list(pipe, pipe->l_idx);
