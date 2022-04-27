@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:49:56 by acho              #+#    #+#             */
-/*   Updated: 2022/04/26 21:54:51 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/27 10:58:00 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scanner.h"
 #include "error.h"
 #include "parsing.h"
-#include "libft.h"
 
 int	if_red(char *data, int *i, t_tree *root, t_env_list *env_list)
 {
@@ -23,10 +22,10 @@ int	if_red(char *data, int *i, t_tree *root, t_env_list *env_list)
 
 	red_data = malloc(sizeof(char *) * 1);
 	init_str(red_data);
-	type = return_red_type(data, i); //check red type
+	type = return_red_type(data, i);
 	if (type)
 	{
-		pass_sign(type, i); //move idx of data to file name
+		pass_sign(type, i);
 		ignore_space(data, i);
 		res = iter_red(data, i, red_data, env_list);
 		if (res)
