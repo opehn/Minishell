@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:02:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/28 18:46:54 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 22:46:10 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,6 @@ char	*prompt_readline(char *prompt)
 	set_signal();
 	return (input);
 }
-
-void	delete_info(t_info **info)
-{
-	free((*info)->root);
-	if ((*info)->heredoc)
-		free((*info)->heredoc);
-}
-
 
 void	prompt(char **envp, t_env_list *env_list)
 {

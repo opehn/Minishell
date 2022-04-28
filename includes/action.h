@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 00:42:24 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/28 15:31:20 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 22:52:43 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "error.h"
 # include <errno.h>
 # include <string.h>
+# include "free_data.h"
 
 # define OUT 0
 # define IN 1

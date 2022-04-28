@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:22:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/28 17:23:34 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 23:07:46 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*make_key(char *data, int *i)
 int	expand_if_match(int *i, char *key, char **res, t_env_list *env_list)
 {
 	char	*temp;
+
 	if (!ft_strcmp(key, "?", ft_strlen(key), 1))
 	{
 		expand_exit_status(i, res);

@@ -1,16 +1,17 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+/*																			*/
+/*														:::	  ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/28 18:42:37 by taeheoki         ###   ########.fr       */
-/*                                                                            */
+/*													+:+ +:+		 +:+	 */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>	+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/04/11 23:33:23 by taeheoki		  #+#	#+#			 */
+/*   Updated: 2022/04/28 23:44:14 by acho             ###   ########.fr       */
+/*																			*/
 /* ************************************************************************** */
 
 #include "action.h"
+#include "free_data.h"
 
 int	g_exit_status;
 
@@ -67,29 +68,6 @@ void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out)
 		dup2(out, STDOUT_FILENO);
 		close(in);
 		close(out);
-	}
-}
-
-void	free_forest(t_forest *forest)
-{
-	t_tree	*right_tree;
-
-	while (forest->root)
-	{
-		right_tree = forest->root->right_child;
-		free(forest->root->left_child->data);
-		free(forest->root->left_child);
-		free(forest->root->data);
-		free(forest->root);
-		if (right_tree && (right_tree->type == OPTARG))
-		{
-			if (right_tree->data)
-				free(right_tree->data);
-			free(right_tree);
-			free(forest);
-			return ;
-		}
-		forest->root = right_tree;
 	}
 }
 

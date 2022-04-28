@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+/*																			*/
+/*														:::	  ::::::::   */
 /*   heredoc_chk.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 20:32:33 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/28 17:59:44 by taeheoki         ###   ########.fr       */
-/*                                                                            */
+/*													+:+ +:+		 +:+	 */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>	+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/04/18 20:32:33 by taeheoki		  #+#	#+#			 */
+/*   Updated: 2022/04/28 23:44:01 by acho             ###   ########.fr       */
+/*																			*/
 /* ************************************************************************** */
 
 #include "action.h"
@@ -105,27 +105,28 @@ int	heredoc_setting(t_info *info, t_forest	*cur_forest, int index)
 
 void	heredoc_chk(t_info *info)
 {
-	t_forest	*cur_forest;
-	t_tree		*temp;
+	t_forest	*temp_forest;
+	t_tree		*temp_root;
 	int			cnt;
 	int			index;
 
-	cur_forest = info->forest;
-	cnt = heredoc_cnt(cur_forest);
+	temp_forest = info->forest;
+	cnt = heredoc_cnt(temp_forest);
 	if (cnt == 0)
 		return ;
 	info->heredoc = (t_heredoc *)malloc(sizeof(t_heredoc) * cnt);
-	temp = info->forest->root;
 	index = 0;
-	while (cur_forest)
+	while (info->forest)
 	{
-		while (cur_forest->root && cur_forest->root->left_child)
+		temp_root = info->forest->root;
+		while (info->forest->root && info->forest->root->left_child)
 		{
-			if (cur_forest->root->left_child->type == HEREDOC)
-				index = heredoc_setting(info, cur_forest, index);
-			cur_forest->root = cur_forest->root->right_child;
+			if (info->forest->root->left_child->type == HEREDOC)
+				index = heredoc_setting(info, info->forest, index);
+			info->forest->root = info->forest->root->right_child;
 		}
-		cur_forest = cur_forest->next;
+		info->forest->root = temp_root;
+		info->forest = info->forest->next;
 	}
-	info->forest->root = temp;
+	info->forest = temp_forest;
 }

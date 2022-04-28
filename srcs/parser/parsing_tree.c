@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:09:53 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/28 17:27:48 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 22:47:02 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_forest	*init_forest(t_tree *pipe_tree)
 	forest->prefd = -1;
 	return (forest);
 }
-#include <stdio.h>
 
 t_forest	*setting_forest(t_info *info, t_tree **pipe_tree, int i, \
 							t_forest *temp)

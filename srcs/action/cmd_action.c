@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:42:50 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/28 18:39:55 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 22:59:22 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	free_cmd_all(char **opts_arr, char *builtin_cmd_path)
 	if (opts_arr)
 	{	
 		i = 0;
-		while((opts_arr)[i])
+		while ((opts_arr)[i])
 		{
 			free((opts_arr)[i]);
 			i++;
@@ -69,8 +69,6 @@ int	cmd_action(t_info *info, char *cmd, char *optarg)
 	char	*builtin_cmd_path;
 	char	**opts_arr;
 
-	if (!cmd[0])
-		return (0);
 	custom_cmd = find_custom_cmd(cmd);
 	builtin_cmd_path = find_builtin_cmd(info->env_list, cmd);
 	if (custom_cmd)

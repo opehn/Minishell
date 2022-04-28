@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:14:51 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 19:05:37 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/28 23:25:23 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	scan_token(t_tree *root, t_env_list *env_list)
 	init_str(remain);
 	i = 0;
 	res = 0;
+	ignore_space(root->data, &i);
 	res = iterate_scan(remain, &i, root, env_list);
 	free(*remain);
 	free(remain);
@@ -40,20 +41,17 @@ int	iterate_scan(char **remain, int *i, t_tree *root, t_env_list *env_list)
 	int		res;
 	char	*data;
 
-	flag = 0;
 	res = 0;
 	data = ft_strndup(root->data, ft_strlen(root->data));
-	ignore_space(data, i);
 	while (data[*i] && !res)
 	{
 		flag = *i;
 		res = if_quot(data, i, remain);
+		if (res)
+			return (res);
 		res = if_red(data, i, root, env_list);
 		if (res)
-		{
-			free(data);
 			return (res);
-		}
 		if (flag == *i)
 		{
 			append_char(data, remain, i);
@@ -61,7 +59,7 @@ int	iterate_scan(char **remain, int *i, t_tree *root, t_env_list *env_list)
 			append_seperater(data, remain, i);
 		}
 	}
-	grow_cmd(*remain, root, env_list);
 	free(data);
+	grow_cmd(*remain, root, env_list);
 	return (res);
 }

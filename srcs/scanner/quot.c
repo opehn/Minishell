@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:24:07 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 10:58:01 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 23:05:41 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	if_quot(char *data, int *i, char **remain)
 			(*i)++;
 		}
 		if (!data[*i])
+		{
+			free(data);
 			return (ERR_UNCLOSED);
+		}
 		*remain = ft_strjoin_ch(*remain, data[*i]);
 		(*i)++;
 	}

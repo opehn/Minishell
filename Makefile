@@ -13,7 +13,8 @@ HEADER_LIST	=	parsing.h \
 				env.h \
 				tree.h \
 				scanner.h \
-				custom_cmd.h
+				custom_cmd.h \
+				free_data.h
 HEADERS		=	$(addprefix $(HEADER_DIR), $(HEADER_LIST))
 SRC_DIR		=	./srcs/
 PARSER_DIR	=	$(SRC_DIR)parser/
@@ -24,7 +25,7 @@ CUSTOM_DIR	=	$(SRC_DIR)custom_cmd/
 
 # ':' Makefile이 연산하는데 재귀적인 용법을 허용하지 않는데 ":" 기호의 사용으로 그러한 재귀적인 금할 수 있다.
 
-MAIN_SRCS		:=	prompt.c signal_handler.c
+MAIN_SRCS		:=	prompt.c signal_handler.c free_data.c
 MAIN_SRCS		:=	$(addprefix $(SRC_DIR), $(MAIN_SRCS))
 PARSER_SRCS		:=	parsing.c parsing_tree.c pipe_parsing.c pipe_list_util.c pipe_parsing_util.c \
 					parsing_utils.c

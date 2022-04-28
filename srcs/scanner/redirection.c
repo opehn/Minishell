@@ -6,13 +6,14 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:49:56 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 19:51:20 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 23:32:06 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scanner.h"
 #include "error.h"
 #include "parsing.h"
+#include "free_data.h"
 
 int	if_red(char *data, int *i, t_tree *root, t_env_list *env_list)
 {
@@ -30,18 +31,14 @@ int	if_red(char *data, int *i, t_tree *root, t_env_list *env_list)
 		res = iter_red(data, i, red_data, env_list);
 		if (res)
 		{
-			free(*red_data);
-			free(red_data);
+			free_red_data(data, red_data, *red_data);
 			return (res);
 		}
 		grow_red(*red_data, type, root);
 		free(red_data);
 	}
 	else
-	{
-		free(*red_data);
-		free(red_data);
-	}
+		free_red_data(NULL, red_data, *red_data);
 	return (0);
 }
 
