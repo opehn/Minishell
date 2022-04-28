@@ -16,7 +16,11 @@
 
 void	delete_info(t_info *info)
 {
-	free(info->root);
+	if (info->root)
+	{
+		free(info->root);
+		info->root = NULL;
+	}
 	if (info->heredoc)
 	{
 		free(info->heredoc);

@@ -1,7 +1,7 @@
 NAME = minishell
 CC = gcc
 FLAGS = -Wall -Wextra -g
-# FLAGS += -fsanitize=address
+FLAGS += -fsanitize=address
 LIBRARIES = -L$(LIBFT_DIR) -L/opt/homebrew/opt/readline/lib
 INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/opt/homebrew/opt/readline/include
 LIBFT = $(LIBFT_DIR)libft.a

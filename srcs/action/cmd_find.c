@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:54:35 by acho              #+#    #+#             */
-/*   Updated: 2022/04/29 00:04:08 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 01:03:13 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 	int				i;
 
 	i = -1;
-	while (path_array[i++])
+	while (path_array[++i])
 	{
 		if (path_array[i][0] == '"')
 			break ;
