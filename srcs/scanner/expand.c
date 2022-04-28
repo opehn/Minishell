@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:22:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/28 23:07:46 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/29 00:01:21 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	no_quot_expand(char *data, int *i, char **res, t_env_list *env_list)
 		*res = ft_strjoin_ch(*res, '$');
 		(*i) += ft_strlen(key);
 	}
+	free (key);
 }
 
 char	*make_key(char *data, int *i)
