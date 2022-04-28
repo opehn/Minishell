@@ -18,6 +18,7 @@ int	g_exit_status;
 void	single_preorder(t_info *info, t_forest *cur_forest, int in, int out)
 {
 	preorder(info, cur_forest, cur_forest->root);
+	free_forest(cur_forest);
 	dup2(in, STDIN_FILENO);
 	dup2(out, STDOUT_FILENO);
 	close(in);
@@ -78,11 +79,6 @@ int	exit_status_chk(t_info *info)
 	t_forest	*temp_next;
 
 	temp = info->forest;
-	if (no_fork_cmd(setting_cmd(temp)) && (info->pipe_cnt == 1))
-	{
-		free_forest(temp);
-		temp = temp->next;
-	}
 	while (temp)
 	{
 		temp_next = temp->next;
