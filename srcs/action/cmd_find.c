@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:54:35 by acho              #+#    #+#             */
-/*   Updated: 2022/04/28 23:00:46 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/29 00:04:08 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 	i = -1;
 	while (path_array[i++])
 	{
+		if (path_array[i][0] == '"')
+			break ;
 		cur_dir = opendir(path_array[i]);
 		cur_dir_info = readdir(cur_dir);
 		while (cur_dir_info != NULL)

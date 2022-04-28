@@ -79,7 +79,10 @@ int	exit_status_chk(t_info *info)
 
 	temp = info->forest;
 	if (no_fork_cmd(setting_cmd(temp)) && (info->pipe_cnt == 1))
+	{
+		free_forest(temp);
 		temp = temp->next;
+	}
 	while (temp)
 	{
 		temp_next = temp->next;
