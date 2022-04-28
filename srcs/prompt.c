@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:02:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/28 22:46:10 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/28 23:50:44 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	prompt(char **envp, t_env_list *env_list)
 		res = parsing(info, input);
 		if (!res)
 			action(info);
-		delete_info(&info);
+		delete_info(info);
 		free(input);
 	}
 }

@@ -14,13 +14,14 @@
 #include "error.h"
 #include "action.h"
 
-extern int	g_exit_status;
-
-void	delete_info(t_info **info)
+void	delete_info(t_info *info)
 {
-	free((*info)->root);
-	if ((*info)->heredoc)
-		free((*info)->heredoc);
+	free(info->root);
+	if (info->heredoc)
+	{
+		free(info->heredoc);
+		info->heredoc = NULL;
+	}
 }
 
 void	free_forest(t_forest *forest)
