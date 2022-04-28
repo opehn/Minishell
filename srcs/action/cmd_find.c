@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_find.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:54:35 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 21:37:36 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 18:41:35 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	find_custom_cmd(char *cmd)
 		return (CMD_ENV);
 	return (0);
 }
-#include <stdio.h>
 
 char	*find_builtin_cmd(t_env_list *env_list, char *cmd)
 {
@@ -85,6 +84,8 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 	i = 0;
 	while (path_array[i])
 	{
+		if (path_array[i][0]== '"')
+			break ;
 		cur_dir = opendir(path_array[i]);
 		cur_dir_info = readdir(cur_dir);
 		while (cur_dir_info != NULL)
@@ -94,6 +95,7 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 			{
 				path = ft_strjoin_ch(ft_strdup(path_array[i]), '/');
 				path = ft_strjoin(path, cmd);
+				closedir(cur_dir);
 				return (path);
 			}
 			cur_dir_info = readdir(cur_dir);
@@ -108,8 +110,7 @@ char	*find_env_path(t_env_list *env_list)
 {
 	char	*path;
 
-	path = malloc(1);
-	path[0] = '\0';
+	path = NULL;
 	while (env_list)
 	{
 		if (!ft_strcmp(env_list->key, "PATH", ft_strlen(env_list->key), 4))

@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_action.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:42:50 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/27 21:34:08 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 18:39:55 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "action.h"
 #include "custom_cmd.h"
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:22:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 11:02:03 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 17:23:34 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	*make_key(char *data, int *i)
 
 int	expand_if_match(int *i, char *key, char **res, t_env_list *env_list)
 {
+	char	*temp;
 	if (!ft_strcmp(key, "?", ft_strlen(key), 1))
 	{
 		expand_exit_status(i, res);
@@ -81,7 +82,9 @@ int	expand_if_match(int *i, char *key, char **res, t_env_list *env_list)
 		if (!ft_strcmp(env_list->key, key,
 				ft_strlen(env_list->key), ft_strlen(key)))
 		{
-			*res = ft_strjoin(*res, env_list->value);
+			temp = *res;
+			*res = ft_strjoin_no(temp, env_list->value);
+			free(temp);
 			*i += ft_strlen(env_list->key);
 			return (1);
 		}

@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 22:05:56 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/27 00:39:52 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 17:15:45 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	update_perror(char **optarg, char *perror, int *i, int *j)
 		return (0);
 	else if (optarg[*i][*j] != '-')
 	{
-		perror = ft_strjoin(ft_strjoin_ch("minishell: pwd : -", \
+		perror = ft_strjoin_no(ft_strjoin_ch_no("minishell: pwd : -", \
 				optarg[*i][*j]), ": invalid option\npwd: usage: pwd");
 		ft_putendl_fd(perror, 2);
 		free(perror);

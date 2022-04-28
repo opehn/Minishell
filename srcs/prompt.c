@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:02:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 19:51:13 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 18:46:54 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@ char	*prompt_readline(char *prompt)
 	return (input);
 }
 
+void	delete_info(t_info **info)
+{
+	free((*info)->root);
+	if ((*info)->heredoc)
+		free((*info)->heredoc);
+}
+
+
 void	prompt(char **envp, t_env_list *env_list)
 {
 	t_info	*info;
@@ -83,6 +91,7 @@ void	prompt(char **envp, t_env_list *env_list)
 		res = parsing(info, input);
 		if (!res)
 			action(info);
+		delete_info(&info);
 		free(input);
 	}
 }

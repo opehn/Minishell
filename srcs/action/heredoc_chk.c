@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:33 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 18:10:01 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 17:59:44 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,25 @@ extern int	g_exit_status;
 
 int	heredoc_cnt(t_forest *forest)
 {
-	int		i;
-	t_tree	*temp;
+	int			i;
+	t_tree		*temp;
+	t_forest	*temp_forest;
 
 	i = 0;
-	temp = forest->root;
-	while (forest->root->left_child)
+	temp_forest = forest;
+	while (forest)
 	{
-		if (forest->root->left_child->type == HEREDOC)
-			++i;
-		forest->root = forest->root->right_child;
+		temp = forest->root;
+		while (forest->root->left_child)
+		{
+			if (forest->root->left_child->type == HEREDOC)
+				++i;
+			forest->root = forest->root->right_child;
+		}
+		forest->root = temp;
+		forest = forest->next;
 	}
-	forest->root = temp;
+	forest = temp_forest;
 	return (i);
 }
 
@@ -54,6 +61,7 @@ char	*line_expand(t_info *info, char *line)
 		temp = ft_strjoin_ch(temp, line[*i]);
 		(*i)++;
 	}
+	free(i);
 	free(line);
 	line = 0;
 	return (temp);

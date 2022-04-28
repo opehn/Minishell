@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 23:33:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/27 19:58:25 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 18:42:37 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,28 +70,27 @@ void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out)
 	}
 }
 
-void    free_forest(t_forest *forest)
+void	free_forest(t_forest *forest)
 {
-    t_tree      *temp;
-    t_tree      *right_tree;
+	t_tree	*right_tree;
 
-    temp = forest->root;
-    while (temp)
-    {
-        right_tree = temp->right_child;
-        free(temp->left_child->data);
-        free(temp->left_child);
-        free(temp->data);
-        free(temp);
-        if (right_tree && (right_tree->type == OPTARG))
-        {
-            free(right_tree->data);
-            free(right_tree);
-            return ;
-        }
-        temp = right_tree;
-    }
-	free(forest);
+	while (forest->root)
+	{
+		right_tree = forest->root->right_child;
+		free(forest->root->left_child->data);
+		free(forest->root->left_child);
+		free(forest->root->data);
+		free(forest->root);
+		if (right_tree && (right_tree->type == OPTARG))
+		{
+			if (right_tree->data)
+				free(right_tree->data);
+			free(right_tree);
+			free(forest);
+			return ;
+		}
+		forest->root = right_tree;
+	}
 }
 
 int	exit_status_chk(t_info *info)

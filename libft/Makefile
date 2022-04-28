@@ -6,7 +6,7 @@
 #    By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 15:17:36 by acho              #+#    #+#              #
-#    Updated: 2022/04/19 00:49:16 by taeheoki         ###   ########.fr        #
+#    Updated: 2022/04/28 17:16:16 by taeheoki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ SRCS =	ft_memset.c \
 		ft_substr.c \
 		ft_strjoin.c \
 		ft_strjoin_ch.c \
+		ft_strjoin_no.c \
+		ft_strjoin_ch_no.c \
 		ft_strtrim.c \
 		ft_split.c \
 		ft_itoa.c \

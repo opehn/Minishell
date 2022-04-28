@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 11:14:15 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 18:18:21 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/28 17:16:28 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char			*ft_strndup(const char *s1, int n);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char *s1, char*s2);
 char			*ft_strjoin_ch(char *s, char c);
+char			*ft_strjoin_no(char *s1, char*s2);
+char			*ft_strjoin_ch_no(char *s, char c);
 char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split(char const *str, char c);
 char			*ft_itoa(int n);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 00:42:24 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/27 21:30:22 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:31:20 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_custom_cmd
 void	single_preorder(t_info *info, t_forest *cur_forest, int in, int out);
 void	preorder(t_info *info, t_forest *forest, t_tree *tree);
 void	fork_forest(t_info *info, t_forest *cur_forest, int in, int out);
+void	free_forest(t_forest *forest);
 int		exit_status_chk(t_info *info);
 void	action(t_info *info);
 

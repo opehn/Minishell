@@ -17,6 +17,8 @@
 		"__node_handle": "c",
 		"env.h": "c",
 		"scanner.h": "c",
-		"__hash_table": "c"
+		"__hash_table": "c",
+		"ios": "c",
+		"custom_cmd.h": "c"
 	}
 }
