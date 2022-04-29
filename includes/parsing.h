@@ -65,6 +65,7 @@ typedef struct s_info
 ** =============================================================================
 */
 
+void		free_pipe_body(t_pipe_list *pipe);
 int			parsing(t_info *info, char *input);
 
 /*
@@ -76,6 +77,7 @@ int			parsing(t_info *info, char *input);
 void		quot_chk(int *d_quot_flag, int *s_quot_flag, char input);
 bool		is_odd(int num);
 int			chk_data_null(char *input, int start, int end);
+void		free_pipe_tree(t_tree *pipe_tree);
 
 /*
 ** =============================================================================
@@ -85,6 +87,8 @@ int			chk_data_null(char *input, int start, int end);
 
 int			count_tree(t_pipe_list *pipe);
 t_forest	*init_forest(t_tree *pipe_tree);
+int			free_forest_syntax(t_forest *forest, t_tree *pipe_tree, \
+								t_pipe_list *pipe_list, int res);
 int			parsing_tree(t_info *info, t_pipe_list *pipe);
 
 /*

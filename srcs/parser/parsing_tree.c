@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:09:53 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/29 16:37:09 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 17:28:32 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ t_forest	*setting_forest(t_info *info, t_tree **pipe_tree, int i, \
 	return (temp);
 }
 
-void	free_forest_syntax(t_forest *forest, t_tree *pipe_tree, t_pipe_list *pipe_list)
+int	free_forest_syntax(t_forest *forest, t_tree *pipe_tree, \
+							t_pipe_list *pipe_list, int res)
 {
 	t_forest	*next;
-	t_tree		*next_tree;
 	t_pipe_list	*next_pipe_list;
 
 	next = NULL;
@@ -69,19 +69,7 @@ void	free_forest_syntax(t_forest *forest, t_tree *pipe_tree, t_pipe_list *pipe_l
 		free_forest(forest);
 		forest = next;
 	}
-	next_tree = NULL;
-	while (pipe_tree)
-	{
-		next_tree = pipe_tree->right_child;
-		if (pipe_tree->left_child)
-		{
-			free(pipe_tree->left_child->data);
-			free(pipe_tree->left_child);
-		}
-		free(pipe_tree->data);
-		free(pipe_tree);
-		pipe_tree = next_tree;
-	}
+	free_pipe_tree(pipe_tree);
 	next_pipe_list = NULL;
 	while (pipe_list)
 	{
@@ -89,6 +77,7 @@ void	free_forest_syntax(t_forest *forest, t_tree *pipe_tree, t_pipe_list *pipe_l
 		free(pipe_list->pipe_data);
 		pipe_list = next_pipe_list;
 	}
+	return (res);
 }
 
 int	parsing_tree(t_info *info, t_pipe_list *pipe)
@@ -111,10 +100,7 @@ int	parsing_tree(t_info *info, t_pipe_list *pipe)
 		pipe_tree[i] = init_tree(0, pipe->pipe_data, NULL, NULL);
 		res = scan_token(pipe_tree[i], info->env_list);
 		if (res)
-		{
-			free_forest_syntax(temp, pipe_tree[i], pipe->next);
-			return (res);
-		}
+			return (free_forest_syntax(temp, pipe_tree[i], pipe->next, res));
 		temp = setting_forest(info, pipe_tree, i, temp);
 		pipe = pipe->next;
 	}

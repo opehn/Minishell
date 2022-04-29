@@ -75,7 +75,7 @@ void	free_pipe(t_pipe_list *pipe)
 {
 	t_pipe_list	*next;
 
-	while(pipe)
+	while (pipe)
 	{
 		next = pipe->next;
 		free(pipe->pipe_data);

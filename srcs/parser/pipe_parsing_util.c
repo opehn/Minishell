@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_parsing_util.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:26:00 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/26 16:26:25 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 17:28:00 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,23 @@ int	chk_data_null(char *input, int start, int end)
 		start++;
 	}
 	return (0);
+}
+
+void	free_pipe_tree(t_tree *pipe_tree)
+{
+	t_tree	*next_tree;
+
+	next_tree = NULL;
+	while (pipe_tree)
+	{
+		next_tree = pipe_tree->right_child;
+		if (pipe_tree->left_child)
+		{
+			free(pipe_tree->left_child->data);
+			free(pipe_tree->left_child);
+		}
+		free(pipe_tree->data);
+		free(pipe_tree);
+		pipe_tree = next_tree;
+	}
 }

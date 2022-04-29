@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:05:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/29 16:21:32 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 17:21:52 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,22 @@
 #include "parsing.h"
 #include "free_data.h"
 
+void	free_pipe_body(t_pipe_list *pipe)
+{
+	t_pipe_list	*next;
+
+	next = NULL;
+	while (pipe)
+	{
+		next = pipe->next;
+		free(pipe);
+		pipe = next;
+	}
+}
+
 int	parsing(t_info *info, char *input)
 {
 	t_pipe_list	*pipe;
-	t_pipe_list	*next;
 	int			res;
 
 	res = 0;
@@ -36,19 +48,9 @@ int	parsing(t_info *info, char *input)
 	res = parsing_tree(info, pipe);
 	if (res)
 	{
-		while (pipe)
-		{
-			next = pipe->next;
-			free(pipe);
-			pipe = next;
-		}
+		free_pipe_body(pipe);
 		return (print_err(res));
 	}
-	while (pipe)
-	{
-		next = pipe->next;
-		free(pipe);
-		pipe = next;
-	}
+	free_pipe_body(pipe);
 	return (0);
 }
