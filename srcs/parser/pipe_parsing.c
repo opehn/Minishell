@@ -6,13 +6,25 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:06:32 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/29 14:50:06 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 16:24:10 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 #include "parsing.h"
 #include "error.h"
+
+void	init_cur_pipe(char *input, t_pipe_list *pipe)
+{
+	int	s_idx;
+	int	l_idx;
+
+	s_idx = pipe->s_idx;
+	l_idx = pipe->l_idx;
+	if (!input || !pipe)
+		exit_error(ERR_PIPE_SPLIT);
+	pipe->pipe_data = ft_strndup(input + s_idx, l_idx - s_idx);
+}
 
 int	init_if_even(int d_quot_flag, int s_quot_flag, char *input, \
 				t_pipe_list *pipe)
@@ -42,18 +54,6 @@ int	init_last(int d_quot_flag, int s_quot_flag, char *input, t_pipe_list *pipe)
 		init_cur_pipe(input, pipe);
 	}
 	return (0);
-}
-
-void	init_cur_pipe(char *input, t_pipe_list *pipe)
-{
-	int	s_idx;
-	int	l_idx;
-
-	s_idx = pipe->s_idx;
-	l_idx = pipe->l_idx;
-	if (!input || !pipe)
-		exit_error(ERR_PIPE_SPLIT);
-	pipe->pipe_data = ft_strndup(input + s_idx, l_idx - s_idx);
 }
 
 int	pipe_parsing(char *input, t_pipe_list *pipe)

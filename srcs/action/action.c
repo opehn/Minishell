@@ -40,6 +40,8 @@ void	preorder(t_info *info, t_forest *forest, t_tree *tree)
 	}
 	if (tree->left_child && (tree->left_child->type == CMD))
 	{
+		if (!tree->left_child->data[0])
+			return ;
 		if (cmd_action(info, tree->left_child->data, \
 							tree->right_child->data) != 0)
 			return ;

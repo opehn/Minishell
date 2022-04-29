@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:05:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/29 15:05:06 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 16:21:32 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,15 @@ int	parsing(t_info *info, char *input)
 		return (0);
 	res = parsing_tree(info, pipe);
 	if (res)
+	{
+		while (pipe)
+		{
+			next = pipe->next;
+			free(pipe);
+			pipe = next;
+		}
 		return (print_err(res));
+	}
 	while (pipe)
 	{
 		next = pipe->next;
