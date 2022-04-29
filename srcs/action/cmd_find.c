@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_find.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:54:35 by acho              #+#    #+#             */
-/*   Updated: 2022/04/29 01:03:13 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 14:00:03 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 	i = -1;
 	while (path_array[++i])
 	{
-		if (path_array[i][0] == '"')
-			break ;
 		cur_dir = opendir(path_array[i]);
 		cur_dir_info = readdir(cur_dir);
 		while (cur_dir_info != NULL)
@@ -94,7 +92,7 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 					ft_strlen(cur_dir_info->d_name)))
 			{
 				path = ft_strjoin_ch(ft_strdup(path_array[i]), '/');
-				path = ft_strjoin(path, cmd);
+				path = ft_strjoin(path, ft_strdup(cmd));
 				closedir(cur_dir);
 				return (path);
 			}

@@ -27,7 +27,7 @@ void	delete_info(t_info *info)
 		info->heredoc = NULL;
 	}
 }
-
+#include <stdio.h>
 void	free_forest(t_forest *forest)
 {
 	t_tree	*right_tree;
