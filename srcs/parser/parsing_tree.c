@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:09:53 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/28 22:47:02 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/29 15:08:35 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,26 @@ t_forest	*setting_forest(t_info *info, t_tree **pipe_tree, int i, \
 	}
 	return (temp);
 }
+#include <stdio.h>
+void	free_forest_syntax(t_forest *forest, t_tree *pipe_tree)
+{
+	t_forest	*next;
+
+	next = NULL;
+	while (forest)
+	{
+		printf("forest : %p in free_forest_syntax\n", &forest);
+		printf("forest->next : %p in free_forest_syntax\n", &forest->next);
+		next = forest->next;
+		free_forest(forest);
+		forest = next;
+	}
+	if (pipe_tree)
+	{
+		free(pipe_tree->data);
+		free(pipe_tree);
+	}
+}
 
 int	parsing_tree(t_info *info, t_pipe_list *pipe)
 {
@@ -64,6 +84,7 @@ int	parsing_tree(t_info *info, t_pipe_list *pipe)
 	int			res;
 
 	res = 0;
+	temp = NULL;
 	info->pipe_cnt = count_tree(pipe);
 	pipe_tree = (t_tree **)malloc(sizeof(t_tree *) * info->pipe_cnt);
 	if (!pipe_tree)
@@ -75,7 +96,10 @@ int	parsing_tree(t_info *info, t_pipe_list *pipe)
 		pipe_tree[i] = init_tree(0, pipe->pipe_data, NULL, NULL);
 		res = scan_token(pipe_tree[i], info->env_list);
 		if (res)
+		{
+			free_forest_syntax(temp, pipe_tree[i]);
 			return (res);
+		}
 		temp = setting_forest(info, pipe_tree, i, temp);
 		pipe = pipe->next;
 	}

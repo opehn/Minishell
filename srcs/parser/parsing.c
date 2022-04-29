@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:05:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/28 23:00:06 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/29 15:05:06 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 #include "error.h"
 #include "parsing.h"
+#include "free_data.h"
 
 int	parsing(t_info *info, char *input)
 {
@@ -26,7 +27,10 @@ int	parsing(t_info *info, char *input)
 	pipe = init_pipe_list();
 	res = pipe_parsing(input, pipe);
 	if (res)
+	{		
+		free_pipe(pipe);
 		return (print_err(res));
+	}
 	if (!pipe->pipe_data)
 		return (0);
 	res = parsing_tree(info, pipe);

@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 10:58:02 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 14:24:55 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	unset_env(t_info *info, char **opts_arr)
 					ft_strlen(temp->key), ft_strlen(opts_arr[i])))
 			{
 				prev->next = temp->next;
-				free(temp);
+				free_env_list(temp);
 				break ;
 			}
 			prev = temp;

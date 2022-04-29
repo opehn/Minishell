@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:40:26 by acho              #+#    #+#             */
-/*   Updated: 2022/04/27 10:54:56 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 14:16:59 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	chk_export_error(char **opts_arr)
 		return (1);
 	}
 	if (!ft_strchr(opts_arr[0], '='))
-		return (0);
+		return (1);
 	return (0);
 }
 

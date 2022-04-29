@@ -27,7 +27,7 @@ void	delete_info(t_info *info)
 		info->heredoc = NULL;
 	}
 }
-#include <stdio.h>
+
 void	free_forest(t_forest *forest)
 {
 	t_tree	*right_tree;
@@ -59,4 +59,27 @@ void	free_red_data(char *data, char **red_data, char *red)
 		free (red_data);
 	if (red)
 		free (red);
+}
+
+void	free_env_list(t_env_list *cur)
+{
+	free(cur->key);
+	cur->key = NULL;
+	free(cur->value);
+	cur->value = NULL;
+	free(cur);
+	cur = NULL;
+}
+
+void	free_pipe(t_pipe_list *pipe)
+{
+	t_pipe_list	*next;
+
+	while(pipe)
+	{
+		next = pipe->next;
+		free(pipe->pipe_data);
+		free(pipe);
+		pipe = next;
+	}
 }

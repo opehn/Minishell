@@ -19,6 +19,7 @@
 		"scanner.h": "c",
 		"__hash_table": "c",
 		"ios": "c",
-		"custom_cmd.h": "c"
+		"custom_cmd.h": "c",
+		"free_data.h": "c"
 	}
 }
