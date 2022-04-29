@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:54:29 by acho              #+#    #+#             */
-/*   Updated: 2021/05/24 21:42:30 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/29 17:54:05 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ char	**ft_split(char const *str, char c)
 	int		array_len;
 	char	**array;
 
-	array_len = count_same((char *)str, c);
+	if (str)
+		array_len = count_same((char *)str, c);
+	else
+		array_len = 0;
 	array = (char **)malloc(sizeof(char *) * (array_len + 1));
 	if (!array)
 		return (0);
