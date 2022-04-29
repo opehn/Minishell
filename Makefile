@@ -1,7 +1,18 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/04/29 17:34:44 by taeheoki          #+#    #+#              #
+#    Updated: 2022/04/29 17:35:02 by taeheoki         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 CC = gcc
-FLAGS = -Wall -Wextra -g
-# FLAGS += -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 LIBRARIES = -L$(LIBFT_DIR) -L/Users/taeheoki/.brew/opt/readline/lib
 INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/Users/taeheoki/.brew/opt/readline/include
 LIBFT = $(LIBFT_DIR)libft.a
@@ -22,8 +33,6 @@ ERROR_DIR	=	$(SRC_DIR)error/
 SCANNER_DIR	=	$(SRC_DIR)scanner/
 ACTION_DIR	=	$(SRC_DIR)action/
 CUSTOM_DIR	=	$(SRC_DIR)custom_cmd/
-
-# ':' Makefile이 연산하는데 재귀적인 용법을 허용하지 않는데 ":" 기호의 사용으로 그러한 재귀적인 금할 수 있다.
 
 MAIN_SRCS		:=	prompt.c signal_handler.c free_data.c
 MAIN_SRCS		:=	$(addprefix $(SRC_DIR), $(MAIN_SRCS))

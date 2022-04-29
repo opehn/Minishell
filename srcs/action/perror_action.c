@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:32:08 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/27 16:23:45 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/29 17:43:01 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ int	perror_exit_noarg(char *project, char *pathname)
 	ft_putstr_fd(pathname, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd("numeric argument required", STDERR_FILENO);
-	return (2);
+	return (255);
 }
