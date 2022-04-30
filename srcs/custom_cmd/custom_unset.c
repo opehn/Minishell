@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
-/*   Updated: 2022/04/30 16:14:31 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/30 17:56:11 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	chk_unset_err(char **opts_arr)
 {
-	int	res;
+	int		res;
+	char	err_arr[3];
 
 	if (opts_arr[0][0] == '-')
 	{
@@ -22,7 +23,10 @@ int	chk_unset_err(char **opts_arr)
 		ft_putendl_fd("unset : usage: unset", STDERR_FILENO);
 		return (2);
 	}
-	res = notice_invalid_arg("unset", opts_arr);
+	err_arr[0] = '-';
+	err_arr[1] = '=';
+	err_arr[2] = ' ';
+	res = notice_invalid_arg("unset", err_arr, opts_arr);
 	return (res);
 }
 

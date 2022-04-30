@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:15:35 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/30 16:23:05 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/30 17:56:35 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,26 @@ extern int	g_exit_status;
 
 int	chk_export_error(char **opts_arr)
 {
-	int	res;
+	int		i;
+	int		res;
+	char	err_arr[2];
 
+	i = 0;
 	if (opts_arr[0][0] == '-')
 	{
 		custom_err_msg("export", "no option", NULL);
 		ft_putendl_fd("export : usage: export", STDERR_FILENO);
 		return (1);
 	}
-	res = notice_invalid_arg("export", opts_arr);
+	while (opts_arr[i])
+	{
+		if (opts_arr[i][0] == '=')
+			custom_err_msg("export", "not a valid identifier", opts_arr[i]);
+		i++;
+	}
+	err_arr[0] = ' ';
+	err_arr[1] = '-';
+	res = notice_invalid_arg("export", err_arr, opts_arr);
 	return (res);
 }
 

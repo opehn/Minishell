@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:19:22 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/30 16:20:39 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/30 17:45:47 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,25 @@ void	custom_err_msg(char *func_name, char *msg, char *arg)
 	write(1, "\n", 1);
 }
 
-int	notice_invalid_arg(char *func, char **opts_arr)
+int	notice_invalid_arg(char *func, char *err_arr, char **opts_arr)
 {
 	int	i;
+	int	j;
 	int	flag;
 
 	i = 0;
 	flag = 0;
 	while (opts_arr[i])
 	{
-		if (ft_strchr(opts_arr[i], ' '))
+		j = 0;
+		while (err_arr[j])
 		{
-			custom_err_msg(func, "not a valid identifier", opts_arr[i]);
-			flag = 2;
-		}
-		if (ft_strchr(opts_arr[i], '='))
-		{
-			custom_err_msg(func, "not a valid identifier", opts_arr[i]);
-			flag = 2;
-		}
-		if (ft_strchr(opts_arr[i], '-'))
-		{
-			custom_err_msg(func, "not a valid identifier", opts_arr[i]);
-			flag = 2;
+			if (ft_strchr(opts_arr[i], err_arr[j]))
+			{
+				custom_err_msg(func, "not a valid identifier", opts_arr[i]);
+				flag = 2;
+			}
+			j++;
 		}
 		i++;
 	}

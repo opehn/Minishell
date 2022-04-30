@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 23:50:39 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/30 16:23:23 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/30 17:43:38 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,6 @@ void		swap_data(t_env_list *cur);
 void		custom_err_msg(char *func_name, char *msg, char *arg);
 int			perror_cd_many(char *project, char *pathname);
 int			perror_cd(char *project, char *pathname);
-int			notice_invalid_arg(char *func, char **opts_arr);
+int			notice_invalid_arg(char *func, char *err_arr, char **opts_arr);
 
 #endif
