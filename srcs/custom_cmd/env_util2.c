@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_util2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:04:52 by acho              #+#    #+#             */
-/*   Updated: 2022/04/30 16:05:21 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/30 16:19:10 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_env_list	*sort_env_list(t_env_list *env_list)
 	t_env_list	*cp;
 	t_env_list	*head;
 	int			list_len;
+
 	head = env_list;
 	list_len = 0;
 	while (env_list)
@@ -28,11 +29,12 @@ t_env_list	*sort_env_list(t_env_list *env_list)
 	return (iter_swap(cp, list_len));
 }
 
-t_env_list	*iter_swap(t_env_list *cur, int	list_len)
+t_env_list	*iter_swap(t_env_list *cur, int list_len)
 {
-	t_env_list *head;
+	t_env_list	*head;
 	int			i;
 	int			j;
+
 	head = cur;
 	i = 0;
 	j = 0;
@@ -58,8 +60,8 @@ t_env_list	*iter_swap(t_env_list *cur, int	list_len)
 
 t_env_list	*cp_env_list(t_env_list *origin)
 {
-	t_env_list *head;
-	t_env_list *temp;
+	t_env_list	*head;
+	t_env_list	*temp;
 
 	head = (t_env_list *)malloc (sizeof(t_env_list));
 	temp = head;

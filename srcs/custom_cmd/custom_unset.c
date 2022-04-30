@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
-/*   Updated: 2022/04/30 14:58:48 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/30 16:14:31 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	unset_env(t_info *info, char **opts_arr)
 	prev = info->env_list;
 	key_idx = find_match_key(info->env_list, opts_arr[0]);
 	while (i < key_idx - 1)
- 	{
+	{
 		prev = prev->next;
 		i++;
 	}

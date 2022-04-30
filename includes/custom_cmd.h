@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_cmd.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 23:50:39 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/30 15:49:34 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/30 16:23:23 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			custom_exit(char **optarg);
 */
 int			find_equal_args(char **opts_arr);
 int			chk_export_error(char **opts_arr);
-void		print_env_export(t_env_list *env_list);
+int			print_env_export(t_env_list *env_list);
 int			find_space(char *s);
 int			custom_export(t_info *info, char **opts_arr);
 
@@ -112,7 +112,7 @@ int			make_key_value(char *arg, char **key_value);
 ** =============================================================================
 */
 t_env_list	*sort_env_list(t_env_list *env_list);
-t_env_list	*iter_swap(t_env_list *cur, int  list_len);
+t_env_list	*iter_swap(t_env_list *cur, int list_len);
 t_env_list	*cp_env_list(t_env_list *orgin);
 void		swap_data(t_env_list *cur);
 
@@ -125,6 +125,5 @@ void		custom_err_msg(char *func_name, char *msg, char *arg);
 int			perror_cd_many(char *project, char *pathname);
 int			perror_cd(char *project, char *pathname);
 int			notice_invalid_arg(char *func, char **opts_arr);
-
 
 #endif

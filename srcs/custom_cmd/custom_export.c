@@ -5,8 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 16:40:26 by acho              #+#    #+#             */
-/*   Updated: 2022/04/30 15:55:24 by acho             ###   ########.fr       */
+/*   Created: 2022/04/30 16:15:35 by taeheoki          #+#    #+#             */
+/*   Updated: 2022/04/30 16:23:05 by taeheoki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "custom_cmd.h"
 
@@ -26,7 +28,7 @@ int	chk_export_error(char **opts_arr)
 	return (res);
 }
 
-void	print_env_export(t_env_list *env_list)
+int	print_env_export(t_env_list *env_list)
 {
 	while (env_list)
 	{
@@ -41,6 +43,7 @@ void	print_env_export(t_env_list *env_list)
 		env_list = env_list->next;
 	}
 	free_env_list(env_list);
+	return (0);
 }
 
 int	find_space(char *s)
@@ -54,8 +57,6 @@ int	find_space(char *s)
 	return (0);
 }
 
-#include <stdio.h>
-
 int	custom_export(t_info *info, char **opts_arr)
 {
 	char	*key_value[2];
@@ -64,10 +65,7 @@ int	custom_export(t_info *info, char **opts_arr)
 
 	i = 0;
 	if (!opts_arr[0])
-	{
-		print_env_export(sort_env_list(info->env_list));
-		return (0);
-	}
+		return (print_env_export(sort_env_list(info->env_list)));
 	if (chk_export_error(opts_arr))
 		return (1);
 	else

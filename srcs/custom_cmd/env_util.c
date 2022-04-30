@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acho <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:07:18 by acho              #+#    #+#             */
-/*   Updated: 2022/04/30 16:08:02 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/30 16:18:01 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	find_match_key(t_env_list *env_list, char *key)
 		if (!ft_strchr(env_list->key, '='))
 			list_key_temp = ft_strndup(env_list->key, ft_strlen(env_list->key));
 		else
-			list_key_temp = ft_strndup(env_list->key,
+			list_key_temp = ft_strndup(env_list->key, \
 				ft_strlen(env_list->key) - 1);
 		if (!ft_strcmp(list_key_temp, cur_key_temp, ft_strlen(list_key_temp),
 				ft_strlen(cur_key_temp)))

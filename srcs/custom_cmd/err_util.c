@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																									 */
-/*																		  :::		::::::::	*/
-/*	err_util.c													  :+:		:+:	 :+:	*/
-/*																	 +:+ +:+			+:+	  */
-/*	By: taeheoki < taeheoki@student.42seoul.kr>	 +#+  +:+		 +#+		  */
-/*																+#+#+#+#+#+	+#+			  */
-/*	Created: 2022/04/26 16:52:56 by acho				  #+#	 #+#				 */
-/*	Updated: 2022/04/30 15:48:31 by acho				 ###	########.fr		 */
-/*																									 */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   err_util.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/30 16:19:22 by taeheoki          #+#    #+#             */
+/*   Updated: 2022/04/30 16:20:39 by taeheoki         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
@@ -31,7 +31,7 @@ void	custom_err_msg(char *func_name, char *msg, char *arg)
 	write(1, "\n", 1);
 }
 
-int		notice_invalid_arg(char *func, char **opts_arr)
+int	notice_invalid_arg(char *func, char **opts_arr)
 {
 	int	i;
 	int	flag;
@@ -39,25 +39,25 @@ int		notice_invalid_arg(char *func, char **opts_arr)
 	i = 0;
 	flag = 0;
 	while (opts_arr[i])
-	 {
-		  if (ft_strchr(opts_arr[i], ' '))
-		  {
-				custom_err_msg(func, "not a valid identifier", opts_arr[i]);
-				flag = 2;
-		  }
-		  if (ft_strchr(opts_arr[i], '='))
-		  {
-				custom_err_msg(func, "not a valid identifier", opts_arr[i]);
-				flag = 2;
-		  }
-		  if (ft_strchr(opts_arr[i], '-'))
-		  {
-				custom_err_msg(func, "not a valid identifier", opts_arr[i]);
-				flag = 2;
-		  }
-		  i++;
-	 }
-	 return (flag);
+	{
+		if (ft_strchr(opts_arr[i], ' '))
+		{
+			custom_err_msg(func, "not a valid identifier", opts_arr[i]);
+			flag = 2;
+		}
+		if (ft_strchr(opts_arr[i], '='))
+		{
+			custom_err_msg(func, "not a valid identifier", opts_arr[i]);
+			flag = 2;
+		}
+		if (ft_strchr(opts_arr[i], '-'))
+		{
+			custom_err_msg(func, "not a valid identifier", opts_arr[i]);
+			flag = 2;
+		}
+		i++;
+	}
+	return (flag);
 }
 
 int	perror_cd_many(char *project, char *pathname)
