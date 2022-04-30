@@ -6,15 +6,16 @@
 #    By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 17:34:44 by taeheoki          #+#    #+#              #
-#    Updated: 2022/04/29 17:57:10 by taeheoki         ###   ########.fr        #
+#    Updated: 2022/04/30 14:53:48 by acho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
-LIBRARIES = -L$(LIBFT_DIR) -L/Users/taeheoki/.brew/opt/readline/lib
-INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/Users/taeheoki/.brew/opt/readline/include
+FLAGS = -Wall -Wextra -Werror -g
+#FLAGS += -fsanitize=address
+LIBRARIES = -L$(LIBFT_DIR) -L/opt/homebrew/opt/readline/lib 
+INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/opt/homebrew/opt/readline/include 
 LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./libft/
 
@@ -34,7 +35,7 @@ SCANNER_DIR	=	$(SRC_DIR)scanner/
 ACTION_DIR	=	$(SRC_DIR)action/
 CUSTOM_DIR	=	$(SRC_DIR)custom_cmd/
 
-MAIN_SRCS		:=	prompt.c signal_handler.c free_data.c
+MAIN_SRCS		:=	prompt.c signal_handler.c free_data.c free_data2.c
 MAIN_SRCS		:=	$(addprefix $(SRC_DIR), $(MAIN_SRCS))
 PARSER_SRCS		:=	parsing.c parsing_tree.c pipe_parsing.c pipe_list_util.c pipe_parsing_util.c \
 					parsing_utils.c
@@ -47,7 +48,7 @@ ACTION_SRCS		:=	action.c ft_wait.c heredoc_chk.c redir_action.c cmd_find.c split
 					perror_action.c cmd_action.c action_utils.c
 ACTION_SRCS		:=	$(addprefix $(ACTION_DIR), $(ACTION_SRCS))
 CUSTOM_SRCS		:=	custom_pwd.c custom_export.c custom_unset.c custom_cd.c custom_echo.c \
-					custom_exit.c custom_env.c env_util.c err_util.c
+					custom_exit.c custom_env.c env_util.c env_util2.c err_util.c
 CUSTOM_SRCS		:=	$(addprefix $(CUSTOM_DIR), $(CUSTOM_SRCS))
 
 

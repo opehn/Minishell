@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
-/*   Updated: 2022/04/29 14:24:55 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/30 14:58:48 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,36 @@
 
 int	chk_unset_err(char **opts_arr)
 {
-	int	i;
+	int	res;
 
-	i = 0;
 	if (opts_arr[0][0] == '-')
 	{
-		custom_err_msg("unset", "invalid option", opts_arr[0]);
+		custom_err_msg("unset", "no option", opts_arr[0]);
 		ft_putendl_fd("unset : usage: unset", STDERR_FILENO);
 		return (2);
 	}
-	while (opts_arr[i])
-	{
-		if (ft_strchr(opts_arr[i], ' ') || ft_strchr(opts_arr[i], '='))
-		{
-			custom_err_msg("unset", "not a valid identifier", opts_arr[0]);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+	res = notice_invalid_arg("unset", opts_arr);
+	return (res);
 }
 
 int	unset_env(t_info *info, char **opts_arr)
 {
 	int			i;
+	int			key_idx;
 	t_env_list	*temp;
 	t_env_list	*prev;
 
 	i = 0;
-	while (opts_arr[i])
-	{
-		temp = info->env_list;
-		prev = temp;
-		while (temp)
-		{
-			if (!ft_strcmp(temp->key, opts_arr[i],
-					ft_strlen(temp->key), ft_strlen(opts_arr[i])))
-			{
-				prev->next = temp->next;
-				free_env_list(temp);
-				break ;
-			}
-			prev = temp;
-			temp = temp->next;
-		}
+	prev = info->env_list;
+	key_idx = find_match_key(info->env_list, opts_arr[0]);
+	while (i < key_idx - 1)
+ 	{
+		prev = prev->next;
 		i++;
 	}
+	temp = prev->next;
+	prev->next = temp->next;
+	free_env_node(temp);
 	return (0);
 }
 

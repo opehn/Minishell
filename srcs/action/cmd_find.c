@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:54:35 by acho              #+#    #+#             */
-/*   Updated: 2022/04/29 17:51:37 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/30 16:02:39 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*find_env_path(t_env_list *env_list)
 	path = NULL;
 	while (env_list)
 	{
-		if (!ft_strcmp(env_list->key, "PATH", ft_strlen(env_list->key), 4))
+		if (!ft_strcmp(env_list->key, "PATH=", ft_strlen(env_list->key), 4))
 			path = ft_strndup(env_list->value, ft_strlen(env_list->value));
 		env_list = env_list->next;
 	}

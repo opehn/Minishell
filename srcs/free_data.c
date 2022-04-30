@@ -6,7 +6,7 @@
 /*   By: acho <marvin@42.fr>						+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/04/28 23:34:04 by acho			  #+#	#+#			 */
-/*   Updated: 2022/04/28 23:44:48 by acho             ###   ########.fr       */
+/*   Updated: 2022/04/30 15:01:56 by acho             ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -61,12 +61,15 @@ void	free_red_data(char *data, char **red_data, char *red)
 		free (red);
 }
 
-void	free_env_list(t_env_list *cur)
+void	free_env_node(t_env_list *cur)
 {
 	free(cur->key);
 	cur->key = NULL;
-	free(cur->value);
-	cur->value = NULL;
+	if (cur->value[0])
+	{
+		free(cur->value);
+		cur->value = NULL;
+	}
 	free(cur);
 	cur = NULL;
 }

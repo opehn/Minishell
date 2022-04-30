@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:02:05 by acho              #+#    #+#             */
-/*   Updated: 2022/04/28 23:50:44 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/04/30 12:49:16 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_env(t_env_list **env_list, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		temp->key = ft_strndup(envp[i], ft_strchr(envp[i], '=') - envp[i]);
+		temp->key = ft_strndup(envp[i], ft_strchr(envp[i], '=') - envp[i] + 1);
 		temp->value = ft_strdup(ft_strchr(envp[i], '=') + 1);
 		if (envp[++i])
 		{
