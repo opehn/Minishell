@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:22:05 by acho              #+#    #+#             */
-/*   Updated: 2022/05/02 15:22:36 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/05/02 16:36:25 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*make_key(char *data, int *i)
 int	expand_if_match(int *i, char *key, char **res, t_env_list *env_list)
 {
 	char	*temp;
+	int		key_len;
 
 	if (!ft_strcmp(key, "?", ft_strlen(key), 1))
 	{
@@ -81,13 +82,17 @@ int	expand_if_match(int *i, char *key, char **res, t_env_list *env_list)
 	}
 	while (env_list)
 	{
+		if (ft_strchr(env_list->key, '='))
+			key_len = ft_strlen(env_list->key) - 1;
+		else
+			key_len = ft_strlen(env_list->key);
 		if (!ft_strcmp(env_list->key, key,
-				ft_strlen(env_list->key) - 1, ft_strlen(key)))
+				key_len, ft_strlen(key)))
 		{
 			temp = *res;
 			*res = ft_strjoin_no(temp, env_list->value);
 			free(temp);
-			*i += ft_strlen(env_list->key) - 1;
+			*i += key_len;
 			return (1);
 		}
 		env_list = env_list->next;
