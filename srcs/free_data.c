@@ -65,7 +65,7 @@ void	free_env_node(t_env_list *cur)
 {
 	free(cur->key);
 	cur->key = NULL;
-	if (cur->value[0])
+	if (cur->value)
 	{
 		free(cur->value);
 		cur->value = NULL;

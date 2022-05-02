@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_cmd.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 23:50:39 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/05/02 17:58:47 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 18:47:27 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			custom_exit(char **optarg);
 ** custom_export.c
 ** =============================================================================
 */
-void		make_err_arr(char   *err_arr);
+void		make_err_arr(char *err_arr);
 int			chk_export_error(t_info *info, char **opts_arr);
 void		append_export(t_info *info, char *arg);
 int			print_env_export(t_env_list *env_list);

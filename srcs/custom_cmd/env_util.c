@@ -52,10 +52,10 @@ void	modify_env_list(t_info *info, char **key_value, int key_index)
 	}
 	old = temp->next;
 	next = temp->next->next;
+	free_env_node(old);
 	new = new_env_list(key_value[0], key_value[1]);
 	temp->next = new;
 	new->next = next;
-	free(old);
 }
 
 int	find_match_key(t_env_list *env_list, char *key)
@@ -95,7 +95,7 @@ int	make_key_value(char *arg, char **key_value)
 	if (!equal)
 	{
 		key_value[0] = ft_strndup(arg, argend - arg);
-		key_value[1] = "\0";
+		key_value[1] = ft_strdup("");
 	}
 	else
 	{

@@ -5,15 +5,16 @@
 #                                                     +:+ +:+         +:+      #
 #    By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/29 17:34:44 by taeheoki          #+#    #+#              #
-#    Updated: 2022/05/02 12:************************************************* #
+#    Created: 2022/05/02 18:48:12 by taeheoki          #+#    #+#              #
+#    Updated: 2022/05/02 19:03:48 by taeheoki         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = minishell
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -g
-FLAGS += -fsanitize=address
-LIBRARIES = -L$(LIBFT_DIR) -L/opt/homebrew/opt/readline/lib 
-INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/opt/homebrew/opt/readline/include 
+FLAGS = -Wall -Wextra -Werror
+LIBRARIES = -L$(LIBFT_DIR) -L/Users/taeheoki/.brew/opt/readline/lib
+INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/Users/taeheoki/.brew/opt/readline/include
 LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./libft/
 

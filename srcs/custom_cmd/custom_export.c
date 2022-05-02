@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
+/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:15:35 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/05/02 17:57:37 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 19:06:34 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	append_export(t_info *info, char *arg)
 	int		match_key_index;
 	char	*key_value[2];
 
+	key_value[0] = NULL;
+	key_value[1] = NULL;
 	make_key_value(arg, key_value);
 	match_key_index = find_match_key(info->env_list, key_value[0]);
 	if (match_key_index >= 0)
