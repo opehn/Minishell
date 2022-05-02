@@ -59,11 +59,11 @@ void	modify_env_list(t_info *info, char **key_value, int key_index)
 	free(old);
 }
 
-int find_match_key(t_env_list *env_list, char *key)
+int	find_match_key(t_env_list *env_list, char *key)
 {
-	int	 i;
-	int	 cur_key_len;
-	int	 list_key_len;
+	int	i;
+	int	cur_key_len;
+	int	list_key_len;
 
 	i = 0;
 	if (!ft_strchr(key, '='))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:15:35 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/05/02 13:51:51 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 17:17:27 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	chk_export_error(t_info *info, char **opts_arr)
 	flag = 0;
 	while (opts_arr[i])
 	{
-		res = 0;
 		res = notice_invalid_arg("export", err_arr, opts_arr[i]);
 		flag = res;
 		if (opts_arr[i][0] == '=')

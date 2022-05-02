@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_cmd.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 23:50:39 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/05/02 13:51:18 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 17:21:55 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,3 @@ int			perror_cd(char *project, char *pathname);
 int			notice_invalid_arg(char *func, char *err_arr, char *arg);
 
 #endif
-

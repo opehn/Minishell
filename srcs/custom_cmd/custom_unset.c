@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_unset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
-/*   Updated: 2022/05/02 13:52:48 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 17:12:04 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	custom_unset(t_info *info, char **opts_arr)
 	err_arr[1] = '=';
 	err_arr[2] = ' ';
 	err_arr[3] = '\0';
-
 	i = 0;
 	if (!opts_arr[0])
 		return (0);

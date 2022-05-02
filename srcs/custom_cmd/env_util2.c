@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:04:52 by acho              #+#    #+#             */
-/*   Updated: 2022/05/02 15:35:03 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:15:25 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_env_list	*iter_swap(t_env_list *cur, int list_len)
 		cur = start;
 		while (cur->next)
 		{
-			if (0 < ft_strcmp(cur->key, cur->next->key,
+			if (0 < ft_strcmp(cur->key, cur->next->key, \
 			ft_strlen(cur->key), ft_strlen(cur->next->key)))
 				swap_data(cur);
 			cur = cur->next;
