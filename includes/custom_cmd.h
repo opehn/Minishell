@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 23:50:39 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/05/02 17:21:55 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:58:47 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int			custom_exit(char **optarg);
 ** custom_export.c
 ** =============================================================================
 */
+void		make_err_arr(char   *err_arr);
 int			chk_export_error(t_info *info, char **opts_arr);
 void		append_export(t_info *info, char *arg);
 int			print_env_export(t_env_list *env_list);
-int			find_space(char *s);
 int			custom_export(t_info *info, char **opts_arr);
 
 /*
@@ -120,7 +120,7 @@ void		swap_data(t_env_list *cur);
 ** err_util.c
 ** =============================================================================
 */
-void		custom_err_msg(char *func_name, char *msg, char *arg);
+int			custom_err_msg(char *func_name, char *msg, char *arg);
 int			perror_cd_many(char *project, char *pathname);
 int			perror_cd(char *project, char *pathname);
 int			notice_invalid_arg(char *func, char *err_arr, char *arg);

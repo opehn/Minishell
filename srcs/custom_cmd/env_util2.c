@@ -6,12 +6,11 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:04:52 by acho              #+#    #+#             */
-/*   Updated: 2022/05/02 17:15:25 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:31:47 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
-#include <stdio.h>
 
 t_env_list	*sort_env_list(t_env_list *env_list)
 {

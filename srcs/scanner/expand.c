@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:22:05 by acho              #+#    #+#             */
-/*   Updated: 2022/05/02 17:25:19 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:30:45 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,6 @@ char	*make_key(char *data, int *i)
 		red_flag = return_red_type(data, &j);
 	}
 	return (ft_substr(data, start, key_len));
-}
-
-static void	isequal(t_env_list *env_list, int *key_len)
-{
-	if (ft_strchr(env_list->key, '='))
-		*key_len = ft_strlen(env_list->key) - 1;
-	else
-		*key_len = ft_strlen(env_list->key);
 }
 
 int	expand_if_match(int *i, char *key, char **res, t_env_list *env_list)

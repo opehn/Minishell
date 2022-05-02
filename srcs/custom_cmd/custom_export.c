@@ -6,13 +6,21 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:15:35 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/05/02 17:17:27 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:57:37 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
+#include <stdio.h>
 
 extern int	g_exit_status;
+
+void	make_err_arr(char	*err_arr)
+{
+	err_arr[0] = ' ';
+	err_arr[1] = '-';
+	err_arr[2] = '\0';
+}
 
 int	chk_export_error(t_info *info, char **opts_arr)
 {
@@ -21,24 +29,23 @@ int	chk_export_error(t_info *info, char **opts_arr)
 	int		res;
 	char	err_arr[3];
 
-	err_arr[0] = ' ';
-	err_arr[1] = '-';
-	err_arr[2] = '\0';
-	i = 0;
+	make_err_arr(err_arr);
+	i = -1;
 	flag = 0;
-	while (opts_arr[i])
+	while (opts_arr[++i])
 	{
+		res = 0;
 		res = notice_invalid_arg("export", err_arr, opts_arr[i]);
-		flag = res;
+		if (res)
+			flag = res;
 		if (opts_arr[i][0] == '=')
 		{
-			custom_err_msg("export", "not a valid identifier", opts_arr[i]);
-			res = 2;
+			res = custom_err_msg("export", "not a valid identifier",
+					opts_arr[i]);
 			flag = res;
 		}
 		if (!res)
 			append_export(info, opts_arr[i]);
-		i++;
 	}
 	return (flag);
 }
@@ -61,17 +68,6 @@ int	print_env_export(t_env_list *env_list)
 		env_list = env_list->next;
 	}
 	free_env_list(head);
-	return (0);
-}
-
-int	find_space(char *s)
-{
-	while (*s)
-	{
-		if (*s == ' ')
-			return (1);
-		s++;
-	}
 	return (0);
 }
 

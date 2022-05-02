@@ -1,18 +1,26 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+/*																			*/
+/*														:::	  ::::::::   */
 /*   scanner.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 14:14:51 by acho              #+#    #+#             */
-/*   Updated: 2022/04/28 23:25:23 by acho             ###   ########.fr       */
-/*                                                                            */
+/*													+:+ +:+		 +:+	 */
+/*   By: taeheoki <taeheoki@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/04/26 14:14:51 by acho			  #+#	#+#			 */
+/*   Updated: 2022/05/02 17:30:38 by acho             ###   ########.fr       */
+/*																			*/
 /* ************************************************************************** */
 
 #include "scanner.h"
 #include "error.h"
 #include "parsing.h"
+
+void	isequal(t_env_list *env_list, int *key_len)
+{
+	if (ft_strchr(env_list->key, '='))
+		*key_len = ft_strlen(env_list->key) - 1;
+	else
+		*key_len = ft_strlen(env_list->key);
+}
 
 int	scan_token(t_tree *root, t_env_list *env_list)
 {

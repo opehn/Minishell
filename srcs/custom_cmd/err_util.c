@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:19:22 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/05/02 17:14:03 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:51:19 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_exit_status;
 
-void	custom_err_msg(char *func_name, char *msg, char *arg)
+int	custom_err_msg(char *func_name, char *msg, char *arg)
 {
 	ft_putstr_fd("minishell", STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
@@ -29,6 +29,7 @@ void	custom_err_msg(char *func_name, char *msg, char *arg)
 	}
 	ft_putstr_fd(msg, STDERR_FILENO);
 	write(1, "\n", 1);
+	return (1);
 }
 
 int	notice_invalid_arg(char *func, char *err_arr, char *arg)
@@ -39,9 +40,10 @@ int	notice_invalid_arg(char *func, char *err_arr, char *arg)
 	if (arg[0] == '-')
 	{
 		custom_err_msg(func, "no option", arg);
-		write (STDERR_FILENO, func, ft_strlen(func));
-		write (STDERR_FILENO, " : usage: ", 10);
-		write (STDERR_FILENO, func, ft_strlen(func));
+		write(STDERR_FILENO, func, ft_strlen(func));
+		write(STDERR_FILENO, " : usage: ", 10);
+		write(STDERR_FILENO, func, ft_strlen(func));
+		write(STDERR_FILENO, "\n", 1);
 		return (2);
 	}
 	while (err_arr[i])
@@ -49,7 +51,7 @@ int	notice_invalid_arg(char *func, char *err_arr, char *arg)
 		if (ft_strchr(arg, err_arr[i]))
 		{
 			custom_err_msg(func, "not a valid identifier", arg);
-			return (2);
+			return (1);
 		}
 		i++;
 	}

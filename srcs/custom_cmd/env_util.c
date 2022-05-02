@@ -6,12 +6,11 @@
 /*   By: taeheoki <taeheoki@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/04/30 16:07:18 by acho			  #+#	#+#			 */
-/*   Updated: 2022/05/02 11:45:24 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 17:31:40 by acho             ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
-#include <stdio.h>
 
 t_env_list	*new_env_list(char *key, char *value)
 {

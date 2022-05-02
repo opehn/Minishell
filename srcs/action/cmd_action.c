@@ -6,11 +6,10 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:42:50 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/30 15:56:55 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 17:31:44 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "action.h"
 #include "custom_cmd.h"
 

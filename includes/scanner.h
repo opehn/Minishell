@@ -6,7 +6,7 @@
 /*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 00:45:27 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/28 22:57:12 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 17:31:10 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 */
 int		scan_token(t_tree *root, t_env_list *env_list);
 int		iterate_scan(char **remain, int *i, t_tree *root, t_env_list *env_list);
+void	isequal(t_env_list *env_list, int *key_len);
 
 /*
 ** =============================================================================

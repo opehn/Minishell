@@ -6,14 +6,13 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:09:53 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/05/02 16:28:34 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 17:31:52 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
 #include "parsing.h"
 #include "scanner.h"
-#include <stdio.h>
 
 int	count_tree(t_pipe_list *pipe)
 {
