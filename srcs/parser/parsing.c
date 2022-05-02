@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:05:23 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/29 17:21:52 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/05/02 16:40:49 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "error.h"
 #include "parsing.h"
 #include "free_data.h"
-
+asdasdas
 void	free_pipe_body(t_pipe_list *pipe)
 {
 	t_pipe_list	*next;
