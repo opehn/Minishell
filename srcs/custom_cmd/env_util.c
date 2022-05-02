@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+/*																			*/
+/*														:::	  ::::::::   */
 /*   env_util.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 16:07:18 by acho              #+#    #+#             */
-/*   Updated: 2022/04/30 16:18:01 by taeheoki         ###   ########.fr       */
-/*                                                                            */
+/*													+:+ +:+		 +:+	 */
+/*   By: taeheoki <taeheoki@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/04/30 16:07:18 by acho			  #+#	#+#			 */
+/*   Updated: 2022/05/02 11:45:24 by acho             ###   ########.fr       */
+/*																			*/
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
@@ -59,32 +59,28 @@ void	modify_env_list(t_info *info, char **key_value, int key_index)
 	free(old);
 }
 
-int	find_match_key(t_env_list *env_list, char *key)
+int find_match_key(t_env_list *env_list, char *key)
 {
-	int		i;
-	char	*cur_key_temp;
-	char	*list_key_temp;
+	int	 i;
+	int	 cur_key_len;
+	int	 list_key_len;
 
 	i = 0;
 	if (!ft_strchr(key, '='))
-		cur_key_temp = ft_strndup(key, ft_strlen(key));
+		cur_key_len = ft_strlen(key);
 	else
-		cur_key_temp = ft_strndup(key, ft_strlen(key) - 1);
+		cur_key_len = ft_strlen(key) - 1;
 	while (env_list)
 	{
 		if (!ft_strchr(env_list->key, '='))
-			list_key_temp = ft_strndup(env_list->key, ft_strlen(env_list->key));
+			list_key_len = ft_strlen(env_list->key);
 		else
-			list_key_temp = ft_strndup(env_list->key, \
-				ft_strlen(env_list->key) - 1);
-		if (!ft_strcmp(list_key_temp, cur_key_temp, ft_strlen(list_key_temp),
-				ft_strlen(cur_key_temp)))
+			list_key_len = ft_strlen(env_list->key) - 1;
+		if (!ft_strcmp(env_list->key, key, list_key_len, cur_key_len))
 			return (i);
 		env_list = env_list->next;
 		i++;
 	}
-	free(cur_key_temp);
-	free(list_key_temp);
 	return (-1);
 }
 

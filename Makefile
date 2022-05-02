@@ -6,14 +6,14 @@
 #    By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 17:34:44 by taeheoki          #+#    #+#              #
-#    Updated: 2022/04/30 14:53:48 by acho             ###   ########.fr        #
+#    Updated: 2022/05/02 12:10:28 by acho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
 FLAGS = -Wall -Wextra -Werror -g
-#FLAGS += -fsanitize=address
+FLAGS += -fsanitize=address
 LIBRARIES = -L$(LIBFT_DIR) -L/opt/homebrew/opt/readline/lib 
 INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/opt/homebrew/opt/readline/include 
 LIBFT = $(LIBFT_DIR)libft.a

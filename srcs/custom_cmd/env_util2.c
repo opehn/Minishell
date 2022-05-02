@@ -6,27 +6,28 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:04:52 by acho              #+#    #+#             */
-/*   Updated: 2022/04/30 16:19:10 by taeheoki         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:08:35 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
+#include <stdio.h>
 
 t_env_list	*sort_env_list(t_env_list *env_list)
 {
-	t_env_list	*cp;
-	t_env_list	*head;
+	t_env_list	*cp_head;
+	t_env_list	*origin_head;
 	int			list_len;
 
-	head = env_list;
+	origin_head = env_list;
 	list_len = 0;
+	cp_head = cp_env_list(origin_head);
 	while (env_list)
 	{
 		env_list = env_list->next;
 		list_len++;
 	}
-	cp = cp_env_list(head);
-	return (iter_swap(cp, list_len));
+	return (iter_swap(cp_head, list_len));
 }
 
 t_env_list	*iter_swap(t_env_list *cur, int list_len)
@@ -62,19 +63,22 @@ t_env_list	*cp_env_list(t_env_list *origin)
 {
 	t_env_list	*head;
 	t_env_list	*temp;
+	char		*cp_key;
+	char		*cp_value;
 
-	head = (t_env_list *)malloc (sizeof(t_env_list));
+	cp_key = ft_strndup(origin->key, ft_strlen(origin->key));
+	cp_value = ft_strndup(origin->value, ft_strlen(origin->value));
+	head = new_env_list(cp_key, cp_value);
 	temp = head;
-	temp->key = ft_strndup(origin->key, ft_strlen(origin->key));
-	temp->value = ft_strndup(origin->value, ft_strlen(origin->value));
-	while (origin->next)
+	origin = origin->next;
+	while (origin)
 	{
-		temp->next = new_env_list(origin->next->key, origin->next->value);
+		cp_key = ft_strndup(origin->key, ft_strlen(origin->key));
+		cp_value = ft_strndup(origin->value, ft_strlen(origin->value));
+		temp->next = new_env_list(cp_key, cp_value);
 		temp = temp->next;
 		origin = origin->next;
 	}
-	temp = new_env_list(origin->key, origin->value);
-	temp->next = NULL;
 	return (head);
 }
 

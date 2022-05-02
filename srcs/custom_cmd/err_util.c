@@ -6,7 +6,7 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:19:22 by taeheoki          #+#    #+#             */
-/*   Updated: 2022/04/30 17:45:47 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 13:53:21 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,29 @@ void	custom_err_msg(char *func_name, char *msg, char *arg)
 	write(1, "\n", 1);
 }
 
-int	notice_invalid_arg(char *func, char *err_arr, char **opts_arr)
+int	notice_invalid_arg(char *func, char *err_arr, char *arg)
 {
 	int	i;
-	int	j;
-	int	flag;
 
 	i = 0;
-	flag = 0;
-	while (opts_arr[i])
+	 if (arg[0] == '-')
+    {
+        custom_err_msg(func, "no option", arg);
+		write (STDERR_FILENO, func, ft_strlen(func));
+		write (STDERR_FILENO, " : usage: ", 10);
+		write (STDERR_FILENO, func, ft_strlen(func));
+        return (2);
+    }
+	while (err_arr[i])
 	{
-		j = 0;
-		while (err_arr[j])
+		if (ft_strchr(arg, err_arr[i]))
 		{
-			if (ft_strchr(opts_arr[i], err_arr[j]))
-			{
-				custom_err_msg(func, "not a valid identifier", opts_arr[i]);
-				flag = 2;
-			}
-			j++;
+			custom_err_msg(func, "not a valid identifier", arg);
+			return (2);
 		}
 		i++;
 	}
-	return (flag);
+	return (0);
 }
 
 int	perror_cd_many(char *project, char *pathname)

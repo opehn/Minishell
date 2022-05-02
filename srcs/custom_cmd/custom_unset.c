@@ -6,31 +6,13 @@
 /*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:27:50 by acho              #+#    #+#             */
-/*   Updated: 2022/04/30 17:56:11 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 13:52:48 by acho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "custom_cmd.h"
 
-int	chk_unset_err(char **opts_arr)
-{
-	int		res;
-	char	err_arr[3];
-
-	if (opts_arr[0][0] == '-')
-	{
-		custom_err_msg("unset", "no option", opts_arr[0]);
-		ft_putendl_fd("unset : usage: unset", STDERR_FILENO);
-		return (2);
-	}
-	err_arr[0] = '-';
-	err_arr[1] = '=';
-	err_arr[2] = ' ';
-	res = notice_invalid_arg("unset", err_arr, opts_arr);
-	return (res);
-}
-
-int	unset_env(t_info *info, char **opts_arr)
+int	unset_env(t_info *info, char *arg)
 {
 	int			i;
 	int			key_idx;
@@ -39,7 +21,7 @@ int	unset_env(t_info *info, char **opts_arr)
 
 	i = 0;
 	prev = info->env_list;
-	key_idx = find_match_key(info->env_list, opts_arr[0]);
+	key_idx = find_match_key(info->env_list, arg);
 	while (i < key_idx - 1)
 	{
 		prev = prev->next;
@@ -53,7 +35,25 @@ int	unset_env(t_info *info, char **opts_arr)
 
 int	custom_unset(t_info *info, char **opts_arr)
 {
-	if (!chk_unset_err(opts_arr))
-		unset_env(info, opts_arr);
+	int		i;
+	int		res;
+	char	err_arr[4];
+
+	err_arr[0] = '-';
+	err_arr[1] = '=';
+	err_arr[2] = ' ';
+	err_arr[3] = '\0';
+
+	i = 0;
+	if (!opts_arr[0])
+		return (0);
+	while (opts_arr[i])
+	{
+		res = 0;
+		res = notice_invalid_arg("unset", err_arr, opts_arr[i]);
+		if (!res)
+			unset_env(info, opts_arr[i]);
+		i++;
+	}
 	return (0);
 }
