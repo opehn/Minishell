@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_find.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:54:35 by acho              #+#    #+#             */
-/*   Updated: 2022/04/30 16:02:39 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 14:53:54 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ char	*match_builtin_cmd(char **path_array, char *cmd)
 	i = -1;
 	while (path_array[++i])
 	{
+		if (path_array[i][0] == '"')
+			return (NULL);
 		cur_dir = opendir(path_array[i]);
 		cur_dir_info = readdir(cur_dir);
 		while (cur_dir_info != NULL)

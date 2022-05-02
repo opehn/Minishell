@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_util2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: taeheoki < taeheoki@student.42seoul.kr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:04:52 by acho              #+#    #+#             */
-/*   Updated: 2022/05/02 13:08:35 by acho             ###   ########.fr       */
+/*   Updated: 2022/05/02 15:35:03 by taeheoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,24 @@ t_env_list	*sort_env_list(t_env_list *env_list)
 t_env_list	*iter_swap(t_env_list *cur, int list_len)
 {
 	t_env_list	*head;
+	t_env_list	*start;
 	int			i;
-	int			j;
 
 	head = cur;
+	start = head;
 	i = 0;
-	j = 0;
 	while (i < list_len)
 	{
-		cur = head;
+		cur = start;
 		while (cur->next)
 		{
-			if (cur->key[0] > cur->next->key[0])
+			if (0 < ft_strcmp(cur->key, cur->next->key,
+			ft_strlen(cur->key), ft_strlen(cur->next->key)))
 				swap_data(cur);
 			cur = cur->next;
 		}
 		i++;
-		while (j < i)
-		{
-			cur = head->next;
-			j++;
-		}
-		j = 0;
+		start = start->next;
 	}
 	return (head);
 }
