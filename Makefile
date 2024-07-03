@@ -6,15 +6,15 @@
 #    By: taeheoki <taeheoki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/02 18:48:12 by taeheoki          #+#    #+#              #
-#    Updated: 2022/05/02 19:03:48 by taeheoki         ###   ########.fr        #
+#    Updated: 2024/07/03 10:07:10 by acho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
-LIBRARIES = -L$(LIBFT_DIR) -L/Users/taeheoki/.brew/opt/readline/lib
-INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/Users/taeheoki/.brew/opt/readline/include
+LIBRARIES = -L$(LIBFT_DIR) -L/opt/homebrew/Cellar/readline/8.2.10/lib
+INCLUDES = -I$(LIBFT_DIR) -I$(HEADER_DIR) -I/opt/homebrew/Cellar/readline/8.2.10/include
 LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./libft/
 
